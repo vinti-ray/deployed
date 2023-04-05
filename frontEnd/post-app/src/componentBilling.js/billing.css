@@ -1,0 +1,25 @@
+@media print {        
+    .no-print {
+      display: none;
+    }
+  }
+
+  .total{
+   margin-left: 500px;
+  }
+  .headerone{
+    color: rgb(11, 10, 11);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+  }
+  .headertwo{
+    margin-left: 700px;
+  }
+
+  /* @media print {  
+  .no-border {
+    border: none;
+  }} */
+  /* //used @media print so that only at the time of printing that data will be hidden */
+  

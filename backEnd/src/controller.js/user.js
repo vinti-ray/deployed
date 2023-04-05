@@ -2,7 +2,7 @@ const userModel=require("../model/user")
 
 const bcrypt=require("bcrypt")
  let jwt=require('jsonwebtoken')
- const saltRounds = 10;   
+ const saltRounds = 10;    
 
 //__________________________ Validations : Email  ___________________________________________
 
@@ -21,12 +21,12 @@ const isValidPassword = function (password) {
 }; 
 
 const createData = async function (req, res) {
-try {
+// try {
 	  let data = req.body;
 
 	  if(!data) return res.status(400).send({status:false, message: "body is mandatory" });
 	
-	  const {firstname,lastname, password,email }=data
+	  let {firstname,lastname, password,email }=data
      //fname
 	  if (!firstname) return res.status(400).send({ status:false, message: "fname is mandatory" });
 	  
@@ -46,8 +46,8 @@ try {
 
 	  if (!isValidPassword(password))
 	    return res.status(404).send({ status:false, message: "password  should contain Min 8 character and 1 Special Symbol" });
-	
-
+	 
+ 
         //hash
          password=password.trim()
 	
@@ -56,18 +56,18 @@ try {
         data.password=encryptPassword
 	  //createAuthor
 	
-	  const createUser = await authorModel.create(data);
+	  const createUser = await userModel.create(data);
 	  return res.status(201).send({status:true,message: "User created Successfully",data:createUser})
-} catch (error) {
-	return res.status(500).send({status:false,message:error.message})
-}
+// } catch (error) {
+// 	return res.status(500).send({status:false,message:error.message})
+// }
 }
 
 
 
 
 const login=async function(req,res) {
-try {
+// try {
 	  let email=req.body.email
 	  let password=req.body.password
 	  let data=req.body
@@ -77,11 +77,14 @@ try {
 	  if(!email)  return res.status(400).send({status:false, message:"email is required"})
 	 
 	  if(!password)  return res.status(400).send({status:false, message:"password is required"})
-	
-	  const findData=await authorModel.findOne({email:email})
+    //   if(!confirmPassword)  return res.status(400).send({status:false, message:"confirmPassword is required"})
+	  const findData=await userModel.findOne({email:email})
 	
 	  if (!findData)  return res.status(401).send({ status: false, message: "invalid email" });
-	  if(findData.password!=password) return res.status(401).send({ status: false, message: "invalid password" });
+   
+      const decodePassword = await bcrypt.compare(password, findData.password)
+      if(!decodePassword) return res.status(400).send({ status: false, message: "invalid password" })
+	 
 	
 	//token
 	
@@ -90,10 +93,10 @@ try {
 	  res.header("token",createToken)
 	
 	  res.status(201).send({status:true, message:createToken})
-} catch (error) {
-	return res.status(500).send({status:false, message:error.message})
-}
-}
+// } catch (error) {
+// 	return res.status(500).send({status:false, message:error.message})
+// }
+} 
 
 module.exports.createData = createData;
 module.exports.login=login

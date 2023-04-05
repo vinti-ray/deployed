@@ -5,12 +5,14 @@ import Login from "./component.js/Login";
 import RegisterUser from "./component.js/registration";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
+import Billing from "./componentBilling.js/billing";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/register" element={<RegisterUser />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Billing />} />
     </Routes>
   </BrowserRouter>
 );
