@@ -9,34 +9,40 @@ const billingSchema=new mongoose.Schema({
         require:true
     },
     item:{
-        type:[String],
+        type:[    {
+            itemName: String,
+            quantity: Number,
+            discountedPrice: Number,
+            mrp: Number,
+            value: Number
+          }],
         require:true
     },
-    quantity:{
-        type:[Number],
-        require:true
-    },
-    discountedPrice:{
-        type:[Number],
-        require:true
-    },
-    MRP:{
-        type:[Number],
-        require:true
-    },
-    value:{
-        type:[Number],
-        require:true
-    },
+    // quantity:{
+    //     type:[Number],
+    //     require:true
+    // },
+    // discountedPrice:{
+    //     type:[Number],
+    //     require:true
+    // },
+    // MRP:{
+    //     type:[Number],
+    //     require:true
+    // },
+    // value:{
+    //     type:[Number],
+    //     require:true
+    // },
     total:{
         type:Number,
         require:true
     },
-    GST:{
-        type:Number,
-        require:true
-    },
-    amountToPay:{
+    // GST:{
+    //     type:Number,
+    //     require:true
+    // },
+    netTotal:{
         type:Number,
 
     },
