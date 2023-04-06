@@ -26,9 +26,6 @@ function Billing(){
             setShow(true)
         }
     }
-    // const HandleAddItem=()=>{
-    //  setList([...list,{itemName:"",quantity:0,discountedPrice:0,mrp:0,value:0}])
-    // }
 
     // const HandleRemove=(index)=>{
     //     const a=[...list]
@@ -99,7 +96,7 @@ function Billing(){
                 <button onClick={ShowName}  >+</button>
                 {show&& }
                </div> */}
-               <Table striped bordered hover responsive >
+               <Table   hover responsive >
                    <thead >
                     <tr  >
                         <th>Item Name  <td>

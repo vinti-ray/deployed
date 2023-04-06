@@ -10,13 +10,27 @@ function Login() {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [remember,setRemember]=useState(false)
+  const [storedemail,setStoredemail]=useState("")
+  const [storedPassword,setStoredPassword]=useState("")
   const navigate = useNavigate();
 
+
+  useEffect(()=>{
+
+
+        setStoredemail(localStorage.getItem("email"))
+        setStoredPassword(localStorage.getItem("password"))
+
+  },[])
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(remember)
+    if(remember){
+      localStorage.setItem("email",email)
+      localStorage.setItem("password",password)
+    }
 
     const data={
         email:email,
@@ -46,7 +60,7 @@ function Login() {
               <Form.Label style={{color:"aqua"}}>Email Address</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
 
-              <Form.Control type="email" value={email}  required={true} onChange={(event) => setEmail(event.target.value)} autoComplete={remember?email:"off"} />
+              <Form.Control type="email" defaultValue={storedemail} autoComplete='email' value={email}  required={true} onChange={(event) => setEmail(event.target.value)}   />
 
               <div style={{ color: 'red'}} className="error">{emailError}</div>
             </Form.Group>
@@ -54,7 +68,7 @@ function Login() {
               <Form.Label style={{color:"aqua"}}>Password</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
 
-              <Form.Control type="password" value={password} required={true} onChange={(event) => setPassword(event.target.value)} autoComplete={remember?password:"off"} />
+              <Form.Control type="password" value={password} autoComplete="current-password" required={true}  defaultValue={storedPassword} onChange={(event) => setPassword(event.target.value)}  />
 
               
               <div style={{ color: 'red'}} className="error">{passwordError}</div>

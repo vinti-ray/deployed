@@ -1,8 +1,9 @@
  @import url('https://fonts.googleapis.com/css?family=Open+Sans:600|Work+Sans:400,500,600,700&display=swap');
 
 body{
-  background: rgb(104, 34, 195);
+  /* background: rgb(104, 34, 195); */
   background: url("https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80");
+  background-color: #2c2727;
   font-family: "work sans";
 }  
 
@@ -19,7 +20,7 @@ body{
   margin-left: 350px;
   margin-top: 30px;
   /* margin: 100px ; */
-  background:linear-gradient(135deg, rgb(0, 7, 10) 0%,     rgb(10, 189, 233) 100%);
+  background:linear-gradient(135deg, rgb(0, 7, 10) 0%,     rgb(5, 69, 88) 100%);
   border-radius: 25px;
 
 } 
@@ -34,16 +35,17 @@ body{
   max-height: 700px; 
   width: 70%;
  height: 110%;
+ /* padding: 100px; */
 margin-left: 300px; 
 
- background:linear-gradient(135deg, rgb(0, 7, 10) 0%,     rgb(10, 189, 233) 100%);
+ background:linear-gradient(135deg, rgb(68, 75, 79) 0%,     rgb(184, 200, 205) 100%);
  border-radius: 50px;
 
 } 
 
 .headerTitle{
   text-align: center;
-  color: rgb(98, 30, 6);
+  color: rgb(138, 40, 5);
   font-family: 'open sans', sans-serif;
   padding: 2rem 0;
   margin: 0;

@@ -89,37 +89,38 @@ function RegisterUser() {
       </Row>
             <Form.Group controlId="name">
    
-              <Form.Label style={{color:"aqua"}}>First Name</Form.Label>
+              <Form.Label style={{color:"black"}}>First Name</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
-              <Form.Control  type="text" value={firstname} required={true} onChange={(event) => setFirstName(event.target.value)} />
+
+              <Form.Control style={{ width: '110%' }} type="text" value={firstname} required={true} onChange={(event) => setFirstName(event.target.value)} />
               <div style={{ color: 'red'}} className="error">{fnameError}</div>
             </Form.Group>
 
             <Form.Group controlId="name">
-           <Form.Label style={{color:"aqua"}}>Last Name</Form.Label>
+           <Form.Label style={{color:"black"}}>Last Name</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
-              <Form.Control type="text"  value={lastname} required={true} onChange={(event) => setLastName(event.target.value)} />
+              <Form.Control type="text" style={{ width: '110%' }}  value={lastname} required={true} onChange={(event) => setLastName(event.target.value)} />
               <div style={{ color: 'red'}} className="error">{LastnameError}</div>
             </Form.Group>
 
             <Form.Group controlId="email">
-              <Form.Label style={{color:"aqua"}}>Email Address</Form.Label>
+              <Form.Label style={{color:"black"}}>Email Address</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
-              <Form.Control  type="email" value={email} required={true} onChange={(event) => setEmail(event.target.value)} />
+              <Form.Control  type="email" style={{ width: '110%' }} value={email} required={true} onChange={(event) => setEmail(event.target.value)} />
               <div style={{ color: 'red'}} className="error">{emailError}</div>
             </Form.Group>
 
             <Form.Group controlId="password">
-              <Form.Label style={{color:"aqua"}}>Password</Form.Label>
+              <Form.Label style={{color:"black"}}>Password</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
-              <Form.Control  type="password" value={password} required={true} onChange={(event) => setPassword(event.target.value)} />
+              <Form.Control  type="password" style={{ width: '110%' }} value={password} required={true} onChange={(event) => setPassword(event.target.value)} />
               <div style={{ color: 'red'}} className="error">{passwordError}</div>
             </Form.Group>
 
             <Form.Group controlId="password">
-              <Form.Label style={{color:"aqua"}}>confirm Password</Form.Label>
+              <Form.Label style={{color:"black"}}>confirm Password</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
-              <Form.Control  type="password" value={confirmPassword} required={true} onChange={handleConfirmPassword} />
+              <Form.Control  type="password" style={{ width: '110%' }} value={confirmPassword} required={true} onChange={handleConfirmPassword} />
               <div style={{ color: 'red'}} className="error">{errorConfirmPassword}</div>
             </Form.Group>
   <br/>
