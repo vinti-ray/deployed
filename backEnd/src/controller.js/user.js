@@ -7,7 +7,7 @@ const bcrypt=require("bcrypt")
 //__________________________ Validations : Email  ___________________________________________
 
 const isValidEmail = function (email) {
-    const emailRegex =
+    const emailRegex = 
     /[a-zA-Z_1-90]{3,}@[A-za-z]{3,}[.]{1}[a-zA-Z]{2,}/;
     return emailRegex.test(email);
 };
@@ -88,7 +88,7 @@ const login=async function(req,res) {
 	
 	//token
 	
-	  const createToken=jwt.sign({id:findData._id.toString(),name:findData.name},"new_seceret_key")
+	  const createToken=jwt.sign({id:findData._id.toString(),name:findData.firstname},"new_seceret_key")
 	
 	  res.header("token",createToken)
 	

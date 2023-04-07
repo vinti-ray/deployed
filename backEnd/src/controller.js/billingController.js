@@ -36,10 +36,20 @@ const createBill=async(req,res)=>{
 
 
                //creating data in database
-              const createData=await billinModel(data)
+              const createData=await billinModel.create(data)
               return res.status(201).send({status:true,message:createData})
 
 
 
 }
-module.exports={createBill}
+
+const getData=async(req,res)=>{
+   try {
+      const getData=await billinModel.find()
+      if(!getData) return res.status(500).send({status:false, message:"no data present in data base"})
+      return res.status(201).send({status:true,message:getData})
+   } catch (error) {
+      return res.status(500).send({status:false, message:error.message})
+   }
+}
+module.exports={createBill,getData}

@@ -4,9 +4,11 @@ const app =express();
 const mongoose=require('mongoose')
 const route=require("./routes/route")
 const cors=require("cors")
+const multer=require("multer")
 
 app.use(express.json())
  app.use(cors()) 
+ app.use(multer().any())
 mongoose.set('strictQuery', true);
 mongoose.connect("mongodb+srv://vintiray:7091201680@cluster0.ahtxrqr.mongodb.net/user", {
     useNewUrlParser: true

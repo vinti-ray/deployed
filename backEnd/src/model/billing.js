@@ -6,7 +6,7 @@ const billingSchema=new mongoose.Schema({
     },
     number:{
         type:Number,
-        require:true
+        require:true 
     },
     item:{
         type:[    {
