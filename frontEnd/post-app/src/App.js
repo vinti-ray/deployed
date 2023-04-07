@@ -1,25 +1,41 @@
-// import logo from './logo.svg';
-// import './App.css';
+import Login from "./component.js/Login";
+import RegisterUser from "./component.js/registration";
+import Billing from "./componentBilling.js/billing";
+import Invoice from "./componentBilling.js/showBiliing";
+import HomePage from "./componentBilling.js/homepage";
+import Sidebar from "./componentBilling.js/sideBar";
+import Inventory from "./componentInventiry.js/inventoryCreate";
+import InventoryHome from "./componentInventiry.js/inventoryShow";
+import Employee from "./employeeComponent/createEmployee";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+function App() {
+  return (
+ 
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+    <BrowserRouter>
+        <div className='sidebar'>
+          <Sidebar/>
+        </div>
+      <Routes >
+      <Route path="/" element={<HomePage />} />
+        <Route path="/billing" element={<Billing />} />
+        <Route path="/abc" element={<Invoice />} />
+        <Route path="/inventory" element={<Inventory />} />
+        <Route path="/inventoryhome" element={<InventoryHome />} />
+        <Route path="/employee" element={<Employee />} />
+      </Routes>
+    </BrowserRouter>
 
-// export default App;
+    // <BrowserRouter>
+    // <Routes>
+
+
+    //     <Route path="/register" element={<RegisterUser />} />
+    //   <Route path="/login" element={<Login />} />
+    //   </Routes>
+    // </BrowserRouter>
+
+  );
+}
+
+export default App;

@@ -2,6 +2,9 @@
     .no-print {
       display: none;
     }
+    .sidebar{
+      display: none;
+    }
   }
 
   .total{
@@ -26,6 +29,10 @@
 
   .input{
     font-style: bold;
+  }
+  .headerthree{
+   margin-left: 300px;
+
   }
   /* .form-control {
     display: inline-block;

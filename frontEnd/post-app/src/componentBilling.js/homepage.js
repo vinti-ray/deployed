@@ -1,19 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
-
-function Sidebar() {
+import { useNavigate } from 'react-router-dom';
+import Sidebar from './sideBar';
+import DataTable from './DataTable';
+import "./sidebar.css"
+import MyNavbar from './HomeNav';
+import { Button, Form, Table,Card } from "react-bootstrap";
+import { NavLink } from 'react-router-dom';
+function HomePage() {
+  let token=localStorage.getItem("token")
+  const navigate = useNavigate();
+  useEffect(()=>{
+    if(!token){
+      navigate('/login')
+    }
+  },[])
+  console.log(token)
   return (
-    <Navbar bg="light" expand="lg" className="flex-column">
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="flex-column">
-          <Nav.Link href="#">Link 1</Nav.Link>
-          <Nav.Link href="#">Link 2</Nav.Link>
-          <Nav.Link href="#">Link 3</Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+    <div className="main-content">
+      <Card style={{ height: "800px" }}>
+      <MyNavbar/>
+      {/* <NavLink exact to="/abc" >
+             <Button type="submit"  className="buttonOne" >Add Invoice</Button> 
+             </NavLink> */}
+      {/* <div className='sidebar'>
+        <Sidebar/>
+      </div> */}
+            <div >
+              <div className='datatable'>
+              <DataTable/>
+              </div>
+        
+          </div>
+          </Card>
+          </div>
   );
 }
 
-export default Sidebar;
+export default HomePage;

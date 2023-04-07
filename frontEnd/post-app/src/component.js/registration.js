@@ -87,7 +87,7 @@ function RegisterUser() {
           <h1 className='headerTitle'>Sign Up</h1>
         </Col>
       </Row>
-            <Form.Group controlId="name">
+            <Form.Group controlId="name" className="mb-3">
    
               <Form.Label style={{color:"black"}}>First Name</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
@@ -96,28 +96,28 @@ function RegisterUser() {
               <div style={{ color: 'red'}} className="error">{fnameError}</div>
             </Form.Group>
 
-            <Form.Group controlId="name">
+            <Form.Group controlId="name" className="mb-3">
            <Form.Label style={{color:"black"}}>Last Name</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
               <Form.Control type="text" style={{ width: '110%' }}  value={lastname} required={true} onChange={(event) => setLastName(event.target.value)} />
               <div style={{ color: 'red'}} className="error">{LastnameError}</div>
             </Form.Group>
 
-            <Form.Group controlId="email">
+            <Form.Group controlId="email" className="mb-3">
               <Form.Label style={{color:"black"}}>Email Address</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
               <Form.Control  type="email" style={{ width: '110%' }} value={email} required={true} onChange={(event) => setEmail(event.target.value)} />
               <div style={{ color: 'red'}} className="error">{emailError}</div>
             </Form.Group>
 
-            <Form.Group controlId="password">
+            <Form.Group controlId="password" className="mb-3">
               <Form.Label style={{color:"black"}}>Password</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
               <Form.Control  type="password" style={{ width: '110%' }} value={password} required={true} onChange={(event) => setPassword(event.target.value)} />
               <div style={{ color: 'red'}} className="error">{passwordError}</div>
             </Form.Group>
 
-            <Form.Group controlId="password">
+            <Form.Group controlId="password" className="mb-3">
               <Form.Label style={{color:"black"}}>confirm Password</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
               <Form.Control  type="password" style={{ width: '110%' }} value={confirmPassword} required={true} onChange={handleConfirmPassword} />

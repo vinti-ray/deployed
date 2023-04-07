@@ -12,6 +12,8 @@ function Login() {
   const [remember,setRemember]=useState(false)
   const [storedemail,setStoredemail]=useState("")
   const [storedPassword,setStoredPassword]=useState("")
+
+
   const navigate = useNavigate();
 
 
@@ -57,7 +59,7 @@ function Login() {
 
             <Form.Group className="mb-3" controlId="inlineFormInputName" lab>
      
-              <Form.Label style={{color:"aqua"}}>Email Address</Form.Label>
+              <Form.Label style={{color:"black"}}>Email Address</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
 
               <Form.Control type="email" defaultValue={storedemail} autoComplete='email' value={email}  required={true} onChange={(event) => setEmail(event.target.value)}   />
@@ -65,7 +67,7 @@ function Login() {
               <div style={{ color: 'red'}} className="error">{emailError}</div>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label style={{color:"aqua"}}>Password</Form.Label>
+              <Form.Label style={{color:"black"}}>Password</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
 
               <Form.Control type="password" value={password} autoComplete="current-password" required={true}  defaultValue={storedPassword} onChange={(event) => setPassword(event.target.value)}  />
