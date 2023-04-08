@@ -1,4 +1,5 @@
 const mongoose=require("mongoose")
+const ObjectId = mongoose.Schema.Types.ObjectId;
 const billingSchema=new mongoose.Schema({
     customerName:{
         type:String,
@@ -34,6 +35,10 @@ const billingSchema=new mongoose.Schema({
     //     type:[Number],
     //     require:true
     // },
+    organisationId: {
+        type: ObjectId,
+         ref: "user"
+        },
     total:{
         type:Number,
         require:true

@@ -1,4 +1,5 @@
 const mongoose=require("mongoose")
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const employeeSchema=new mongoose.Schema({
     staffName:{
@@ -22,9 +23,13 @@ const employeeSchema=new mongoose.Schema({
         type:Number,
         required:true
     },
+    organisationId: {
+        type: ObjectId,
+         ref: "user"
+     },
     image :{
         type:String,
-        required:true
+        // required:true
     },
     department:{
         type:String,

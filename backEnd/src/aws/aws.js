@@ -27,8 +27,8 @@ const uploadFile=async (files)=>{
             console.log("file uploaded succesfully")
 
          
-            return resolve(data.Location)
-        })
+            return resolve(data.Location) 
+        }) 
     })
-}
+} 
 module.exports={uploadFile}

@@ -1,8 +1,8 @@
 const userModel=require("../model/user")
 
 const bcrypt=require("bcrypt")
- let jwt=require('jsonwebtoken')
- const saltRounds = 10;    
+ let jwt=require('jsonwebtoken') 
+ const saltRounds = 10;     
 
 //__________________________ Validations : Email  ___________________________________________
 
@@ -26,12 +26,12 @@ const createData = async function (req, res) {
 
 	  if(!data) return res.status(400).send({status:false, message: "body is mandatory" });
 	
-	  let {firstname,lastname, password,email }=data
+	  let {organisationName, password,email }=data
      //fname
-	  if (!firstname) return res.status(400).send({ status:false, message: "fname is mandatory" });
+	  if (!organisationName) return res.status(400).send({ status:false, message: "fname is mandatory" });
 	  
     //  lname
-	  if (!lastname) return res.status(400).send({status:false, message: "Last name is required " });
+	//   if (!lastname) return res.status(400).send({status:false, message: "Last name is required " });
 	  
     //   email
 	  
@@ -88,7 +88,7 @@ const login=async function(req,res) {
 	
 	//token
 	
-	  const createToken=jwt.sign({id:findData._id.toString(),name:findData.firstname},"new_seceret_key")
+	  const createToken=jwt.sign({id:findData._id.toString(),name:findData.organisationName},"new_seceret_key")
 	
 	  res.header("token",createToken)
 	

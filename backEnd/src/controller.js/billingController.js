@@ -3,7 +3,18 @@ const billinModel=require("../model/billing")
 const createBill=async(req,res)=>{
              let data=req.body
              console.log(data)
-            //  let {customerName,number,item,quantity,discountedPrice,MRP,paymentMethod}=data
+             let {customerName,number,item,organisationId,paymentMethod}=data
+             if(!customerName) return res.status(400).send({status:false,message:"please provide customer name"})
+             if(!number) return res.status(400).send({status:false,message:"please provide customer number"})
+             
+             if(item.length<1) return res.status(400).send({status:false,message:"please provide item"})
+             
+             if(!organisationId) return res.status(400).send({status:false,message:"please provide organisationId"})
+             
+             if(!paymentMethod) return res.status(400).send({status:false,message:"please provide paymentMethod"})
+             
+
+             
 
             //  //subtracting discount from main value
             //  let discountAmount=[]
@@ -45,7 +56,10 @@ const createBill=async(req,res)=>{
 
 const getData=async(req,res)=>{
    try {
-      const getData=await billinModel.find()
+      // let token=req.headers["token"]
+      let organisationId=req.decode.id
+      // console.log(req.decode.id);
+      const getData=await billinModel.find({organisationId:organisationId})
       if(!getData) return res.status(500).send({status:false, message:"no data present in data base"})
       return res.status(201).send({status:true,message:getData})
    } catch (error) {
