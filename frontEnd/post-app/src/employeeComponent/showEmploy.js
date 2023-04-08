@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import DataInventory from "./DataTable";
+import DataEmployee from './dataTable';
 import { Button, Form, Table,Card } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../componentBilling.js/sideBar';
 
-function InventoryHome(){
+function EmployeeHome(){
     let token=localStorage.getItem("token")
     const navigate = useNavigate();
     useEffect(()=>{
@@ -14,15 +14,17 @@ function InventoryHome(){
       return () => {};
     },[])
     return (
-      <div> <div className='sidebar'>
+        <div>
+            <div className='sidebar'>
       <Sidebar/>
     </div>
+
         <div className="main-content">
       <Card  style={{ height: "800px" }}>
-        <DataInventory/>
+        <DataEmployee/>
       </Card>
       </div>
       </div>
     )
 }
-export default InventoryHome;
+export default EmployeeHome;

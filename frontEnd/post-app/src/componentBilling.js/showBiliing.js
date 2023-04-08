@@ -5,19 +5,25 @@ import { useNavigate } from 'react-router-dom';
 import "./billing.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
+import Sidebar from "./sideBar";
+import ShopDetail from "./shopDetail";
+import jwt_decode from 'jwt-decode';
+
 // import Shop from "./shopDetail";
 
 function Invoice() {
   const [customerName, setCustomerName] = useState("");
   const [customerNumber, setCustomerNumber] = useState("");
   const [items, setItems] = useState([
-    { itemName: "", quantity: 0, discountedPrice: 0, mrp: 0, value: 0 },
+    { itemName: "", quantity: null, discountedPrice: null, mrp: null, value: null },
   ]);
   const [paymentMehtod, setPaymentMethod] = useState("");
+  const [numberError,setNumberError]=useState("")
   // const [date, setDate] = useState("");
 
-  const [total, setTotal] = useState("");
-  const [netTotal, setNetTotal] = useState("");
+  const [total, setTotal] = useState(null);
+  const [netTotal, setNetTotal] = useState(null);
+  const [id,setId]=useState("")
 
   const navigate = useNavigate();
 
@@ -27,17 +33,18 @@ function Invoice() {
     const list = [...items];
     list[index][name] = value; //index will give index of each item in item array  list[index][name]
     list[index].value =
-      list[index].quantity *
-      (list[index].mrp - (list[index].mrp *( list[index].discountedPrice / 100))); //value=quantity*(price-(price*discountPrice/100)
+     ( list[index].quantity *
+      (list[index].mrp - (list[index].mrp *( list[index].discountedPrice / 100)))); //value=quantity*(price-(price*discountPrice/100)
     setItems(list);
 
   };
   useEffect(()=>{
     let total = 0;
-    console.log(items)
+
     for (let i = 0; i < items.length; i++) {
       total = total + items[i].value;
     }
+
   
     setTotal(total);
     let netTotal = total +( total * (28 / 100))
@@ -45,10 +52,20 @@ function Invoice() {
 
   },[items])
 
+  const validate=(e)=>{
+    let error=""
+    const regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
+    const numberRegex = /[0-9]/;
+    if(!regex.test(customerNumber)){
+     error="please enter valid mobile number "
+    }
+    setNumberError(error)
+    return !error
+  }
   const handleAddItem = () => {
     setItems([
       ...items,
-      { itemName: "", quantity: 0, discountedPrice: 0, mrp: 0, value: 0 },
+      { itemName: "", quantity: null, discountedPrice: null, mrp: null, value: null },
     ]);
   };
 
@@ -61,36 +78,57 @@ function Invoice() {
 
   const generateInvoice = (e) => {
     e.preventDefault();
-    window.print();
+    console.log(items)
+    if((!items[0].itemName)||(!items[0].quantity)||(!items[0].mrp)||customerName==""||customerNumber==""||paymentMehtod==""){
+      alert("please fill complete form and add atleast one item")
+    }else{
+      window.print();
+    }
+
   };
+  useEffect(()=>{
+    let token=localStorage.getItem("token")
+    const decodedToken = jwt_decode(token);
+    setId(decodedToken.id)
+
+  },[])
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let token=localStorage.getItem("token")
+    const isValid = validate();
+    if (isValid) {
 
     let data = {
       customerName: customerName,
       number: customerNumber,
       item: items,
       paymentMethod: paymentMehtod,
-      total: total,
+      total: total,     
       netTotal: netTotal,
+      organisationId:id
     };
-
-    axios.post("http://localhost:3001/createbill", data).then((e) => {
+    axios.post("http://localhost:3001/createbill", data, { headers: { "token": token } }).then((e) => {
       navigate('/');
     });
-  };
+  }};
 
   const paymentMethods = [
-    { label: "Credit Card/ Debit Card", value: "credit_card/debit_card" },
+    { label: "Credit Card/Debit Card", value: "credit_card/debit_card" },
     { label: "Cash", value: "cash" },
     { label: "Upi", value: "upi" },
   ];
 
   return (
+    <div>
+    <div className='sidebar'>
+    <Sidebar/>
+  </div>
+
     <div className="main-content">
       <Card className="invoice-card">
         <h1 className="text-center">Invoice</h1>
+        <ShopDetail/>
         {/* <Shop/> */}
         <Form onSubmit={handleSubmit}>
           {/* <Form.Group controlId="date">
@@ -113,7 +151,7 @@ function Invoice() {
               style={{ width: "50%" }}
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
-              required={true}
+              required
             />
           </Form.Group>
 
@@ -125,8 +163,10 @@ function Invoice() {
               value={customerNumber}
               style={{ width: "50%" }}
               onChange={(e) => setCustomerNumber(e.target.value)}
-              required={true}
+              required
             />
+          <div style={{ color: 'red'}} className="error">{numberError}</div>
+
           </Form.Group>
 
           <Table>
@@ -134,7 +174,7 @@ function Invoice() {
               <tr>
                 <th>Item Name</th>
                 <th>Quantity</th>
-                <th>Discounted Price</th>
+                <th>Discount (%)</th>
                 <th>MRP</th>
                 <th>Value</th>
                 <th></th>
@@ -280,6 +320,7 @@ function Invoice() {
           </div>
         </Card.Footer>
       </Card>
+    </div>
     </div>
   );
 }

@@ -14,10 +14,16 @@ function HomePage() {
     if(!token){
       navigate('/login')
     }
+    return () => {};
   },[])
-  console.log(token)
+
   return (
+    <div>
+    <div className='sidebar'>
+    <Sidebar/>
+  </div>
     <div className="main-content">
+      
       <Card style={{ height: "800px" }}>
       <MyNavbar/>
       {/* <NavLink exact to="/abc" >
@@ -33,6 +39,7 @@ function HomePage() {
         
           </div>
           </Card>
+          </div>
           </div>
   );
 }

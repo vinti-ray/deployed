@@ -6,16 +6,16 @@ import HomePage from "./componentBilling.js/homepage";
 import Sidebar from "./componentBilling.js/sideBar";
 import Inventory from "./componentInventiry.js/inventoryCreate";
 import InventoryHome from "./componentInventiry.js/inventoryShow";
+import EmployeeHome from "./employeeComponent/showEmploy";
 import Employee from "./employeeComponent/createEmployee";
+import SaleHome from "./SaleComponent/ShowSaleData";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
  
 
     <BrowserRouter>
-        <div className='sidebar'>
-          <Sidebar/>
-        </div>
+
       <Routes >
       <Route path="/" element={<HomePage />} />
         <Route path="/billing" element={<Billing />} />
@@ -23,6 +23,8 @@ function App() {
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/inventoryhome" element={<InventoryHome />} />
         <Route path="/employee" element={<Employee />} />
+        <Route path="/employeeHome" element={<EmployeeHome />} />
+        <Route path="/salehome" element={<SaleHome />} />
       </Routes>
     </BrowserRouter>
 

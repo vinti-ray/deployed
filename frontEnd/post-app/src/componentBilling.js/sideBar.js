@@ -7,24 +7,30 @@ import {
     CDBSidebarMenuItem,
   } from 'cdbreact';
   import { NavLink } from 'react-router-dom';
+  import jwt_decode from 'jwt-decode';
 function Sidebar() {
+
+    const token = localStorage.getItem("token");
+    const decodedToken = jwt_decode(token);
+
+    let name=decodedToken.name
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
 
 
      <CDBSidebar textColor="black" backgroundColor="white">
-        <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
+        <CDBSidebarHeader >
         <a href="/" className="text-decoration-none" style={{ color: 'black' }}>
-            Anonymous
+            {name}
             </a>
         </CDBSidebarHeader>
 
         <CDBSidebarContent>
             <CDBSidebarMenu>
 
-                <NavLink exact to="/" >
+                {/* <NavLink exact to="/" >
                     <CDBSidebarMenuItem >Billing</CDBSidebarMenuItem>
-                </NavLink>
+                </NavLink> */}
                 
                 <NavLink exact to="/" >
                     <CDBSidebarMenuItem icon='columns'>Generate Invoice</CDBSidebarMenuItem>
@@ -35,11 +41,11 @@ function Sidebar() {
                     <CDBSidebarMenuItem icon='columns'>Inventory</CDBSidebarMenuItem>
                 </NavLink>
 
-                <NavLink exact to="/employee" >
+                <NavLink exact to="/employeeHome" >
                     <CDBSidebarMenuItem icon='columns'>Staff</CDBSidebarMenuItem>
                 </NavLink>
 
-                <NavLink exact to="/" >
+                <NavLink exact to="/salehome" >
                     <CDBSidebarMenuItem icon='columns'>Total Data</CDBSidebarMenuItem>
                 </NavLink>
 

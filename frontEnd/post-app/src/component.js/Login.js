@@ -38,7 +38,7 @@ function Login() {
         email:email,
         password:password
     }
-    await axios.post("http://localhost:3001/login",data).then((responce)=>{    localStorage.setItem("token", responce.data.message);navigate('/');}).catch((e)=>{if(e.response.data.message=="invalid password") {setPasswordError(e.response.data.message)} else{setEmailError(e.response.data.message)}})
+    await axios.post("http://localhost:3001/login",data).then((responce)=>{    localStorage.setItem("token", responce.data.message);localStorage.setItem("email",email);navigate('/');}).catch((e)=>{if(e.response.data.message=="invalid password") {setPasswordError(e.response.data.message)} else{setEmailError(e.response.data.message)}})
   }
 
 

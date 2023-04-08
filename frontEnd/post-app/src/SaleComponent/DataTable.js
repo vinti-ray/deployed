@@ -3,14 +3,14 @@ import { Form, Button, Table, Card } from 'react-bootstrap';
 import axios from "axios";
 import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
-
-function DataInventory(){
+import "./Sale.css"
+function SaleData(){
     let [list,setList]=useState([])
     // const [searchValue,setSearchValue]=useState("")
     let token=localStorage.getItem("token")
 
     useEffect(()=>{
-      axios.get("http://localhost:3001/getinventory",{ headers: { "token": token } }).then((e)=>setList(e.data.message))
+      axios.get("http://localhost:3001/getSaleData",{ headers: { "token": token } }).then((e)=>setList(e.data.message))
     },[])
 //  const handleSearch=(value)=>{
 //     setSearchValue(value)
@@ -22,9 +22,14 @@ function DataInventory(){
         for(let i=0;i<list.length;i++){
             let obj={}
 
-            obj.brandName=list[i].brandName
-            obj.itemName=list[i].itemName
-            obj.itemQuantity=list[i].itemQuantity
+            obj.totalSale=list[i].totalSale
+            obj.customerName=list[i].name
+            obj.customerNumber=list[i].number
+
+            obj.billAmount=list[i].billAmount
+            obj.paidAmount=list[i].paidAmount
+            obj.generatedDate=list[i].generatedDate
+
 
             keyData.push(obj)
             obj={}
@@ -34,25 +39,42 @@ function DataInventory(){
         return {
           columns: [
             {
-                label: 'Brand Name ',
-                field: 'brandName',
+                label: 'Total sale ',
+                field: 'totalSale',
                 width: 250,
-                attributes: {
-                  'aria-controls': 'DataTable',
-                  'aria-label': 'Name',
-                },
+                // attributes: {
+                //   'aria-controls': 'DataTable',
+                //   'aria-label': 'Name',
+                // },
               },
               {
-                label: 'Item Name',
-                field: 'itemName',
+                label: 'Customer Name ',
+                field: 'customerName',
                 width: 200,
               },
     
             {
-              label: 'Item Quantity  ',
-              field: 'itemQuantity',
+              label: 'Customer Number   ',
+              field: 'customerNumber',
               width: 270,
             },
+            {
+                label: 'Bill amount   ',
+                field: 'billAmount',
+                width: 270,
+              },
+              {
+                label: 'Paid amount',
+                field: 'paidAmount',
+                width: 270,
+              },
+              {
+                label: 'Generated date ',
+                field: 'generatedDate',
+                width: 270,
+              },
+             
+
            
           ],
 
@@ -62,19 +84,17 @@ function DataInventory(){
       };
 
       return(
-        <CDBContainer className="tableInvenotry" >
+        <CDBContainer className="tablesale" >
 {/* generateinvoice */}
             <CDBCard>
-            <NavLink exact to="/inventory" >
-             <Button type="submit"  className="buttonOne" >Add Inventory</Button> 
-             </NavLink>
+
                 <CDBCardBody>
                     <CDBDataTable
 
                     striped
                     bordered
                     hover
-                    entriesOptions={[5,20,25]}
+                    entriesOptions={[5,10,15]}
                     entries={5}
                     pagesAmount={4}
                     data={data()}
@@ -93,4 +113,4 @@ function DataInventory(){
       )
 }
 
-export default DataInventory
+export default SaleData

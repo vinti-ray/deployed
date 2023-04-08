@@ -1,42 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Button, Form, Table, Card } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-
-
+import "./employee.css"
+import Sidebar from "../componentBilling.js/sideBar";
+import jwt_decode from 'jwt-decode';
 function Employee(){
     const [staffName,setStaffName]=useState("")
     const [number,setNumber]=useState("")
     const [email,setEmail]=useState("")
     const [dateOfJoining,setDateOfJoining]=useState("")
     const [salary,setSalary]=useState("")
-    const [image,setImage]=useState("")
+    const image = useRef(null);
+//To set the value of a file input element in React, you need to  use the ref attribute to get a reference to the input element, and then set its value using the current property of the ref object.
+
     const [department,setDepartment]=useState("")
+    const [id,setId]=useState("")
     let navigate=useNavigate()
+    useEffect(()=>{
+      let token=localStorage.getItem("token")
+      const decodedToken = jwt_decode(token);
+      setId(decodedToken.id)
+
+    },[])
+    
 
     const HandleSubmit=(e)=>{
         e.preventDefault()
+        const formData = new FormData();
+        // FormData is a built-in JavaScript object that provides a simple way to construct and send an HTTP request that includes form data, such as text inputs, file uploads, and other types of data.
+        formData.append('image', image.current.files[0]);
+        formData.append('staffName', staffName);
+        formData.append('email', email);
+        formData.append('dateOfJoining', dateOfJoining);
+        formData.append('salary', salary);
+        formData.append('department', department);
+        formData.append('number', number);
+        formData.append('organisationId', id);
+  
+        
+        console.log(formData);
+           let token=localStorage.getItem("token")
 
-        let data={
-            staffName:staffName,
-            number:number,
-            email:email,
-            dateOfJoining:dateOfJoining,
-            salary:salary,
-            image:image,
-            department:department
-
-        }
-        axios.post("http://localhost:3001/createemplyee",data).then((e)=>navigate("/"))
+        axios.post("http://localhost:3001/createemplyee",formData,{ headers: { "token": token } }).then((e)=>navigate("/employeeHome"))
     }
 
+
+
     return(
+      <div>
+        <div className='sidebar'>
+      <Sidebar/>
+    </div>
+
         <div  className="main-content">
 
 
         <Card className="employee"  >
             <h1 className="header">Create Employee Data</h1>
-            <Form onSubmit={HandleSubmit}>
+            <Form enctype="multipart/form-data" onSubmit={HandleSubmit}>
             <Form.Group controlId="customerName"  className="mb-3">
             <Form.Label style={{color:"black"}}>Staff Name</Form.Label>
             <Form.Control
@@ -105,10 +127,13 @@ function Employee(){
             <Form.Label style={{color:"black"}}>Image</Form.Label>
             <Form.Control
               className="input"
+              id="file-upload"
+              accept=".jpg,.png,.pdf"
               type="file"
               style={{ width: "50%" }}
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
+              ref={image}
+              // value={image}
+              // onChange={image}
               required={true}
             />
           </Form.Group>
@@ -133,6 +158,7 @@ function Employee(){
 
             </Form>
         </Card>
+        </div>
         </div>
     )
 }
