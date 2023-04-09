@@ -34,6 +34,7 @@ const createData = async function (req, res) {
 	//   if (!lastname) return res.status(400).send({status:false, message: "Last name is required " });
 	  
     //   email
+
 	  
 	  if (!email) return res.status(400).send({status:false, message: " email is required " });
 	  if(!isValidEmail(email))  return res.status(400).send({status:false, message:"invalid email"})
@@ -70,6 +71,7 @@ const login=async function(req,res) {
 // try {
 	  let email=req.body.email
 	  let password=req.body.password
+	  console.log(email);
 	  let data=req.body
 	  if(Object.keys(data).length==0) return res.status(400).send({ status: false, message: "please provide author details" });
 
@@ -98,5 +100,34 @@ const login=async function(req,res) {
 // }
 } 
 
-module.exports.createData = createData;
-module.exports.login=login
+const getUser=async(req,res)=>{
+    let organisationId=req.decode.id
+	const  findData=await userModel.findById(organisationId)
+	res.status(201).send({status:true, message:findData})
+}
+
+const updateOrg=async(req,res)=>{
+	let data=req.body
+	
+	let organisationId=req.decode.id
+	if(data.password==""){
+		let updateData={
+			email:data.email,
+			organisationName:data.organisationName
+		}
+		await userModel.findByIdAndUpdate(organisationId,updateData)
+	}else{
+		let encryptPassword =await bcrypt.hash(data.password, saltRounds)
+		data.password=encryptPassword
+		await userModel.findByIdAndUpdate(organisationId,data)
+	}
+
+	
+	return res.status(201).send({status:true, message:"data update successfully"})
+}
+
+
+
+
+module.exports = {createData,login,getUser,updateOrg};
+

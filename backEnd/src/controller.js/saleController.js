@@ -1,8 +1,8 @@
 const saleModel=require("../model/totalSaleModel")
 const billinModel=require("../model/billing")
-const { find } = require("../model/user")
-const { json } = require("express")
-//    For using datatable first create API which return all bill details which belongs to this organization
+// const { find } = require("../model/user")
+// const { json } = require("express")
+// //    For using datatable first create API which return all bill details which belongs to this organization
 //    a). Total sale ( total sale day wise)
 // b). Customer Name 
 // c). Customer Number 
@@ -24,12 +24,10 @@ const getSaleData=async(req,res)=>{
 
     // let totalSale=x.reduce((acc,curr)=>acc+curr.quantity,0)
     let totalSale=0
-    let name=findData[i].customerName
-    let number=findData[i].number
+
     let billAmount=0
     let paidAmount=0
     let x=findData[i].createdAt
-
         const dateObj = new Date(x);
         const y = dateObj.toISOString().slice(0, 10);
         let generatedDate=y
@@ -45,7 +43,7 @@ const getSaleData=async(req,res)=>{
         const dateObj = new Date(date);
         const p = dateObj.toISOString().slice(0, 10);
 
-        if(findData[j].customerName==name&&findData[j].number==number&&p==generatedDate){
+        if(p==generatedDate){
 
             let x=findData[j].item
             console.log(x);
@@ -59,13 +57,13 @@ const getSaleData=async(req,res)=>{
     }
     let obj={}
     obj.totalSale=totalSale
-    obj.name=name 
-    obj.number=number
-    obj.billAmount=billAmount
-    obj.paidAmount=paidAmount
+
+
+    obj.billAmount=billAmount.toFixed(2)
+    obj.paidAmount=paidAmount.toFixed(2)
     obj.generatedDate=generatedDate
     finalData.push(obj)
-    obj={}
+    // obj={}
     }
 //    console.log(finalData);
      return res.status(200).send({status:true,message:finalData})

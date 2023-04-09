@@ -6,14 +6,18 @@ const createBill=async(req,res)=>{
              let {customerName,number,item,organisationId,paymentMethod}=data
              if(!customerName) return res.status(400).send({status:false,message:"please provide customer name"})
              if(!number) return res.status(400).send({status:false,message:"please provide customer number"})
-             
+            //  if(typeof number!=="number") return res.status(400).send({status:false,message:"please provide customer number in number format"})
              if(item.length<1) return res.status(400).send({status:false,message:"please provide item"})
              
              if(!organisationId) return res.status(400).send({status:false,message:"please provide organisationId"})
              
              if(!paymentMethod) return res.status(400).send({status:false,message:"please provide paymentMethod"})
              
-
+            // for(let i=0;i<item.length.length;i++){
+            //    if(typeof item[i].MRP!=="number") return res.status(400).send({status:false,message:"please provide mrp number in number format"})
+            //    if(typeof item[i].quantity!=="number") return res.status(400).send({status:false,message:"please provide quantity in number format"})
+            //    if(typeof item[i].discountedPrice!=="number") return res.status(400).send({status:false,message:"please provide discount in number format"})
+            // }
              
 
             //  //subtracting discount from main value
@@ -59,8 +63,14 @@ const getData=async(req,res)=>{
       // let token=req.headers["token"]
       let organisationId=req.decode.id
       // console.log(req.decode.id);
-      const getData=await billinModel.find({organisationId:organisationId})
+      const getData=await billinModel.find({organisationId:organisationId}).lean()
       if(!getData) return res.status(500).send({status:false, message:"no data present in data base"})
+      for(let i=0;i<getData.length;i++){
+         let x=getData[i].total
+         getData[i].total=x.toFixed(2)
+         let y=getData[i].netTotal
+         getData[i].netTotal=y.toFixed(2)
+      }
       return res.status(201).send({status:true,message:getData})
    } catch (error) {
       return res.status(500).send({status:false, message:error.message})

@@ -21,7 +21,7 @@ const uploadFile=async (files)=>{
         s3.upload(uploadParams,function(err,data){
             if (err) {
              
-                return reject({ "error": err })
+                return reject({ "error": err }) 
             }
 
             console.log("file uploaded succesfully")
