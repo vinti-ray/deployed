@@ -1,10 +1,15 @@
 @media print {        
     .no-print {
       display: none;
+
     }
     .sidebar{
+      visibility: hidden;
+    }
+    .error{
       display: none;
     }
+
   }
 
   .total{
@@ -32,10 +37,14 @@
   }
   .headerthree{
    margin-left: 300px;
+   margin-bottom: 20px;
 
   }
   .buttonOne{
     margin-top: 30px;
+  }
+  .footer{
+    margin-top: 20px;
   }
   /* .form-control {
     display: inline-block;

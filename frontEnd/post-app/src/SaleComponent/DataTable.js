@@ -3,11 +3,20 @@ import { Form, Button, Table, Card } from 'react-bootstrap';
 import axios from "axios";
 import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "./Sale.css"
 function SaleData(){
     let [list,setList]=useState([])
     // const [searchValue,setSearchValue]=useState("")
     let token=localStorage.getItem("token")
+    // let token=localStorage.getItem("token")
+    const navigate = useNavigate();
+    useEffect(()=>{
+      if(!token){
+        navigate('/login')
+      }
+      return () => {};
+    },[])
 
     useEffect(()=>{
       axios.get("http://localhost:3001/getSaleData",{ headers: { "token": token } }).then((e)=>setList(e.data.message))
@@ -21,10 +30,9 @@ function SaleData(){
         let keyData=[]
         for(let i=0;i<list.length;i++){
             let obj={}
-
+            obj.srno=i+1
             obj.totalSale=list[i].totalSale
-            obj.customerName=list[i].name
-            obj.customerNumber=list[i].number
+
 
             obj.billAmount=list[i].billAmount
             obj.paidAmount=list[i].paidAmount
@@ -32,34 +40,33 @@ function SaleData(){
 
 
             keyData.push(obj)
-            obj={}
+            // obj={}
   
         }
     // console.log(keyData);
         return {
           columns: [
             {
-                label: 'Total sale ',
+              label: 'sr no',
+              field: 'srno',
+              width: 100,
+              attributes: {
+                'aria-controls': 'DataTable',
+                'aria-label': 'Name',
+              },
+            },
+            {
+                label: 'Total Bill ',
                 field: 'totalSale',
-                width: 250,
+                width: 200,
                 // attributes: {
                 //   'aria-controls': 'DataTable',
                 //   'aria-label': 'Name',
                 // },
               },
-              {
-                label: 'Customer Name ',
-                field: 'customerName',
-                width: 200,
-              },
-    
+
             {
-              label: 'Customer Number   ',
-              field: 'customerNumber',
-              width: 270,
-            },
-            {
-                label: 'Bill amount   ',
+                label: 'Total Amount',
                 field: 'billAmount',
                 width: 270,
               },
@@ -69,9 +76,9 @@ function SaleData(){
                 width: 270,
               },
               {
-                label: 'Generated date ',
+                label: 'Date ',
                 field: 'generatedDate',
-                width: 270,
+                width: 100,
               },
              
 
@@ -91,15 +98,25 @@ function SaleData(){
                 <CDBCardBody>
                     <CDBDataTable
 
+                    // striped
+                    // bordered
+                    // hover
+                    // entriesOptions={[5,10,15]}
+                    // entries={5}
+                    // pagesAmount={4}
+                    // data={data()}
+                    // materialSearch={true}
+                    // striped bordered hover entriesOptions={[5,10,15]} data={data()} searching={false}
+                    // searchLabel="Search"
+                    entriesOptions={[5,10,15]}
                     striped
                     bordered
                     hover
-                    entriesOptions={[5,10,15]}
-                    entries={5}
-                    pagesAmount={4}
+                    scrollX
+                    maxHeight="50vh"
                     data={data()}
-                    materialSearch={true}
-                    // searchLabel="Search"
+                    materialSearch
+
                     // search={handleSearch}
                     // searchValue={searchValue}
                     

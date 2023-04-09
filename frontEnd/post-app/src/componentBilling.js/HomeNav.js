@@ -8,7 +8,7 @@ import "./sidebar.css"
 function Logout() {
     // Clear session data, e.g. by calling an API endpoint or removing cookies
     // ...
-    localStorage.clear();
+    localStorage.removeItem('token');
     // Redirect to the login page
     window.location.href = '/login';
   }
@@ -49,13 +49,13 @@ function MyNavbar(){
                     {/* <Nav.Link href="#home"></Nav.Link>
                     <Nav.Link href="#link">Link</Nav.Link> */}
                     <NavDropdown  title="Profile" id="basic-nav-dropdown">
-                             <NavDropdown.Item href="#action/3.1">
-                             <FaUser /> User
+                             <NavDropdown.Item href="/organisationprofile">
+                             <FaUser /> Profile
                              </NavDropdown.Item>
 
-                             <NavDropdown.Item href="#action/3.2">
+                             {/* <NavDropdown.Item href="#action/3.2">
                              <FaCog /> Setting
-                                </NavDropdown.Item>
+                                </NavDropdown.Item> */}
                                 <NavDropdown.Divider/>
 
                                 <NavDropdown.Item onClick={Logout}> <FaSignOutAlt />Logout </NavDropdown.Item>

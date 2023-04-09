@@ -22,8 +22,12 @@ function Login() {
 
         setStoredemail(localStorage.getItem("email"))
         setStoredPassword(localStorage.getItem("password"))
+        if (storedemail || storedPassword) {
+          setEmail(storedemail);
+          setPassword(storedPassword);
+        }
 
-  },[])
+  },[storedemail,storedPassword])
 
 
   const handleSubmit = async (event) => {
@@ -38,7 +42,7 @@ function Login() {
         email:email,
         password:password
     }
-    await axios.post("http://localhost:3001/login",data).then((responce)=>{    localStorage.setItem("token", responce.data.message);localStorage.setItem("email",email);navigate('/');}).catch((e)=>{if(e.response.data.message=="invalid password") {setPasswordError(e.response.data.message)} else{setEmailError(e.response.data.message)}})
+    await axios.post("http://localhost:3001/login",data).then((responce)=>{   localStorage.setItem("token", responce.data.message);localStorage.setItem("email",email);navigate('/');}).catch((e)=>{if(e.response.data.message=="invalid password") {setPasswordError(e.response.data.message)} else{setEmailError(e.response.data.message)}})
   }
 
 
@@ -46,23 +50,23 @@ function Login() {
 
   return (
 
-    <Container  >
+    <Container className='containerlogin' >
       {/* <Row >
         <Col>
           <h1 className='headerTitle'>Sign In</h1>
         </Col>
       </Row> */}
-      <Row >
-        <Col md={8}>
+      <Row className="justify-content-md-center">
+        <Col  xs={12} md={6}>
           <Form onSubmit={handleSubmit} className='loginform' >
           <h1 className='headerTitle'>Sign In</h1>
 
-            <Form.Group className="mb-3" controlId="inlineFormInputName" lab>
+            <Form.Group  controlId="formBasicName" className="mb-3" lab>
      
-              <Form.Label style={{color:"black"}}>Email Address</Form.Label>
+              <Form.Label style={{color:"black"}}>Email Address</Form.Label> 
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
 
-              <Form.Control type="email" defaultValue={storedemail} autoComplete='email' value={email}  required={true} onChange={(event) => setEmail(event.target.value)}   />
+              <Form.Control type="email" style={{ width: '110%' }}  value={email}  required={true} onChange={(event) => setEmail(event.target.value)}   />
 
               <div style={{ color: 'red'}} className="error">{emailError}</div>
             </Form.Group>
@@ -70,7 +74,7 @@ function Login() {
               <Form.Label style={{color:"black"}}>Password</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
 
-              <Form.Control type="password" value={password} autoComplete="current-password" required={true}  defaultValue={storedPassword} onChange={(event) => setPassword(event.target.value)}  />
+              <Form.Control type="password" style={{ width: '110%' }} value={ password} autoComplete={storedPassword} required={true}   onChange={(event) => setPassword(event.target.value)}  />
 
               
               <div style={{ color: 'red'}} className="error">{passwordError}</div>

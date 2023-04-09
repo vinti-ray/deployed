@@ -25,3 +25,7 @@
 .datatable{
     margin-top: 50px;
 }
+@media print {   
+.main-content{
+  margin-left: 0px;
+}}

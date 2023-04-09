@@ -6,7 +6,11 @@ import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
 import Sidebar from "./sideBar";
 import BootstrapTable from 'react-bootstrap-table-next';
-function DataTable(){
+function DataTable(){  function testClickEvent(param) {
+  alert('Row Click Event');
+}
+
+
     let [list,setList]=useState([])
 
 
@@ -23,6 +27,7 @@ function DataTable(){
             let obj={}
             obj.billno=i+1
             obj.name=list[i].customerName
+            obj.id=list[i]._id
             obj.number=list[i].number
             obj.amount=list[i].total
             obj.paidAmount=list[i].netTotal
@@ -32,7 +37,7 @@ function DataTable(){
              obj.date=y
 
             keyData.push(obj)
-            obj={}
+            // obj={}
   
         }
     // console.log(keyData);
@@ -41,33 +46,38 @@ function DataTable(){
             {
                 label: 'Bill no',
                 field: 'billno',
-                width: 250,
+                width: 100,
                 attributes: {
                   'aria-controls': 'DataTable',
                   'aria-label': 'Name',
                 },
               },
               {
+                label: 'Invoice Id ',
+                field: 'id',
+                width: 250,
+              },
+              {
                 label: 'Customer Name ',
                 field: 'name',
-                width: 200,
+                width: 150,
               },
     
             {
               label: 'Customer Number ',
               field: 'number',
-              width: 270,
+              width: 100,
             },
             {
               label: 'Bill amount ',
               field: 'amount',
-              width: 100,
+              width: 150,
             },
             {
               label: ' Paid amount',
               field: 'paidAmount',
               sort: 'asc',
-              width: 100,
+              width: 150,
             },
             {
                 label: 'Generated date',
@@ -93,29 +103,20 @@ function DataTable(){
 {/* generateinvoice */}
             <CDBCard>
             <NavLink exact to="/abc" >
-             <Button type="submit"  className="buttonOne" >Add Invoice</Button> 
+             <Button type="submit"  className="buttonOne" >Create Invoice</Button> 
              </NavLink>
                 <CDBCardBody>
                     <CDBDataTable
 
-                    // striped
-                    // bordered
-                    // hover
-                    // scrollY
-                    // entriesOptions={[5,10,15]}
-                    // striped
-                    // bordered
-                    // hover
-                    // // scrollX
-                    // // scrollY
-                    // // maxHeight="300xp"
-                    // data={data()}
-                    // materialSearch
-                    // paging={false}
-                    striped bordered hover data={data()} searching={false}
-                    // searchLabel="Search"
-                    // search={handleSearch}
-                    // searchValue={searchValue}
+                    entriesOptions={[5,10,15]}
+                    striped
+                    bordered
+                    hover
+                    scrollX
+                    maxHeight="50vh"
+                    data={data()}
+                    materialSearch
+
                     
                     />
 

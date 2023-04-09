@@ -1,0 +1,14 @@
+.editButton{
+    display: flex;
+    margin-top: 50px;
+
+}
+.organisationcard{
+    height: 600px;
+    padding: 100px;
+    /* padding-left: 300px; */
+}
+.org{
+    margin-bottom: 50px;
+    margin-left: 40px;
+}

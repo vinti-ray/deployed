@@ -81,10 +81,10 @@ function RegisterUser() {
 
       <Row className="justify-content-md-center">
         <Col  xs={12} md={6}>
-          <Form onSubmit={handleSubmit} >
+          <Form onSubmit={handleSubmit} className='register'>
           <Row className="my-4">
         <Col>
-          <h1 className='headerTitle'>Sign Up</h1>
+          <h1 className='headerRegister'>Sign Up</h1>
         </Col>
       </Row>
             <Form.Group controlId="formBasicName" className="mb-3">

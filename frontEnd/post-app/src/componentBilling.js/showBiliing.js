@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Table, Card } from "react-bootstrap";
+import { Button, Form, Table, Card,InputGroup,ButtonGroup } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import "./billing.css";
@@ -13,16 +13,19 @@ import jwt_decode from 'jwt-decode';
 
 function Invoice() {
   const [customerName, setCustomerName] = useState("");
+  const [nameError,setNameError]=useState("")
   const [customerNumber, setCustomerNumber] = useState("");
   const [items, setItems] = useState([
     { itemName: "", quantity: null, discountedPrice: null, mrp: null, value: null },
   ]);
+  
   const [paymentMehtod, setPaymentMethod] = useState("");
   const [numberError,setNumberError]=useState("")
-  // const [date, setDate] = useState("");
-
+   const [paymentError, setPayementError] = useState("");
+   const [itemNumberError,setitemNumberError]=useState("")
   const [total, setTotal] = useState(null);
   const [netTotal, setNetTotal] = useState(null);
+  const[itemError,setItemError]=useState("")
   const [id,setId]=useState("")
 
   const navigate = useNavigate();
@@ -36,6 +39,8 @@ function Invoice() {
      ( list[index].quantity *
       (list[index].mrp - (list[index].mrp *( list[index].discountedPrice / 100)))); //value=quantity*(price-(price*discountPrice/100)
     setItems(list);
+
+
 
   };
   useEffect(()=>{
@@ -53,14 +58,54 @@ function Invoice() {
   },[items])
 
   const validate=(e)=>{
+    let check=""
     let error=""
+    let itemError=""
     const regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
     const numberRegex = /[0-9]/;
     if(!regex.test(customerNumber)){
      error="please enter valid mobile number "
     }
     setNumberError(error)
-    return !error
+    if(!regex.test(items[0].mrp)){
+      
+    }
+    if(paymentMehtod==""){
+      check="please select payment option"
+    }
+    if(customerName==""){
+      setNameError("please enter customer name")
+    }
+    setPayementError(check)
+
+
+    const list = [...items];
+    for(let i=0;i<list.length;i++){
+      // if(!list[i].discountedPrice){
+        //   setItemError("please enter diccoount if there is no discount please enter 0")
+        // }
+        
+        
+        if(!numberRegex.test(list[i].mrp)){
+          setitemNumberError("mrp should be number")
+        }
+        if(!numberRegex.test(list[i].discountedPrice)){
+          setitemNumberError("discounted should be number")
+        }
+        if(!numberRegex.test(list[i].quantity)){
+          setitemNumberError("quantity should be number")
+        }
+        if(!list[i].mrp){
+          setitemNumberError("please enter mrp")
+        }
+        if(!list[i].quantity){
+          setitemNumberError("please enter quantity")
+        }
+    if(list[i].itemName==""){
+      setitemNumberError("please enter item name")
+    }
+  }
+    return !(error||check)
   }
   const handleAddItem = () => {
     setItems([
@@ -70,20 +115,33 @@ function Invoice() {
   };
 
   const handleRemoveItem = (index) => {
+    if(items.length>1){
+
+ 
     const list = [...items];
+    
 
     list.splice(index, 1);
     setItems(list);
+    }else{
+    setItemError("Can't remove if there is just one input field")
+    }
   };
 
   const generateInvoice = (e) => {
     e.preventDefault();
-    console.log(items)
-    if((!items[0].itemName)||(!items[0].quantity)||(!items[0].mrp)||customerName==""||customerNumber==""||paymentMehtod==""){
-      alert("please fill complete form and add atleast one item")
-    }else{
+    const isValid = validate();
+    if (isValid&&items) {
+
       window.print();
     }
+
+    // console.log(items)
+    // if((!items[0].itemName)||(!items[0].quantity)||(!items[0].mrp)||customerName==""||customerNumber==""||paymentMehtod==""){
+    //   alert("please fill complete form and add atleast one item")
+    // }else{
+    //   window.print();
+    // }
 
   };
   useEffect(()=>{
@@ -93,6 +151,14 @@ function Invoice() {
 
   },[])
 
+  // const navigate = useNavigate();
+  useEffect(()=>{
+    let token=localStorage.getItem("token")
+    if(!token){
+      navigate('/login')
+    }
+    return () => {};
+  },[])
   const handleSubmit = (e) => {
     e.preventDefault();
     let token=localStorage.getItem("token")
@@ -114,7 +180,7 @@ function Invoice() {
   }};
 
   const paymentMethods = [
-    { label: "Credit Card/Debit Card", value: "credit_card/debit_card" },
+    { label: "Credit Card", value: "credit_card/debit_card" },
     { label: "Cash", value: "cash" },
     { label: "Upi", value: "upi" },
   ];
@@ -153,12 +219,14 @@ function Invoice() {
               onChange={(e) => setCustomerName(e.target.value)}
               required
             />
+             <div style={{ color: 'red'}} className="error">{nameError}</div>
           </Form.Group>
 
           <Form.Group controlId="customerNumber">
             <Form.Label>Customer Number</Form.Label>
             <Form.Control
               className="input"
+              maxLength={10}
               type="text"
               value={customerNumber}
               style={{ width: "50%" }}
@@ -246,8 +314,13 @@ function Invoice() {
                     {" "}
                     <FontAwesomeIcon icon={faPlus} />
                   </Button>
+                  
                 </tr>
+                
               ))}
+               <div style={{ color: 'red'}} className="error">{itemError}</div>
+               <div style={{ color: 'red'}} className="error">{itemNumberError}</div>
+
 
               <tr>
                 {" "}
@@ -285,10 +358,34 @@ function Invoice() {
               </tr>
             </tbody>
 
-            <Form.Group controlId="customerNumber" className="no-print">
-              <Form.Label className="payment">Payment Method:</Form.Label>
+
+
+            <Form.Group className="no-print">
+        <Form.Label  className="payment">Payment Method:</Form.Label>
+        <ButtonGroup toggle>
+          {paymentMethods.map((paymentMethod) => (
+            <div key={paymentMethod.value} className="mr-3">
+              <Form.Check
+                type="radio"
+                variant="outline-primary"
+                label={paymentMethod.label}
+                name="paymentMethod"
+                value={paymentMethod.value}
+                checked={paymentMethod === paymentMethod.value}
+                onChange={(e) => {setPaymentMethod(e.target.value)}}
+                
+              />
+            </div>
+          ))}
+        </ButtonGroup>
+        <div style={{ color: 'red'}} className="error">{paymentError}</div>
+      </Form.Group>
+
+            {/* <Form.Group  className="no-print">
+              <Form.Label className="payment">Payment Method:</Form.Label><br/>
               {paymentMethods.map((paymentMethod) => (
                 <Form.Check
+                  
                   key={paymentMethod.value}
                   type="radio"
                   // id={paymentMethod.value}
@@ -298,9 +395,19 @@ function Invoice() {
                   checked={paymentMehtod === paymentMethod.value}
                   onChange={(e) => setPaymentMethod(e.target.value)}
                   required
+                  inline
                 />
-              ))}{" "}
-            </Form.Group>
+              ))}
+            </Form.Group> */}
+
+
+
+
+
+
+
+
+
           </Table>
           <div className="no-print">
             <Button type="submit" className="headerthree" onClick={generateInvoice}>
@@ -312,9 +419,9 @@ function Invoice() {
           </div>
         </Form>
         <Card.Footer className="invoice-footer">
-          <div>
+          <div className="footer">
             <p style={{ color: "black" }}>
-              Thank you for your business! If you have any questions, please
+             * Thank you for your business! If you have any questions, please
               contact us at vinti@gmail.com.
             </p>
           </div>

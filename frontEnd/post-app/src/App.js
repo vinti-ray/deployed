@@ -9,6 +9,8 @@ import InventoryHome from "./componentInventiry.js/inventoryShow";
 import EmployeeHome from "./employeeComponent/showEmploy";
 import Employee from "./employeeComponent/createEmployee";
 import SaleHome from "./SaleComponent/ShowSaleData";
+import ShowUser from "./updateComponent/ShowOrganisation";
+import EditOrg from "./updateComponent/EditOrg";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path="/employee" element={<Employee />} />
         <Route path="/employeeHome" element={<EmployeeHome />} />
         <Route path="/salehome" element={<SaleHome />} />
+        <Route path="/organisationprofile" element={<ShowUser />} />
+        <Route path="/updateOrganisation" element={<EditOrg />} />
       </Routes>
     </BrowserRouter>
 

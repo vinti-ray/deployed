@@ -8,9 +8,18 @@ import jwt_decode from 'jwt-decode';
 function Inventory(){
     const [brandName,setBrandName]=useState("")
     const [itemName,setItemName]=useState("")
-    const [itemQuantity,setItemQuantity]=useState("")
+    const [itemQuantity,setItemQuantity]=useState(null)
+    const [numberError,setNumberError]=useState("")
     const [id,setId]=useState("")
     let navigate=useNavigate()
+    let token=localStorage.getItem("token")
+    // const navigate = useNavigate();
+    useEffect(()=>{
+      if(!token){
+        navigate('/login')
+      }
+      return () => {};
+    },[])
 
     useEffect(()=>{
       let token=localStorage.getItem("token")
@@ -18,11 +27,21 @@ function Inventory(){
       setId(decodedToken.id)
 
     },[])
-  
+
+    const validate=(e)=>{
+      let error=""
+      const regex = /[0-9]/;
+      if(!regex.test(itemQuantity)){
+       error="please enter valid  number "
+      }
+      setNumberError(error)
+      return !error
+    }
     const HandleSubmit=(e)=>{
         e.preventDefault()
         let token=localStorage.getItem("token")
-
+        const isValid = validate();
+        if (isValid) {
         let data={
             brandName:brandName,
             itemName:itemName,
@@ -30,7 +49,7 @@ function Inventory(){
             organisationId:id
         }
         axios.post("http://localhost:3001/createInventory",data,{ headers: { "token": token } }).then((e)=>navigate("/inventoryhome"))
-    }
+    }}
 
     return(
 
@@ -81,6 +100,7 @@ function Inventory(){
               required={true}
             />
           </Form.Group>
+          <div style={{ color: 'red'}} className="error">{numberError}</div>
 
           <Button type="submit" className="classbutton" >
               Submit

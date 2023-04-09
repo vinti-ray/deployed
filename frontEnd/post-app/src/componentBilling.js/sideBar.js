@@ -33,7 +33,7 @@ function Sidebar() {
                 </NavLink> */}
                 
                 <NavLink exact to="/" >
-                    <CDBSidebarMenuItem icon='columns'>Generate Invoice</CDBSidebarMenuItem>
+                    <CDBSidebarMenuItem icon='columns'>Billing</CDBSidebarMenuItem>
                 </NavLink>
 
 

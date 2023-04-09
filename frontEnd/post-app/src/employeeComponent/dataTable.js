@@ -5,6 +5,9 @@ import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
 
 function DataEmployee(){
+  function testClickEvent(param) {
+    alert('Row Click Event');
+  }
     let [list,setList]=useState([])
     // const [searchValue,setSearchValue]=useState("")
     let token=localStorage.getItem("token")
@@ -21,7 +24,7 @@ function DataEmployee(){
         let keyData=[]
         for(let i=0;i<list.length;i++){
             let obj={}
-
+            obj.srno=i+1
             obj.staffName=list[i].staffName
             obj.number=list[i].number
             obj.email=list[i].email
@@ -35,18 +38,29 @@ function DataEmployee(){
             obj.salary=list[i].salary
             // obj.image=list[i].image
             obj.department=list[i].department
+            // obj.  clickEvent= () => testClickEvent(1),
 
             keyData.push(obj)
-            obj={}
+            // obj={}
   
         }
     // console.log(keyData);
         return {
           columns: [
             {
+              label: 'sr no',
+              field: 'srno',
+              width: 70,
+              attributes: {
+                'aria-controls': 'DataTable',
+                'aria-label': 'Name',
+              },
+            },
+            {
                 label: 'Staff Name ',
                 field: 'staffName',
-                width: 250,
+                width: 200,
+                clickEvent: () => testClickEvent(1),
                 // attributes: {
                 //   'aria-controls': 'DataTable',
                 //   'aria-label': 'Name',
@@ -55,28 +69,28 @@ function DataEmployee(){
               {
                 label: 'Number',
                 field: 'number',
-                width: 200,
+                width: 120,
               },
     
             {
               label: 'Email  ',
               field: 'email',
-              width: 270,
+              width: 220,
             },
             {
                 label: ' Date of Joining  ',
                 field: 'dateOfJoining',
-                width: 270,
+                width: 120,
               },
               {
                 label: 'Salary',
                 field: 'salary',
-                width: 270,
+                width: 100,
               },
               {
                 label: 'Department ',
                 field: 'department',
-                width: 270,
+                width: 200,
               },
              
 
@@ -93,19 +107,30 @@ function DataEmployee(){
 {/* generateinvoice */}
             <CDBCard>
             <NavLink exact to="/employee" >
-             <Button type="submit"  className="buttonOne" >Add Employee Data</Button> 
+             <Button type="submit"  className="buttonOne" >Add Employee </Button> 
              </NavLink>
                 <CDBCardBody>
                     <CDBDataTable
 
+                    // striped
+                    // bordered
+                    // hover
+                    // entriesOptions={[5,10,15]}
+                    // entries={5}
+                    // pagesAmount={4}
+                    // data={data()}
+                    entriesOptions={[5,10,15]}
                     striped
                     bordered
                     hover
-                    entriesOptions={[5,10,15]}
-                    entries={5}
-                    pagesAmount={4}
+                    scrollX
+                    // scrollY
+                    maxHeight="50vh"
                     data={data()}
-                    materialSearch={true}
+                    materialSearch
+
+                    // striped bordered hover entriesOptions={[5,10,15]} data={data()} searching={false}
+                    // materialSearch={true}
                     // searchLabel="Search"
                     // search={handleSearch}
                     // searchValue={searchValue}

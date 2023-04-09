@@ -21,26 +21,32 @@ function DataInventory(){
         let keyData=[]
         for(let i=0;i<list.length;i++){
             let obj={}
-
+           obj.srno=i+1
             obj.brandName=list[i].brandName
             obj.itemName=list[i].itemName
             obj.itemQuantity=list[i].itemQuantity
 
             keyData.push(obj)
-            obj={}
+
   
         }
     // console.log(keyData);
         return {
           columns: [
             {
+              label: 'sr no',
+              field: 'srno',
+              width: 100,
+              attributes: {
+                'aria-controls': 'DataTable',
+                'aria-label': 'Name',
+              },
+            },
+            {
                 label: 'Brand Name ',
                 field: 'brandName',
                 width: 250,
-                attributes: {
-                  'aria-controls': 'DataTable',
-                  'aria-label': 'Name',
-                },
+              
               },
               {
                 label: 'Item Name',
@@ -51,7 +57,7 @@ function DataInventory(){
             {
               label: 'Item Quantity  ',
               field: 'itemQuantity',
-              width: 270,
+              width: 170,
             },
            
           ],
@@ -66,23 +72,22 @@ function DataInventory(){
 {/* generateinvoice */}
             <CDBCard>
             <NavLink exact to="/inventory" >
-             <Button type="submit"  className="buttonOne" >Add Inventory</Button> 
+             <Button type="submit"  className="buttonOne" >Add Product</Button> 
              </NavLink>
                 <CDBCardBody>
                     <CDBDataTable
 
+
+                    entriesOptions={[5,10,15]}
                     striped
                     bordered
                     hover
-                    entriesOptions={[5,20,25]}
-                    entries={5}
-                    pagesAmount={4}
+                    scrollX
+                    maxHeight="50vh"
                     data={data()}
-                    materialSearch={true}
-                    // searchLabel="Search"
-                    // search={handleSearch}
-                    // searchValue={searchValue}
-                    
+                    materialSearch
+
+
                     />
 
  
