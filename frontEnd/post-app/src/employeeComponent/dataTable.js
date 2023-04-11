@@ -48,7 +48,7 @@ function DataEmployee(){
         return {
           columns: [
             {
-              label: 'sr no',
+              label: 'Sr No',
               field: 'srno',
               width: 70,
               attributes: {

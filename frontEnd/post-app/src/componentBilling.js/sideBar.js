@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import {
     CDBSidebar,CDBSidebarContent,
     CDBSidebarFooter,
@@ -9,11 +11,23 @@ import {
   import { NavLink } from 'react-router-dom';
   import jwt_decode from 'jwt-decode';
 function Sidebar() {
+    const [name,setName]=useState("")
+    // const token = localStorage.getItem("token");
+    let token=localStorage.getItem("token")
+    const navigate = useNavigate();
+    useEffect(()=>{
+      if(!token){
+        navigate('/login')
+      }else{
+        axios.get("http://localhost:3001/getUser",{ headers: { "token": token } }).then((e)=>setName(e.data.message.name))
+      }
 
-    const token = localStorage.getItem("token");
-    const decodedToken = jwt_decode(token);
+      return () => {};
+    },[])
+    // const decodedToken = jwt_decode(token);
 
-    let name=decodedToken.name
+
+    // let name=decodedToken.name
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
 

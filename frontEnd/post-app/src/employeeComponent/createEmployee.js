@@ -31,7 +31,7 @@ function Employee(){
       let error=""
       let digitErr=""
       const regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
-      const numberRegex = /[0-9]/;
+      const numberRegex = /^\d+$/;
       if(!regex.test(number)){
        error="please enter valid mobile number "
       }
@@ -172,10 +172,24 @@ function Employee(){
             />
           </Form.Group>
 
+          <Form.Group>
+      <Form.Label>Department</Form.Label>
+      <Form.Control as="select"    style={{ width: "50%" }} value={department} onChange={((e)=>setDepartment(e.target.value))}>
+        {/* <option>Department</option> */}
+        <option value="General Office">General Office</option>
+        <option value="Purchase Department">Purchase Department</option>
+        <option value="Sales Department">Sales Department</option>
+        <option value="Personnel Department">Personnel Department</option>
+        <option value="Production Department">Production Department</option>
+        <option value="Accounts Department">Accounts Department</option>
+        <option value="Export Department">Export Department</option>
+      </Form.Control>
+    </Form.Group>
+
           
-          <Form.Group controlId="customerName" className="mb-3">
+          {/* <Form.Group controlId="customerName" className="mb-3">
           {/* {Department.map(
-        (variant) => ( */}
+        (variant) => ( 
           <DropdownButton
             // as={ButtonGroup}
                key="Department"
@@ -189,10 +203,10 @@ function Employee(){
           <Dropdown.Item eventKey="1">gfhfd</Dropdown.Item>
             {/*   <Dropdown.Item eventKey="2">Another action</Dropdown.Item> */}
             {/* <Dropdown.Item eventKey="3" active>
-              Active Item
+              Active Item  
             </Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item eventKey="4">Separated link</Dropdown.Item> */}
+            <Dropdown.Item eventKey="4">Separated link</Dropdown.Item> 
           </DropdownButton>
         {/* ),
       )} */}
@@ -213,11 +227,11 @@ function Employee(){
               onChange={(e) => setDepartment(e.target.value)}
               required={true}
             />  */}
-          </Form.Group>
+          {/* </Form.Group> */}
 
 
 
-          <Button type="submit" className="classbutton" >
+          <Button type="submit" className="employeebutton" >
               Submit
             </Button>
 

@@ -30,7 +30,7 @@ function Inventory(){
 
     const validate=(e)=>{
       let error=""
-      const regex = /[0-9]/;
+      const regex = /^\d+$/;
       if(!regex.test(itemQuantity)){
        error="please enter valid  number "
       }

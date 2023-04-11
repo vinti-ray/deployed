@@ -47,7 +47,7 @@ function SaleData(){
         return {
           columns: [
             {
-              label: 'sr no',
+              label: 'Sr No',
               field: 'srno',
               width: 100,
               attributes: {
@@ -71,7 +71,7 @@ function SaleData(){
                 width: 270,
               },
               {
-                label: 'Paid amount',
+                label: 'Paid Amount',
                 field: 'paidAmount',
                 width: 270,
               },

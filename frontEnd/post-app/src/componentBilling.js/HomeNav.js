@@ -46,9 +46,8 @@ function MyNavbar(){
 
             <Navbar.Collapse  id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    {/* <Nav.Link href="#home"></Nav.Link>
-                    <Nav.Link href="#link">Link</Nav.Link> */}
-                    <NavDropdown  title="Profile" id="basic-nav-dropdown">
+
+                    <NavDropdown  id="basic-nav-dropdown"  title={<><img src="https://www.seekpng.com/png/detail/202-2024774_my-profile-comments-my-profile-icon-png.png"alt="image"  height="20"/> </>}>
                              <NavDropdown.Item href="/organisationprofile">
                              <FaUser /> Profile
                              </NavDropdown.Item>

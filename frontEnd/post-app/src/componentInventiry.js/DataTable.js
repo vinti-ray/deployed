@@ -34,7 +34,7 @@ function DataInventory(){
         return {
           columns: [
             {
-              label: 'sr no',
+              label: 'Sr No',
               field: 'srno',
               width: 100,
               attributes: {

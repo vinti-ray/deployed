@@ -8,11 +8,15 @@ import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "./sideBar";
 import ShopDetail from "./shopDetail";
 import jwt_decode from 'jwt-decode';
+import jsPDF from 'jspdf';
+import html2pdf from 'html2pdf.js';
+// import generatePDF from "./generatePdf";
 
 // import Shop from "./shopDetail";
 
 function Invoice() {
   const [customerName, setCustomerName] = useState("");
+  const [email,setEmail]=useState("")
   const [nameError,setNameError]=useState("")
   const [customerNumber, setCustomerNumber] = useState("");
   const [items, setItems] = useState([
@@ -26,7 +30,9 @@ function Invoice() {
   const [total, setTotal] = useState(null);
   const [netTotal, setNetTotal] = useState(null);
   const[itemError,setItemError]=useState("")
+  const [justNumberError,setJustNumberError]=useState("")
   const [id,setId]=useState("")
+  const [print,setPrint]=useState("")
 
   const navigate = useNavigate();
 
@@ -62,7 +68,8 @@ function Invoice() {
     let error=""
     let itemError=""
     const regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
-    const numberRegex = /[0-9]/;
+    const numberRegex =/^\d*\.?\d+$/;
+    let justNumber=/^\d+$/
     if(!regex.test(customerNumber)){
      error="please enter valid mobile number "
     }
@@ -87,25 +94,28 @@ function Invoice() {
         
         
         if(!numberRegex.test(list[i].mrp)){
-          setitemNumberError("mrp should be number")
+          itemError="mrp should be number"
         }
-        if(!numberRegex.test(list[i].discountedPrice)){
-          setitemNumberError("discounted should be number")
+        if(!justNumber.test(list[i].discountedPrice)){
+          itemError="discounted should be number"
         }
-        if(!numberRegex.test(list[i].quantity)){
-          setitemNumberError("quantity should be number")
+        if(!justNumber.test(list[i].quantity)){
+          itemError="quantity should be number"
         }
         if(!list[i].mrp){
-          setitemNumberError("please enter mrp")
+          itemError="please enter mrp"
         }
         if(!list[i].quantity){
-          setitemNumberError("please enter quantity")
+          itemError="please enter quantity"
         }
     if(list[i].itemName==""){
-      setitemNumberError("please enter item name")
+      itemError="please enter item name"
     }
   }
-    return !(error||check)
+
+  setitemNumberError(itemError)
+
+    return !(error||check||itemError)
   }
   const handleAddItem = () => {
     setItems([
@@ -130,11 +140,14 @@ function Invoice() {
 
   const generateInvoice = (e) => {
     e.preventDefault();
+    console.log(items);
+    let token=localStorage.getItem("token")
     const isValid = validate();
     if (isValid&&items) {
 
       window.print();
-    }
+
+
 
     // console.log(items)
     // if((!items[0].itemName)||(!items[0].quantity)||(!items[0].mrp)||customerName==""||customerNumber==""||paymentMehtod==""){
@@ -143,7 +156,7 @@ function Invoice() {
     //   window.print();
     // }
 
-  };
+  }};
   useEffect(()=>{
     let token=localStorage.getItem("token")
     const decodedToken = jwt_decode(token);
@@ -159,24 +172,75 @@ function Invoice() {
     }
     return () => {};
   },[])
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let token=localStorage.getItem("token")
+ 
     const isValid = validate();
     if (isValid) {
+      const element = document.getElementById('invoice-content');
 
-    let data = {
-      customerName: customerName,
-      number: customerNumber,
-      item: items,
-      paymentMethod: paymentMehtod,
-      total: total,     
-      netTotal: netTotal,
-      organisationId:id
-    };
-    axios.post("http://localhost:3001/createbill", data, { headers: { "token": token } }).then((e) => {
-      navigate('/');
-    });
+      html2pdf().set({
+        margin: 1,
+        filename: 'invoice.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { dpi: 192, letterRendering: true },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+        useCORS: true,
+        contentType: 'application/pdf',
+        includeHiddenHtml: true,
+        // Add any other options here
+      }).from(element).outputPdf().then((pdf) => {
+        const formData = new FormData();
+        formData.append('invoice', pdf);
+                formData.append('customerName', customerName); 
+        formData.append('number', customerNumber);
+        formData.append('item', JSON.stringify(items));
+        formData.append('paymentMethod', paymentMehtod);
+        formData.append('total', total,);
+        formData.append('netTotal', netTotal,);
+        formData.append('organisationId', id);
+        formData.append("email",email)
+        console.log(formData);
+        axios.post("http://localhost:3001/createbill", formData, { headers: { "token": token ,  'Content-Type': 'multipart/form-data'} }).then((e) => {
+          navigate('/');
+         });
+    })
+
+
+      // const doc = new jsPDF();
+      // // doc.html(document.body, () => {
+      //   const pdfData = doc.output('blob');
+      //   const formData = new FormData();
+      //   formData.append('pdf', pdfData);
+      //   formData.append('customerName', customerName); 
+      //   formData.append('number', customerNumber);
+      //   formData.append('item', items);
+      //   formData.append('paymentMethod', paymentMehtod);
+      //   formData.append('total', total,);
+      //   formData.append('netTotal', netTotal,);
+      //   formData.append('organisationId', id);
+      //   console.log(formData);
+      //   axios.post("http://localhost:3001/createbill", formData, { headers: { "token": token } }).then((e) => {
+      //     navigate('/');
+      //   // });
+    // });
+
+
+    // let data = {
+    //   customerName: customerName,
+    //   number: customerNumber,
+    //   item: items,
+    //   paymentMethod: paymentMehtod,
+    //   total: total,     
+    //   netTotal: netTotal,
+    //   organisationId:id
+    // };
+    // axios.post("http://localhost:3001/createbill", data, { headers: { "token": token } }).then((e) => {
+    //   navigate('/');
+    // });
   }};
 
   const paymentMethods = [
@@ -191,12 +255,12 @@ function Invoice() {
     <Sidebar/>
   </div>
 
-    <div className="main-content">
+    <div className="main-content" id="invoice-content">
       <Card className="invoice-card">
         <h1 className="text-center">Invoice</h1>
         <ShopDetail/>
         {/* <Shop/> */}
-        <Form onSubmit={handleSubmit}>
+        <Form encType="multipart/form-data" onSubmit={handleSubmit}>
           {/* <Form.Group controlId="date">
             <Form.Label>Date</Form.Label>
             <Form.Control
@@ -220,6 +284,18 @@ function Invoice() {
               required
             />
              <div style={{ color: 'red'}} className="error">{nameError}</div>
+          </Form.Group>
+
+          <Form.Group controlId="formBasicEmail" className="mb-3">
+            <Form.Label style={{color:"black"}}>Email</Form.Label>
+            <Form.Control
+              className="input"
+              type="email"
+              style={{ width: "50%" }}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+
+            />
           </Form.Group>
 
           <Form.Group controlId="customerNumber">
@@ -279,8 +355,9 @@ function Invoice() {
                       className="input"
                       type="text"
                       name="discountedPrice"
+                      max="100"
                       value={item.discountedPrice}
-                      onChange={(e) => handleInputChange(e, index)}
+                      onChange={(e) =>{ if(Number(e.target.value)<=100) {handleInputChange(e, index)} }}
                       required={true}
                     />
                   </td>
@@ -410,7 +487,7 @@ function Invoice() {
 
           </Table>
           <div className="no-print">
-            <Button type="submit" className="headerthree" onClick={generateInvoice}>
+            <Button type="submit" className="headerthree"  onClick={generateInvoice}>
               Generate Invoice
             </Button>
             <Button type="submit" className="headerthree" >
@@ -431,5 +508,6 @@ function Invoice() {
     </div>
   );
 }
+
 
 export default Invoice;

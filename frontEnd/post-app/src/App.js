@@ -11,6 +11,7 @@ import Employee from "./employeeComponent/createEmployee";
 import SaleHome from "./SaleComponent/ShowSaleData";
 import ShowUser from "./updateComponent/ShowOrganisation";
 import EditOrg from "./updateComponent/EditOrg";
+import PaytmPayment from "./paytmComponet/paytm";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/salehome" element={<SaleHome />} />
         <Route path="/organisationprofile" element={<ShowUser />} />
         <Route path="/updateOrganisation" element={<EditOrg />} />
+        <Route path="/paytm" element={<PaytmPayment />} />
       </Routes>
     </BrowserRouter>
 

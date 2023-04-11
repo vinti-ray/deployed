@@ -11,6 +11,17 @@ function RegisterUser() {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
+
+
+  const [number, setNumber] = useState('');
+  const [numberError,setNumberError]=useState("")
+  const [country, setCountry] = useState('');
+  const [state, setState] = useState('');
+  const [city, setCity] = useState('');
+  const [pinCode, setPincode] = useState('');
+  const [pincodeError,setPincodeError]=useState("")
+
+
   const [passwordError, setPasswordError] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
   const [errorConfirmPassword, setconfirmPasswordError] = useState('');
@@ -24,10 +35,17 @@ function RegisterUser() {
  
   const nameRegex=/[a-zA-Z]{3,}/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const numberregex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
   const passwordRegex =  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
-
+const pincoderegex=/^[1-9][0-9]{5}$/
+  if(!numberregex.test(number)){
+    setNumberError("please provide valid mobile number")
+  }
   if (!nameRegex.test(organisationName)) {
     organisationNameError = 'please enter valid name';
+  }
+  if(!pincoderegex.test(pinCode)){
+    setPincodeError("please enter valid pincode")
   }
   // if (!nameRegex.test(lastname)) {
   //   LastnameError = 'please enter valid name';
@@ -70,7 +88,11 @@ function RegisterUser() {
       organisationName:organisationName,
         email:email,
         password:password,
-        confirmPassword:confirmPassword
+        confirmPassword:confirmPassword,
+        country:country,
+        state:state,
+        city:city,
+        pincode:pinCode
     }
     axios.post("http://localhost:3001/createuser",data).then(()=>{navigate('/login')}).catch((e)=>{setEmailError(e.response.data.message)})
   }
@@ -87,14 +109,155 @@ function RegisterUser() {
           <h1 className='headerRegister'>Sign Up</h1>
         </Col>
       </Row>
+      <Row>
+
+<Col>
+
             <Form.Group controlId="formBasicName" className="mb-3">
    
               <Form.Label style={{color:"black"}}>Organisation's Name</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
 
-              <Form.Control style={{ width: '110%' }} type="text" value={organisationName} required={true} onChange={(event) => setorganisationName(event.target.value)} />
+              <Form.Control  style={{ width: '100%' }} type="text" value={organisationName} required={true} onChange={(event) => setorganisationName(event.target.value)} />
               <div style={{ color: 'red'}} className="error">{organisationNameError}</div>
             </Form.Group>
+            </Col>
+
+
+
+            <Col>
+            <Form.Group controlId="formBasicEmail" className="mb-3">
+              <Form.Label style={{color:"black"}}>Email Address</Form.Label>
+              <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
+              <Form.Control  type="email" style={{ width: '100%' }} value={email} required={true} onChange={(event) => setEmail(event.target.value)} />
+              <div style={{ color: 'red'}} className="error">{emailError}</div>
+            </Form.Group>
+
+
+
+
+          </Col>
+          </Row>
+          <Row>
+            <Col>
+            {/* <Form.Group controlId="customerNumber" className="mb-3">
+            <Form.Label style={{color:"black"}}>organisations Number</Form.Label>
+            <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
+            <Form.Control
+              className="input"
+              maxLength={10}
+              type="text"
+              value={number}
+              style={{ width: "100%" }}
+              onChange={(e) => setNumber(e.target.value)}
+              required
+            />
+          <div style={{ color: 'red'}} className="error">{numberError}</div>
+
+          
+          </Form.Group> */}
+                      <Form.Group controlId="formBasicPassword" className="mb-3">
+              <Form.Label style={{color:"black"}}>Password</Form.Label>
+              <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
+              <Form.Control  type="password" style={{ width: '100%' }} value={password} required={true} onChange={(event) => setPassword(event.target.value)} />
+              <div style={{ color: 'red'}} className="error">{passwordError}</div>
+            </Form.Group>
+
+            </Col>
+
+            <Col>
+            
+            <Form.Group controlId="password" className="mb-3">
+              <Form.Label style={{color:"black"}}>confirm Password</Form.Label>
+              <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
+              <Form.Control  type="password" style={{ width: '100%' }} value={confirmPassword} required={true} onChange={handleConfirmPassword} />
+              <div style={{ color: 'red'}} className="error">{errorConfirmPassword}</div>
+            </Form.Group>
+            
+            </Col>
+          </Row>
+
+          <Row>
+            <Col>
+            <Form.Group controlId="customerNumber" className="mb-3">
+            <Form.Label style={{color:"black"}}>Country</Form.Label>
+            <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
+            <Form.Control
+              className="input"
+
+              type="text"
+              value={country}
+              style={{ width: "100%" }}
+              onChange={(e) => setCountry(e.target.value)}
+              required
+            />
+
+
+          </Form.Group>
+            </Col>
+
+            <Col>
+            <Form.Group controlId="customerNumber" className="mb-3">
+            <Form.Label style={{color:"black"}}>State</Form.Label>
+            <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
+            <Form.Control
+              className="input"
+
+              type="text"
+              value={state}
+              style={{ width: "100%" }}
+              onChange={(e) => setState(e.target.value)}
+              required
+            />
+         
+
+          </Form.Group>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col>
+            <Form.Group controlId="customerNumber" className="mb-3">
+            <Form.Label style={{color:"black"}}>City</Form.Label>
+            <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
+            <Form.Control
+              className="input"
+
+              type="text"
+              value={city}
+              style={{ width: "100%" }}
+              onChange={(e) => setCity(e.target.value)}
+              required
+            />
+                      </Form.Group>
+            </Col>
+
+            <Col>
+            <Form.Group controlId="customerNumber" className="mb-3">
+            <Form.Label style={{color:"black"}}>Pincode</Form.Label>
+            <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
+            <Form.Control
+              className="input"
+              maxLength={6}
+              type="text"
+              value={pinCode}
+              style={{ width: "100%" }}
+              onChange={(e) => setPincode(e.target.value)}
+              required
+            />
+          <div style={{ color: 'red'}} className="error">{pincodeError}</div>
+
+          </Form.Group>
+            </Col>
+          </Row>
+
+
+
+
+        
+
+
+
 
             {/* <Form.Group controlId="name" className="mb-3">
            <Form.Label style={{color:"black"}}>Last Name</Form.Label>
@@ -103,26 +266,9 @@ function RegisterUser() {
               <div style={{ color: 'red'}} className="error">{LastnameError}</div>
             </Form.Group> */}
 
-            <Form.Group controlId="formBasicEmail" className="mb-3">
-              <Form.Label style={{color:"black"}}>Email Address</Form.Label>
-              <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
-              <Form.Control  type="email" style={{ width: '110%' }} value={email} required={true} onChange={(event) => setEmail(event.target.value)} />
-              <div style={{ color: 'red'}} className="error">{emailError}</div>
-            </Form.Group>
 
-            <Form.Group controlId="formBasicPassword" className="mb-3">
-              <Form.Label style={{color:"black"}}>Password</Form.Label>
-              <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
-              <Form.Control  type="password" style={{ width: '110%' }} value={password} required={true} onChange={(event) => setPassword(event.target.value)} />
-              <div style={{ color: 'red'}} className="error">{passwordError}</div>
-            </Form.Group>
 
-            <Form.Group controlId="password" className="mb-3">
-              <Form.Label style={{color:"black"}}>confirm Password</Form.Label>
-              <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
-              <Form.Control  type="password" style={{ width: '110%' }} value={confirmPassword} required={true} onChange={handleConfirmPassword} />
-              <div style={{ color: 'red'}} className="error">{errorConfirmPassword}</div>
-            </Form.Group>
+
   <br/>
             <Button variant="outline-danger" type="submit" size='lg' className='button'>Register</Button>
           </Form>

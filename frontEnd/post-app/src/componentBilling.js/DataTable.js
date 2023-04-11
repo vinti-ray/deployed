@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Table, Card } from 'react-bootstrap';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from 'cdbreact';
 // import { CDBTable, CDBTableHeader, CDBTableBody, CDBContainer } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
@@ -9,13 +10,20 @@ import BootstrapTable from 'react-bootstrap-table-next';
 function DataTable(){  function testClickEvent(param) {
   alert('Row Click Event');
 }
-
+let token=localStorage.getItem("token")
+const navigate = useNavigate();
+useEffect(()=>{
+  if(!token){
+    navigate('/login')
+  }
+  return () => {};
+},[])
 
     let [list,setList]=useState([])
 
 
 
-    let token=localStorage.getItem("token")
+    // let token=localStorage.getItem("token")
     useEffect(()=>{
       axios.get("http://localhost:3001/getdata", { headers: { "token": token } }).then((e)=>{setList(e.data.message);  })
     },[])
