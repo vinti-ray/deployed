@@ -2,7 +2,7 @@
 
 
  const auth=async(req,res,next)=>{
-    let token=req.headers["token"]
+    let token=req.headers["token"] 
     if(!token) return res.status(400).send({status:false,message:"token not present"})
      jwt.verify(token,"new_seceret_key",(err,decode)=>{
         if(err){

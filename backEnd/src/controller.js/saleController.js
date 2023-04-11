@@ -45,11 +45,11 @@ const getSaleData=async(req,res)=>{
 
         if(p==generatedDate){
 
-            let x=findData[j].item
-            console.log(x);
+            // let x=findData[j].item
+            // console.log(x);
 
-            let sale=x.reduce((acc,curr)=>acc+curr.quantity,0)
-            totalSale+=sale
+            // let sale=x.reduce((acc,curr)=>acc+curr.quantity,0)
+            totalSale+=1
             billAmount+=findData[j].total
             paidAmount+=findData[j].netTotal
           indicesToRemove.push(j)

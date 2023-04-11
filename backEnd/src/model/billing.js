@@ -19,6 +19,10 @@ const billingSchema=new mongoose.Schema({
           }],
         require:true
     },
+    email:{
+        type:String
+
+    },
     // quantity:{
     //     type:[Number],
     //     require:true

@@ -32,7 +32,7 @@ try {
       
      const createData=await employeeModel.create(data)
      return res.status(201).send({status:true,message:createData})
-} catch (error) {
+} catch (error) { 
   return res.status(500).send({status:false, message:error.message})
 }
 

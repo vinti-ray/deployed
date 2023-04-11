@@ -17,14 +17,14 @@ const uploadFile=async (files)=>{
             Key:"project"+files.originalname,
             Body:files.buffer
         }
-
+ 
         s3.upload(uploadParams,function(err,data){
             if (err) {
              
                 return reject({ "error": err }) 
             }
-
-            console.log("file uploaded succesfully")
+ 
+            console.log("file uploaded succesfully") 
 
          
             return resolve(data.Location) 

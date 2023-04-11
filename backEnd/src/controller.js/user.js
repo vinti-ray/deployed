@@ -1,5 +1,5 @@
 const userModel=require("../model/user")
-
+const employeeModel=require("../model/employSchema")
 const bcrypt=require("bcrypt")
  let jwt=require('jsonwebtoken') 
  const saltRounds = 10;     
@@ -103,31 +103,45 @@ const login=async function(req,res) {
 const getUser=async(req,res)=>{
     let organisationId=req.decode.id
 	const  findData=await userModel.findById(organisationId)
-	res.status(201).send({status:true, message:findData})
+	const FindStaff=await employeeModel.find({organisationId:organisationId})
+	let showData={
+		name:findData.organisationName,
+		country:findData.country,
+		state:findData.state,
+		city:findData.city,
+		pincode:findData.pincode,
+		email:findData.email,
+		numberOfEmployee:FindStaff.length
+
+	}
+	res.status(201).send({status:true, message:showData})
+
 }
 
 const updateOrg=async(req,res)=>{
 	let data=req.body
-	
 	let organisationId=req.decode.id
-	if(data.password==""){
-		let updateData={
-			email:data.email,
-			organisationName:data.organisationName
-		}
-		await userModel.findByIdAndUpdate(organisationId,updateData)
-	}else{
-		let encryptPassword =await bcrypt.hash(data.password, saltRounds)
-		data.password=encryptPassword
+
 		await userModel.findByIdAndUpdate(organisationId,data)
-	}
 
 	
 	return res.status(201).send({status:true, message:"data update successfully"})
 }
+const updatePassword=async(req,res)=>{
+	let data=req.body
+	let organisationId=req.decode.id
+	const oldData=await userModel.findById(organisationId)
+	const decodePassword = await bcrypt.compare(data.oldPassword, oldData.password)
+	if(!decodePassword) return res.status(400).send({ status: false, message: "password not matched" })
+   
+	let encryptPassword =await bcrypt.hash(data.password, saltRounds)
+        
+	data.password=encryptPassword
+	await userModel.findByIdAndUpdate(organisationId,data.password)
+	return res.status(201).send({status:true, message:"password updated successfully"})
+}
 
 
 
-
-module.exports = {createData,login,getUser,updateOrg};
+module.exports = {createData,login,getUser,updateOrg,updatePassword};
 
