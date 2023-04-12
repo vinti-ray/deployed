@@ -1,8 +1,10 @@
 const userModel=require("../model/user")
 const employeeModel=require("../model/employSchema")
+const {uploadFile}=require("../aws/aws")
 const bcrypt=require("bcrypt")
  let jwt=require('jsonwebtoken') 
  const saltRounds = 10;     
+
 
 //__________________________ Validations : Email  ___________________________________________
 
@@ -111,7 +113,8 @@ const getUser=async(req,res)=>{
 		city:findData.city,
 		pincode:findData.pincode,
 		email:findData.email,
-		numberOfEmployee:FindStaff.length
+		numberOfEmployee:FindStaff.length,
+		profileImage:findData.profileImage
 
 	}
 	res.status(201).send({status:true, message:showData})
@@ -121,6 +124,12 @@ const getUser=async(req,res)=>{
 const updateOrg=async(req,res)=>{
 	let data=req.body
 	let organisationId=req.decode.id
+    let files = req.files // Get the file to upload
+
+    if (files && files.length > 0) {
+        let uploadFileUrl = await uploadFile(files[0])
+        data.profileImage = uploadFileUrl
+    }
 
 		await userModel.findByIdAndUpdate(organisationId,data)
 

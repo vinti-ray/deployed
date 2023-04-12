@@ -115,7 +115,7 @@ function SaleData(){
                     scrollX
                     maxHeight="50vh"
                     data={data()}
-                    materialSearch
+                    searching={true}
 
                     // search={handleSearch}
                     // searchValue={searchValue}

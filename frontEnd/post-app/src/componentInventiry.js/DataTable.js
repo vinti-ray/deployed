@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 function DataInventory(){
     let [list,setList]=useState([])
     // const [searchValue,setSearchValue]=useState("")
+    const [searchText, setSearchText] = useState('');
     let token=localStorage.getItem("token")
 
     useEffect(()=>{
@@ -69,6 +70,7 @@ function DataInventory(){
 
       return(
         <CDBContainer className="tableInvenotry" >
+
 {/* generateinvoice */}
             <CDBCard>
             <NavLink exact to="/inventory" >
@@ -85,8 +87,15 @@ function DataInventory(){
                     scrollX
                     maxHeight="50vh"
                     data={data()}
-                    materialSearch
-
+                    searching={true}
+                    searchInput={
+                      <input
+                        type="text"
+                        placeholder="Search"
+                        value={searchText}
+                        onClick={(e) =>{e.preventDefault();console.log(e) ;setSearchText(e.target.value)}}
+                      />
+                    }
 
                     />
 

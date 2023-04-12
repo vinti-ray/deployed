@@ -127,7 +127,7 @@ function DataEmployee(){
                     // scrollY
                     maxHeight="50vh"
                     data={data()}
-                    materialSearch
+                    searching={true}
 
                     // striped bordered hover entriesOptions={[5,10,15]} data={data()} searching={false}
                     // materialSearch={true}

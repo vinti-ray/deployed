@@ -19,7 +19,7 @@ function HomePage() {
 
   return (
     <div>
-    <div className='sidebar'>
+    <div className='sidebar'> 
     <Sidebar/>
   </div>
     <div className="main-content">

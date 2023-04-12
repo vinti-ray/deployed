@@ -7,6 +7,7 @@ const {createEmployee,getEmployee}=require("../controller.js/employee")
 const {auth}=require("../middleware/auth")
 const {getSaleData}=require("../controller.js/saleController")
 const {generatePaytmChecksum}=require("../paytm/paytm")
+const {forgetPassword,updateForgetPassword}=require("../controller.js/passwordreset")
 
 router.post("/createuser",createData)
 router.post("/login",login)
@@ -28,4 +29,10 @@ router.put("/updatePassword",auth,updatePassword)
 
 //paytm
 router.post("/paytm",generatePaytmChecksum)
+
+
+
+
+router.post("/forgetPassword",forgetPassword)
+router.put("/updateForgetPassword",updateForgetPassword)
 module.exports=router

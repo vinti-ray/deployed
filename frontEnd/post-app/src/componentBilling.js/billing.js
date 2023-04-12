@@ -68,7 +68,7 @@ function Billing(){
         <div>
         <Card className="invoice-card">
         <h1 className="headerone">Bill Page</h1>
-        <Card.Header className="invoice-header">
+        <Card.Header className="invoice-header"> 
           <h2 className="headerone">Invoice</h2>
         </Card.Header>
         <Card.Body>

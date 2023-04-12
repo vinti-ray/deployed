@@ -4,21 +4,21 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import "./update.css";
+
 import { Link, NavLink } from "react-router-dom";
 
-import Sidebar from "../componentBilling.js/sideBar";
-import jwt_decode from "jwt-decode";
 
-function EditOrg() {
-  const [oldPassword, setOldPassword] = useState("");
-  const [password, setPassword] = useState("");
+
+function PasswordResetPage() {
+    
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
   const [passwordError, setPasswordError] = useState("");
   const [oldPasswordError, setoldPasswordError] = useState("");
-  const [id, setId] = useState("");
+
   let navigate = useNavigate();
-  let token = localStorage.getItem("token");
+
 
   const validate = () => {
     const passwordRegex =
@@ -34,69 +34,56 @@ function EditOrg() {
   };
 
   // const navigate = useNavigate();
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    }
-    return () => {};
-  }, []);
 
-  useEffect(() => {
-    let token = localStorage.getItem("token");
-    const decodedToken = jwt_decode(token);
-    setId(decodedToken.id);
-  }, []);
+
+
 
   const HandleSubmit = (event) => {
     event.preventDefault();
     const isValid = validate();
     if (isValid) {
+
+        if(password==confirmPassword){
+      let email=localStorage.getItem("email")
+
       const data = {
         password: password,
-        oldPassword: oldPassword,
+        email:email
+
       };
       axios
-        .put("http://localhost:3001/updatePassword", data, {
-          headers: { token: token },
+        .put("http://localhost:3001/updateForgetPassword", data, {
+          
         })
         .then(() => {
-          navigate("/organisationprofile");
+            if(localStorage.getItem("token")!=null){
+                navigate("/organisationprofile")
+            }else{
+
+                navigate("/login");
+            }
         })
-        .catch((e) => {console.log(e);
-          setoldPasswordError(e.response.data.message);
+        .catch((e) => {alert(e);
         });
     }
+}else{
+    setoldPasswordError("password not matched")
+}
+
   };
 
   return (
     <div>
       {" "}
-      <div className="sidebar">
-        <Sidebar />
-      </div>
-      <div className="main-content">
+     
+
         <Card className="passwordcard">
           <h1 className="org">Update Password</h1>
           <Form onSubmit={HandleSubmit}>
 
           <Form.Group controlId="formBasicPassword" className="mb-3">
               <Form.Label style={{ color: "black" }}>
-                Old Password
-              </Form.Label>
-              <Form.Control
-                type="password"
-                value={oldPassword}
-                style={{ width: "50%" }}
-                onChange={(e) => setOldPassword(e.target.value)}
-              />
-              <div style={{ color: "red" }} className="error">
-                {oldPasswordError}
-              </div>
-            </Form.Group>
-            
-            <Form.Group controlId="formBasicPassword" className="mb-3">
-              <Form.Label style={{ color: "black" }}>
-                New Password
+                Password
               </Form.Label>
               <Form.Control
                 type="password"
@@ -108,8 +95,23 @@ function EditOrg() {
                 {passwordError}
               </div>
             </Form.Group>
+            
+            <Form.Group controlId="formBasicPassword" className="mb-3">
+              <Form.Label style={{ color: "black" }}>
+                Confirm Password
+              </Form.Label>
+              <Form.Control
+                type="password"
+                value={confirmPassword}
+                style={{ width: "50%" }}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <div style={{ color: "red" }} className="error">
+                {oldPasswordError}
+              </div>
+            </Form.Group>
 
-            <p style={{color:"black"}} > <NavLink to="/emailverify" className='forget'> Forgot Password?</NavLink></p> 
+
 
             <Button variant="outline-warning" className="editButton" type="submit">
               Update
@@ -117,7 +119,7 @@ function EditOrg() {
           </Form>
         </Card>
       </div>
-    </div>
+
   );
 }
-export default EditOrg;
+export default PasswordResetPage

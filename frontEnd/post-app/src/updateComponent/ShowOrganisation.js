@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { Button, Form, Table, Card, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -7,11 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import "./update.css";
 import { Link, NavLink } from "react-router-dom";
-import ProfileImageUpload from "./profileImagetwo";
-import ProfileImageEditor from "./profileImageOne";
 
+// import Dropzone from 'react-dropzone';
 import Sidebar from "../componentBilling.js/sideBar";
 import jwt_decode from "jwt-decode";
+// import ProfileImageUpload from "./profileImagetwo";
 
 function ShowUser() {
   const [organisationName, setorganisationName] = useState("");
@@ -21,10 +21,20 @@ function ShowUser() {
   const [city, setCity] = useState("");
   const [pincode, setPincode] = useState("");
   const [staff, setStaff] = useState("");
+
   const [profileImage, setProfileImage] = useState(null);
   const [emailError, setEmailError] = useState("");
-  const [pincodeError,setPincodeError]=useState("")
+  const [pincodeError, setPincodeError] = useState("");
   // const [password, setPassword] = useState('');
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+
+  const handleImageSelect = (event) => {
+    setSelectedImage(event.target.files[0]);
+    setImagePreview(URL.createObjectURL(event.target.files[0]));
+  };
+  // let token = localStorage.getItem("token");
 
   const [id, setId] = useState("");
   let navigate = useNavigate();
@@ -51,47 +61,45 @@ function ShowUser() {
         setPincode(e.data.message.pincode);
         setState(e.data.message.state);
         setStaff(e.data.message.numberOfEmployee);
+        setImagePreview(e.data.message.profileImage);
+        console.log(e.data.message.profileImage);
       });
   }, []);
 
   const validate = () => {
-  
-const pincoderegex=/^[1-9][0-9]{5}$/
+    let error = "";
+    const pincoderegex = /^[1-9][0-9]{5}$/;
 
-  if(!pincoderegex.test(pincode)){
-    setPincodeError("please enter valid pincode")
-  }
+    if (!pincoderegex.test(pincode)) {
+      error = "please enter valid pincode";
+    }
 
-
-
-
-
-
+    setPincodeError(error);
     // setLastNameError(LastnameError)
     setEmailError(emailError);
 
-
-    return !emailError ;
+    return !(emailError || error);
   };
-
 
   const HandleSubmit = (event) => {
     event.preventDefault();
     const isValid = validate();
     if (isValid) {
-      const data = {
-        organisationName: organisationName,
-        email: email,
-        country: country,
-        state: staff,
-        city: city,
-        pincode: pincode,
-      };
+      const formData = new FormData();
+      formData.append("profileImage", selectedImage);
+      formData.append("organisationName", organisationName);
+      formData.append("email", email);
+      formData.append("country", country);
+      formData.append("state", state);
+      formData.append("city", city);
+      formData.append("pincode", pincode);
+
       axios
-        .post("http://localhost:3001/updateUser", data, {
+        .post("http://localhost:3001/updateUser", formData, {
           headers: { token: token },
         })
         .then(() => {
+          alert("profile updated successfully");
           navigate("/organisationprofile");
         })
         .catch((e) => {
@@ -107,47 +115,62 @@ const pincoderegex=/^[1-9][0-9]{5}$/
         <Sidebar />
       </div>
       <div className="main-content">
-        {/* <Card  className="organisationcard"> */}
-        {/* <Image src={user.profilePicture} roundedCircle /> */}
-        {/* <Card.Body>
-        <Card.Title style={{color:"black"}}>{organisationName}</Card.Title>
-        {/* <Card.Text>{email}</Card.Text> */}
-
-        {/*  </Card.Body>
-      <ListGroup className="list-group-flush">
-        
-        <ListGroupItem >{organisationName}</ListGroupItem>
-        <ListGroupItem>{email}</ListGroupItem>
-        {/* <ListGroupItem>{user.address}</ListGroupItem> 
-      </ListGroup>
-    </Card> */}
-
         <Card className="organisationcard">
-          {/* <Row>
-
-           <Col> */}
-
           <div className="img">
-            {profileImage ? (
-              <ProfileImageEditor onChange={profileImage} />
+            {imagePreview ? (
+              <img
+                src={imagePreview}
+                alt="Selected Profile"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100px",
+                  height: "100px",
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                }}
+              />
             ) : (
-              <ProfileImageUpload onChange={setProfileImage} />
+              <img
+                src={imagePreview}
+                alt="Selected Profile"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100px",
+                  height: "100px",
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                }}
+              />
             )}
+            {/* 
+          {imagePreview && (
+        <div style={{ display: 'flex',  alignItems: 'center', justifyContent: 'center', width: '100px', height: '100px', borderRadius: '50%', overflow: 'hidden', }}  >
+          <img
+            src={imagePreview}
+            alt="Selected Profile"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </div>
+      )} */}
+
+            <input type="file" accept="image/*" onChange={handleImageSelect} />
           </div>
-          {/* <h1 className="org">Organisation's profile</h1> */}
 
-          {/* </Col>
-              <Col> */}
-
-          {/* </Col> */}
-          {/* </Row> */}
           <Form onSubmit={HandleSubmit}>
             <Form.Group controlId="formBasicName" className="mb-3">
               <Form.Label style={{ color: "black" }}>
-                Organisation's Name
+                Organization's Name
               </Form.Label>
 
-              <Form.Control style={{ width: "50%" }} value={organisationName}  onChange={(e) => setorganisationName(e.target.value)}/>
+              <Form.Control
+                style={{ width: "50%" }}
+                value={organisationName}
+                onChange={(e) => setorganisationName(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail" className="mb-3">
@@ -158,7 +181,9 @@ const pincoderegex=/^[1-9][0-9]{5}$/
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-                 <div style={{ color: 'red'}} className="error">{emailError}</div>
+              <div style={{ color: "red" }} className="error">
+                {emailError}
+              </div>
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail" className="mb-3">
@@ -170,19 +195,31 @@ const pincoderegex=/^[1-9][0-9]{5}$/
             <Form.Group controlId="formBasicEmail" className="mb-3">
               <Form.Label style={{ color: "black" }}>Country</Form.Label>
 
-              <Form.Control style={{ width: "50%" }} value={country}  onChange={(e) => setCountry(e.target.value)}/>
+              <Form.Control
+                style={{ width: "50%" }}
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail" className="mb-3">
               <Form.Label style={{ color: "black" }}>State</Form.Label>
 
-              <Form.Control style={{ width: "50%" }} value={state}  onChange={(e) => setState(e.target.value)}/>
+              <Form.Control
+                style={{ width: "50%" }}
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group controlId="formBasicEmail" className="mb-3">
               <Form.Label style={{ color: "black" }}>City</Form.Label>
 
-              <Form.Control style={{ width: "50%" }} value={city}  onChange={(e) => setCity(e.target.value)}/>
+              <Form.Control
+                style={{ width: "50%" }}
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword" className="mb-3">
@@ -194,22 +231,26 @@ const pincoderegex=/^[1-9][0-9]{5}$/
                 required={true}
                 onChange={(e) => setPincode(e.target.value)}
               />
-                 <div style={{ color: 'red'}} className="error">{pincodeError}</div>
+              <div style={{ color: "red" }} className="error">
+                {pincodeError}
+              </div>
             </Form.Group>
-          <Button variant="outline-warning" type="submit" size='lg' className="buttonShowOrg">Update  </Button>
+            <Button
+              variant="outline-warning"
+              type="submit"
+              size="lg"
+              className="buttonShowOrg"
+            >
+              Update{" "}
+            </Button>
           </Form>
 
 
-
-<p className="buttonShowOrg">
-
             <NavLink exact to="/updateOrganisation">
-              <FontAwesomeIcon icon={faEdit} />
-              Update Password?
+              <Button variant="outline-warning" type="submit" className="buttonShowOrg" size="lg">
+                Update Password
+              </Button>
             </NavLink>
-</p>
-
-
 
         </Card>
       </div>

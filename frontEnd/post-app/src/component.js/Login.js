@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,NavLink} from 'react-router-dom';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import "./login.css"
@@ -9,7 +9,7 @@ function Login() {
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [remember,setRemember]=useState(false)
+  const [remember,setRemember]=useState(true)
   const [storedemail,setStoredemail]=useState("")
   const [storedPassword,setStoredPassword]=useState("")
 
@@ -36,7 +36,15 @@ function Login() {
     if(remember){
       localStorage.setItem("email",email)
       localStorage.setItem("password",password)
+    }else{
+      let x=  localStorage.getItem("email",email)
+      let y=localStorage.getItem("password",password)
+      if(x&&y){
+        localStorage.removeItem("email")
+        localStorage.removeItem("password")
+      }
     }
+ 
 
     const data={
         email:email,
@@ -85,8 +93,14 @@ function Login() {
 
             
             <Button variant="outline-danger" type="submit" size="lg" className='button' >Sign In</Button>
+            <br/>
 
-            <p style={{color:"black"}}>If you are not a registered user please <a href='/register'>sign up</a></p>
+
+            <p style={{color:"black"}} > <NavLink to="/emailverify" className='forget'> Forgot Password?</NavLink></p> 
+
+            <p style={{color:"black"}} className='forget' >If you are not a registered user please <NavLink to="/register"> sign up</NavLink></p>
+
+
           </Form>
         </Col>
       </Row>

@@ -19,10 +19,12 @@
     margin-top: 0px;
 }
 .buttonShowOrg{
-    padding: 10px;
-    margin-left: 170px;
+    /* padding: 10px;
+    margin-left: 170px; */
     /* padding-left: 50px; */
-    /* display: flex; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     /* flex-direction: column;  */
 }
 .passwordcard{

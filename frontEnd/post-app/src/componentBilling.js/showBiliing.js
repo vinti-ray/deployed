@@ -10,6 +10,7 @@ import ShopDetail from "./shopDetail";
 import jwt_decode from 'jwt-decode';
 import jsPDF from 'jspdf';
 import html2pdf from 'html2pdf.js';
+import GooglePyment from "../paytmComponet/googlePay";
 // import generatePDF from "./generatePdf";
 
 // import Shop from "./shopDetail";
@@ -67,6 +68,7 @@ function Invoice() {
     let check=""
     let error=""
     let itemError=""
+    let naemError=""
     const regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
     const numberRegex =/^\d*\.?\d+$/;
     let justNumber=/^\d+$/
@@ -81,9 +83,10 @@ function Invoice() {
       check="please select payment option"
     }
     if(customerName==""){
-      setNameError("please enter customer name")
+      naemError="please enter customer name"
     }
     setPayementError(check)
+    setNameError(naemError)
 
 
     const list = [...items];
@@ -133,8 +136,6 @@ function Invoice() {
 
     list.splice(index, 1);
     setItems(list);
-    }else{
-    setItemError("Can't remove if there is just one input field")
     }
   };
 
@@ -258,7 +259,7 @@ function Invoice() {
     <div className="main-content" id="invoice-content">
       <Card className="invoice-card">
         <h1 className="text-center">Invoice</h1>
-        <ShopDetail/>
+        {/* <ShopDetail/> */}
         {/* <Shop/> */}
         <Form encType="multipart/form-data" onSubmit={handleSubmit}>
           {/* <Form.Group controlId="date">
@@ -273,8 +274,8 @@ function Invoice() {
             />
           </Form.Group> */}
 
-          <Form.Group controlId="customerName">
-            <Form.Label>Customer Name</Form.Label>
+          <Form.Group controlId="customerName" className="mb-3">
+            <Form.Label style={{color:"black"}}>Customer Name</Form.Label>
             <Form.Control
               className="input"
               type="text"
@@ -298,8 +299,8 @@ function Invoice() {
             />
           </Form.Group>
 
-          <Form.Group controlId="customerNumber">
-            <Form.Label>Customer Number</Form.Label>
+          <Form.Group controlId="customerNumber" className="mb-3">
+            <Form.Label style={{color:"black"}}>Customer Number</Form.Label>
             <Form.Control
               className="input"
               maxLength={10}
@@ -437,8 +438,8 @@ function Invoice() {
 
 
 
-            <Form.Group className="no-print">
-        <Form.Label  className="payment">Payment Method:</Form.Label>
+            <Form.Group className="no-print" >
+        <Form.Label  className="payment" style={{color:"black"}}>Payment Method:</Form.Label>
         <ButtonGroup toggle>
           {paymentMethods.map((paymentMethod) => (
             <div key={paymentMethod.value} className="mr-3">
@@ -487,12 +488,15 @@ function Invoice() {
 
           </Table>
           <div className="no-print">
+          <GooglePyment price={netTotal}/>
             <Button type="submit" className="headerthree"  onClick={generateInvoice}>
               Generate Invoice
             </Button>
             <Button type="submit" className="headerthree" >
               paid
             </Button>
+
+
           </div>
         </Form>
         <Card.Footer className="invoice-footer">

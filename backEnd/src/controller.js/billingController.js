@@ -1,7 +1,9 @@
 const billinModel=require("../model/billing")
-const { PDFDocument } = require('pdf-lib');
+// const { PDFDocument } = require('pdf-lib');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+const PDFDocument = require('pdfkit');
+// const nodemailer = require('nodemailer');
 const createBill=async(req,res)=>{
 try {
                 let data=req.body 
@@ -62,57 +64,119 @@ try {
 
 
                  if(email!=""){
+                  const invoiceData = {
+                     invoiceNumber:createData._id,
+                     customerName: customerName,
+                     items:[ ...item],
+                     total:total,
+
+                     netTotal:netTotal
+                   };
+                   
+                   // Create the PDF invoice
+                   const doc = new PDFDocument();
+                   doc.pipe(fs.createWriteStream('invoice.pdf'));
+                   
+                   doc
+                     .fontSize(25)
+                     .text('Invoice', { align: 'center' })
+                     // .moveDown();
+                   
+                   doc
+                     .fontSize(16)
+                     .text(`Invoice Number: ${invoiceData.invoiceNumber}`)
+                     .moveDown();
+                   
+                   doc
+                     .fontSize(14)
+                     .text(`Customer Name: ${invoiceData.customerName}`)
+                     .moveDown();
+                   
+                   doc
+                     .fontSize(12)
+                     .text('Items')
+                     .moveDown();
+                   
+                  //  doc
+                  //    .fontSize(10)
+                  //    .text('Name', { width: 200, bold: true })
+                  //    .text('Price', { width: 100, bold: true })
+                  //    .text('Quantity', { width: 100, bold: true })
+                  //    // .moveDown();
+                   
+                   invoiceData.items.forEach(item => {
+                     doc
+                       .fontSize(14)
+                       .text(`Item name: ${item.itemName}`)
+                       .text(`Price: ${item.mrp}`)
+                       .text(`Quantity: ${item.quantity}`)
+                     //   .text(item.value)
+                      .moveDown();
+                   });
+                   doc
+                   .fontSize(14)
+                   .text(`Total: ${invoiceData.total}`)
+                   .moveDown();
+                   doc
+                   .fontSize(14)
+                   .text(`CGST: 14`)
+                   .moveDown();
+                   doc
+                   .fontSize(14)
+                   .text(`SGST: 14`)
+                   .moveDown();
+                 
+                   doc
+                   .fontSize(14)
+                   .text(`Total Paid: ${invoiceData.netTotal}`)
+                   .moveDown();
+                 
+                   doc
+                   .fontSize(14)
+                   .text(`Thanks for shopping with us`)
+                   .moveDown();
+                 
+                   
+                   doc.end();
+                   
+                   // Send the email
+                   const transporter = nodemailer.createTransport({
+                     service: 'outlook',
+                     auth: {
+                       user: 'vintiray71@outlook.com',
+                       pass: 'Chhavi@80',
+                     },
+                   });
+                   
+                   const mailOptions = {
+                     from: 'vintiray71@outlook.com',
+                     to: email,
+                     subject: 'Supermarket Invoice',
+                     text: 'Please find your invoice attached.',
+                     attachments: [
+                       {
+                         filename: 'invoice.pdf',
+                         path: 'invoice.pdf',
+                       },
+                     ],
+                   };
+                   
+                   transporter.sendMail(mailOptions, (error, info) => {
+                     if (error) {
+                       console.error(error);
+                     } else {
+                       console.log(`Email sent: ${info.response}`);
+                     }
+                   });
                   
          
 
-                 const invoiceData = req.body.invoice;
-                 const invoiceBuffer = Buffer.from(invoiceData);
-
-
-                 PDFDocument.load(invoiceBuffer).then(async(pdfDoc) => {
-                           let mailTransporter = nodemailer.createTransport({
-                              service: 'outlook',
-                              auth: {
-                                 user: "vintiray71@outlook.com",
-                                 pass: "Chhavi@80"
-                              }
-                        });
-                        const pdfBytes =await pdfDoc.save();
-       
-                  let mailDetails = {
-                        from: "vintiray71@outlook.com",
-                        to: email, 
-                        subject: 'Test mail',
-                        // text:"hii "
-                        attachments: [{
-                           filename: 'file.pdf',
-                        content: pdfBytes,
-                           contentType: 'application/pdf'
-                         }],
-                  };
-                 
-                 mailTransporter.sendMail(mailDetails , function(err, data) {
-                     if(err) {
-                         console.log(err);
-                     } else {
-                         console.log('Email sent successfully');
-                     }
-                 });
-                 console.log('PDF received and processed successfully.');
-                }).catch((error) => {
-                  // Handle errors here
-                  console.log(error.message);
-                });
-               } else{
-                  console.log("email is not provided by user")
-               }
-
-
+                 }
                  return res.status(201).send({status:true,message:createData})
 } catch (error) {
    return res.status(500).send({status:false, message:error.message})
 }
-
+ 
 
 
 }

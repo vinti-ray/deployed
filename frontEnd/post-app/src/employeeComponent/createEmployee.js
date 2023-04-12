@@ -88,7 +88,7 @@ function Employee(){
 
 
         <Card className="employee"  >
-            <h1 className="header">Create Employee Data</h1>
+            <h1 className="header">Employee Details</h1>
             <Form enctype="multipart/form-data" onSubmit={HandleSubmit}>
             <Form.Group controlId="customerName"  className="mb-3">
             <Form.Label style={{color:"black"}}>Staff Name</Form.Label>

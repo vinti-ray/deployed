@@ -115,7 +115,7 @@ const pincoderegex=/^[1-9][0-9]{5}$/
 
             <Form.Group controlId="formBasicName" className="mb-3">
    
-              <Form.Label style={{color:"black"}}>Organisation's Name</Form.Label>
+              <Form.Label style={{color:"black"}}>Organization's Name</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
 
               <Form.Control  style={{ width: '100%' }} type="text" value={organisationName} required={true} onChange={(event) => setorganisationName(event.target.value)} />

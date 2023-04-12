@@ -34,6 +34,9 @@ const userSchema=new mongoose.Schema({
         type:Number,
         required:true
     },
+    profileImage:{
+        type:String,
+    }
 
     // confirmPassword:{
     //     type:String,

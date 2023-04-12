@@ -52,7 +52,7 @@ useEffect(()=>{
         return {
           columns: [
             {
-                label: 'Bill no',
+                label: 'Bill No',
                 field: 'billno',
                 width: 100,
                 attributes: {
@@ -123,7 +123,7 @@ useEffect(()=>{
                     scrollX
                     maxHeight="50vh"
                     data={data()}
-                    materialSearch
+                    searching={true}
 
                     
                     />
