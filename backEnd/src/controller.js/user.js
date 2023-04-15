@@ -130,6 +130,10 @@ const updateOrg=async(req,res)=>{
         let uploadFileUrl = await uploadFile(files[0])
         data.profileImage = uploadFileUrl
     }
+	if(data.email){
+		const isEmailUnique= await userModel.findOne({email:data.email})
+		if(isEmailUnique&&organisationId!=isEmailUnique._id)   return res.status(400).send({status:false, message:"email is already used,please use another email"})
+	}
 
 		await userModel.findByIdAndUpdate(organisationId,data)
 
