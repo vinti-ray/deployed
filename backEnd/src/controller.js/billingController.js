@@ -143,8 +143,8 @@ try {
                    const transporter = nodemailer.createTransport({
                      service: 'outlook',
                      auth: {
-                       user: 'vintiray71@outlook.com',
-                       pass: 'Chhavi@80',
+                       user: 'myoutlook@outlook.com',
+                       pass: 'myoutlookpassword',
                      },
                    });
                    
