@@ -3,11 +3,12 @@
 }
 .tableEmployee{
     margin-top: 50px;
+    padding: 20px;
     }
  .employeebutton{
         margin-top: 20px;
         margin-left: 200px;
     }
-    .search-container{
-        float:"right"
-    }
+    /* .search-container{
+        style={{float:"right"}}
+    } */

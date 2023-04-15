@@ -79,7 +79,7 @@ function DataInventory(){
              </NavLink>
                 <CDBCardBody>
 
-                <div className="search-container">
+                <div className="search-container" style={{ margin: "0px 0px 0px 800px" }}>
               <input
                 type="text"
                 placeholder="Search..."

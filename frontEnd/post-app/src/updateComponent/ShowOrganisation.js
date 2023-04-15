@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import "./update.css";
 import { Link, NavLink } from "react-router-dom";
+// import faviconUpdate from "../faviconIcon.json/icon";
 
 // import Dropzone from 'react-dropzone';
 import Sidebar from "../componentBilling.js/sideBar";
@@ -47,6 +48,17 @@ function ShowUser() {
     setSelectedImage(event.target.files[0]);
     setImagePreview(URL.createObjectURL(event.target.files[0]));
   };
+
+
+  useEffect(() => {
+    const faviconUpdate = async () => {
+      const favicon = document.getElementById("favicon");
+       document.getElementById("titleHtml").innerHTML=organisationName
+        favicon.href = imagePreview;
+        // titleHtml
+    };
+    faviconUpdate();
+  }, [imagePreview,organisationName]);
   // let token = localStorage.getItem("token");
 
   const [id, setId] = useState("");
@@ -128,6 +140,7 @@ function ShowUser() {
       <div className="sidebar">
         <Sidebar />
       </div>
+      {/* <faviconUpdate icon={imagePreview}/> */}
       <div className="main-content">
         <Card className="organisationcard">
           <div className="img">

@@ -101,7 +101,7 @@ item.generatedDate.includes(searchQuery)
 
                 <CDBCardBody>
                   
-                <div className="search-container" >
+                <div className="search-container" style={{ margin: "0px 0px 0px 800px" }}>
               <input
                 type="text"
                 placeholder="Search..."
@@ -109,18 +109,8 @@ item.generatedDate.includes(searchQuery)
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-                    <CDBDataTable
 
-                    // striped
-                    // bordered
-                    // hover
-                    // entriesOptions={[5,10,15]}
-                    // entries={5}
-                    // pagesAmount={4}
-                    // data={data()}
-                    // materialSearch={true}
-                    // striped bordered hover entriesOptions={[5,10,15]} data={data()} searching={false}
-                    // searchLabel="Search"
+                   <CDBDataTable
                     entriesOptions={[5,10,15]}
                     striped
                     bordered
@@ -130,9 +120,6 @@ item.generatedDate.includes(searchQuery)
                     data={data()}
                     searching={false}
 
-                    // search={handleSearch}
-                    // searchValue={searchValue}
-                    
                     />
 
  

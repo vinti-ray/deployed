@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
-import { Nav, Navbar, NavbarBrand, NavDropdown } from 'react-bootstrap';
+import { Button, Nav, Navbar, NavbarBrand, NavDropdown } from 'react-bootstrap';
 import { FaSignOutAlt,FaUser,FaCog,FaBeer    } from 'react-icons/fa';
 import "./sidebar.css"
+// import About from "../faviconIcon.json/icon";
 
 function Logout() {
     // Clear session data, e.g. by calling an API endpoint or removing cookies
@@ -37,15 +38,19 @@ function MyNavbar(){
     //   },token)
     // console.log(token);
     return(
-        <Navbar className="Nav">
+        <div>
+
+
+        <Navbar className="Nav ">
             {/* <NavbarBrand href="/">
               <FaBeer /> Profile
             </NavbarBrand> */}
 
+
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
             <Navbar.Collapse  id="basic-navbar-nav">
-                <Nav className="mr-auto">
+                <Nav className="mr-auto ">
 
                     <NavDropdown  id="basic-nav-dropdown"  title={<><img src="https://www.seekpng.com/png/detail/202-2024774_my-profile-comments-my-profile-icon-png.png"alt="image"  height="20"/> </>}>
                              <NavDropdown.Item href="/organisationprofile">
@@ -67,8 +72,16 @@ function MyNavbar(){
             </Navbar.Collapse>
 
 
+      {/* <Button className="btn" onClick={Mode}>Enable dark mode</Button> */}
         </Navbar>
+
+
+        </div>
     )
+
+    // function Mode(){
+    //     document.body.style.backgroundColor = 'black'
+    // }
 }
 
 export default MyNavbar

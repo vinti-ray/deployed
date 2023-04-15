@@ -60,19 +60,14 @@ function Sidebar() {
                 </NavLink>
 
                 <NavLink exact to="/salehome" >
-                    <CDBSidebarMenuItem icon='columns'>Total Data</CDBSidebarMenuItem>
+                    <CDBSidebarMenuItem icon='columns'>Total Sale</CDBSidebarMenuItem>
                 </NavLink>
 
             </CDBSidebarMenu>
 
         </CDBSidebarContent>
          
-         {/* <CDBSidebarFooter style={{ textAlign: 'center' }}>
-            <div  style={{ padding: '20px 5px', }}>
 
-            Sidebar footer
-            </div>
-         </CDBSidebarFooter> */}
 
      </CDBSidebar>
     </div>
