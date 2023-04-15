@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Table, Card,InputGroup,ButtonGroup } from "react-bootstrap";
+import { Button, Form, Table, Card,ButtonGroup } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import "./billing.css";
@@ -8,8 +8,8 @@ import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "./sideBar";
 import ShopDetail from "./shopDetail";
 import jwt_decode from 'jwt-decode';
-import jsPDF from 'jspdf';
-import html2pdf from 'html2pdf.js';
+// import jsPDF from 'jspdf';
+// import html2pdf from 'html2pdf.js';
 import GooglePyment from "../paytmComponet/googlePay";
 // import generatePDF from "./generatePdf";
 
@@ -29,11 +29,17 @@ function Invoice() {
    const [paymentError, setPayementError] = useState("");
    const [itemNumberError,setitemNumberError]=useState("")
   const [total, setTotal] = useState(null);
-  const [netTotal, setNetTotal] = useState(null);
+  const [netTotal, setNetTotal] = useState(0);
   const[itemError,setItemError]=useState("")
   const [justNumberError,setJustNumberError]=useState("")
   const [id,setId]=useState("")
   const [print,setPrint]=useState("")
+  const[orgemail,setorgemail]=useState("")
+  const [DisabelData,setDisabelData]=useState(true)
+  useEffect(()=>{
+    setorgemail(localStorage.getItem("email"))
+
+  },[])
 
   const navigate = useNavigate();
 
@@ -181,21 +187,21 @@ function Invoice() {
  
     const isValid = validate();
     if (isValid) {
-      const element = document.getElementById('invoice-content');
+      // const element = document.getElementById('invoice-content');
 
-      html2pdf().set({
-        margin: 1,
-        filename: 'invoice.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { dpi: 192, letterRendering: true },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-        useCORS: true,
-        contentType: 'application/pdf',
-        includeHiddenHtml: true,
-        // Add any other options here
-      }).from(element).outputPdf().then((pdf) => {
+      // html2pdf().set({
+      //   margin: 1,
+      //   filename: 'invoice.pdf',
+      //   image: { type: 'jpeg', quality: 0.98 },
+      //   html2canvas: { dpi: 192, letterRendering: true },
+      //   jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+      //   useCORS: true,
+      //   contentType: 'application/pdf',
+      //   includeHiddenHtml: true,
+      //   // Add any other options here
+      // }).from(element).outputPdf().then((pdf) => {
         const formData = new FormData();
-        formData.append('invoice', pdf);
+        // formData.append('invoice', pdf);
                 formData.append('customerName', customerName); 
         formData.append('number', customerNumber);
         formData.append('item', JSON.stringify(items));
@@ -208,8 +214,8 @@ function Invoice() {
         axios.post("http://localhost:3001/createbill", formData, { headers: { "token": token ,  'Content-Type': 'multipart/form-data'} }).then((e) => {
           navigate('/');
          });
-    })
-
+    // })
+// 
 
       // const doc = new jsPDF();
       // // doc.html(document.body, () => {
@@ -244,8 +250,15 @@ function Invoice() {
     // });
   }};
 
+  const HandleRadio=(e)=>{
+    e.preventDefault()
+    if(e.target.value=="credit_card/debit_card"||e.target.value=="upi"){
+      setDisabelData(false)
+    }
+  }
+
   const paymentMethods = [
-    { label: "Credit Card", value: "credit_card/debit_card" },
+    { label: "Credit Card / Debit Card", value: "credit_card/debit_card" },
     { label: "Cash", value: "cash" },
     { label: "Upi", value: "upi" },
   ];
@@ -445,12 +458,13 @@ function Invoice() {
             <div key={paymentMethod.value} className="mr-3">
               <Form.Check
                 type="radio"
-                variant="outline-primary"
+                variant="primary"
                 label={paymentMethod.label}
                 name="paymentMethod"
                 value={paymentMethod.value}
                 checked={paymentMethod === paymentMethod.value}
                 onChange={(e) => {setPaymentMethod(e.target.value)}}
+                onClick={HandleRadio}
                 
               />
             </div>
@@ -487,12 +501,17 @@ function Invoice() {
 
 
           </Table>
-          <div className="no-print">
-          <GooglePyment price={netTotal}/>
+          <div className="no-print" id="buttons">
+
+          <div  style={{float:"right",position:"relative",margin:"20px"}}>
+            
+          <GooglePyment   price={netTotal} isDisabled={DisabelData}/>
+
+          </div>
             <Button type="submit" className="headerthree"  onClick={generateInvoice}>
               Generate Invoice
             </Button>
-            <Button type="submit" className="headerthree" >
+            <Button type="submit" className="headerfour" >
               paid
             </Button>
 
@@ -503,7 +522,7 @@ function Invoice() {
           <div className="footer">
             <p style={{ color: "black" }}>
              * Thank you for your business! If you have any questions, please
-              contact us at vinti@gmail.com.
+              contact us at {orgemail}.
             </p>
           </div>
         </Card.Footer>

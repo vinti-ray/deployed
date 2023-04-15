@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Table, Card } from 'react-bootstrap';
 import axios from "axios";
-import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from 'cdbreact';
+import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer,Input  } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
 
 function DataInventory(){
     let [list,setList]=useState([])
     // const [searchValue,setSearchValue]=useState("")
-    const [searchText, setSearchText] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
     let token=localStorage.getItem("token")
+
 
     useEffect(()=>{
       axios.get("http://localhost:3001/getinventory",{ headers: { "token": token } }).then((e)=>setList(e.data.message))
     },[])
-//  const handleSearch=(value)=>{
-//     setSearchValue(value)
-//  }
 
+    const filteredData = list.filter((item) =>
+      item.brandName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.itemName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     const data = () => {
         let keyData=[]
-        for(let i=0;i<list.length;i++){
+        for(let i=0;i<filteredData.length;i++){
             let obj={}
            obj.srno=i+1
-            obj.brandName=list[i].brandName
-            obj.itemName=list[i].itemName
-            obj.itemQuantity=list[i].itemQuantity
+            obj.brandName=filteredData[i].brandName
+            obj.itemName=filteredData[i].itemName
+            obj.itemQuantity=filteredData[i].itemQuantity
 
             keyData.push(obj)
 
@@ -71,12 +73,21 @@ function DataInventory(){
       return(
         <CDBContainer className="tableInvenotry" >
 
-{/* generateinvoice */}
             <CDBCard>
             <NavLink exact to="/inventory" >
              <Button type="submit"  className="buttonOne" >Add Product</Button> 
              </NavLink>
                 <CDBCardBody>
+
+                <div className="search-container">
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+
                     <CDBDataTable
 
 
@@ -87,15 +98,8 @@ function DataInventory(){
                     scrollX
                     maxHeight="50vh"
                     data={data()}
-                    searching={true}
-                    searchInput={
-                      <input
-                        type="text"
-                        placeholder="Search"
-                        value={searchText}
-                        onClick={(e) =>{e.preventDefault();console.log(e) ;setSearchText(e.target.value)}}
-                      />
-                    }
+                    searching={false}
+
 
                     />
 

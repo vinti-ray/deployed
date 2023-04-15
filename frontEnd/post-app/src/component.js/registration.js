@@ -31,6 +31,8 @@ function RegisterUser() {
     let organisationNameError='';
     let emailError = '';
     let passwordError = '';
+    let pincodeError=''
+    let confirmpass=""
     // let LastnameError='';
  
   const nameRegex=/[a-zA-Z]{3,}/;
@@ -45,8 +47,14 @@ const pincoderegex=/^[1-9][0-9]{5}$/
     organisationNameError = 'please enter valid name';
   }
   if(!pincoderegex.test(pinCode)){
-    setPincodeError("please enter valid pincode")
+    pincodeError="please enter valid pincode"
+    
   }
+
+  if (confirmPassword !== password) {
+    confirmpass="password not matched"
+
+}
   // if (!nameRegex.test(lastname)) {
   //   LastnameError = 'please enter valid name';
   // }
@@ -61,23 +69,25 @@ const pincoderegex=/^[1-9][0-9]{5}$/
   }
 
   setOrganisationNameError(organisationNameError);
+  setPincodeError(pincodeError)
     // setLastNameError(LastnameError)
     setEmailError(emailError);
     setPasswordError(passwordError);
+    setconfirmPasswordError(confirmpass)
 
-    return !(organisationNameError||emailError || passwordError);
+    return !(organisationNameError||emailError || passwordError||confirmpass);
   };
 
 
- const handleConfirmPassword = (event) => {
+//  const handleConfirmPassword = (event) => {
      
-     setconfirmPassword(event.target.value)
-     if (event.target.value !== password) {
-        setconfirmPasswordError("passwword not matched")
-    }
+//      setconfirmPassword(event.target.value)
+//      if (event.target.value !== password) {
+//         setconfirmPasswordError("passwword not matched")
+//     }
     
 
-}
+// }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -170,7 +180,7 @@ const pincoderegex=/^[1-9][0-9]{5}$/
             <Form.Group controlId="password" className="mb-3">
               <Form.Label style={{color:"black"}}>confirm Password</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
-              <Form.Control  type="password" style={{ width: '100%' }} value={confirmPassword} required={true} onChange={handleConfirmPassword} />
+              <Form.Control  type="password" style={{ width: '100%' }} value={confirmPassword} required={true} onChange={((e)=>setconfirmPassword(e.target.value))} />
               <div style={{ color: 'red'}} className="error">{errorConfirmPassword}</div>
             </Form.Group>
             

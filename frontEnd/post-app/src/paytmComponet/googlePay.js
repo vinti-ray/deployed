@@ -4,7 +4,8 @@ import GooglePayButton from '@google-pay/button-react';
 // import { PaymentMethodType, TokenizationSpecificationType } from '@google-pay/button-js';
 import React from 'react';
 
-function GooglePyment({price}) {
+function GooglePyment({price,isDisabled}) {
+  const buttonStyle = isDisabled ? { pointerEvents: 'none' } : {};
   return (
     <div >
     
@@ -40,13 +41,14 @@ function GooglePyment({price}) {
           transactionInfo: {
             totalPriceStatus: 'FINAL',
             totalPriceLabel: 'Total',
-            totalPrice:"1",
+            totalPrice:price.toString(),
             currencyCode: 'INR',
             countryCode: 'IN',
           },
          
           shippingAddressRequired: true,
           callbackIntents: ['SHIPPING_ADDRESS', 'PAYMENT_AUTHORIZATION'],
+
         }}
         onLoadPaymentData={paymentRequest => {
           console.log('Success', paymentRequest);
@@ -62,8 +64,9 @@ function GooglePyment({price}) {
           }
         }
         existingPaymentMethodRequired='false'
-        buttonColor='black'
-        buttonType='Buy'
+        buttonColor='default'
+        buttonType='pay'
+        style={buttonStyle}
       /> 
     </div>
     

@@ -36,8 +36,19 @@
     font-style: bold;
   }
   .headerthree{
+
    margin-left: 300px;
-   margin-bottom: 20px;
+   /* margin-bottom: 10px; */
+   /* float: inline-end;
+   position: relative; */
+
+  }
+  .headerfour{
+
+   margin-left: 150px;
+   /* margin-bottom: 10px; */
+   /* float: inline-end;
+   position: relative; */
 
   }
   .buttonOne{

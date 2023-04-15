@@ -30,6 +30,19 @@ function ShowUser() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
+  //
+  // const [iconPath, setIconPath] = useState('https://leetcode.com/_next/static/images/logo-large-dark-94099a3702daad8363bf79c3faef5a3f.png');
+  // const [namePath, setNamePath]=useState("")
+  // useEffect(() => {
+  //   setNamePath(organisationName)
+  //   if (imagePreview) {
+  //     setIconPath(imagePreview);
+  //   } else {
+  //     setIconPath('https://leetcode.com/_next/static/images/logo-large-dark-94099a3702daad8363bf79c3faef5a3f.png');
+  //   }
+  // });
+  // //
+
   const handleImageSelect = (event) => {
     setSelectedImage(event.target.files[0]);
     setImagePreview(URL.createObjectURL(event.target.files[0]));
@@ -110,6 +123,7 @@ function ShowUser() {
 
   return (
     <div>
+    
       {" "}
       <div className="sidebar">
         <Sidebar />
@@ -235,22 +249,32 @@ function ShowUser() {
                 {pincodeError}
               </div>
             </Form.Group>
+
+
+
+<Row>
+  <Col>
             <Button
               variant="outline-warning"
               type="submit"
               size="lg"
               className="buttonShowOrg"
-            >
-              Update{" "}
+              >
+              Update
             </Button>
-          </Form>
-
-
+              </Col>
+              <Col>
             <NavLink exact to="/updateOrganisation">
               <Button variant="outline-warning" type="submit" className="buttonShowOrg" size="lg">
                 Update Password
               </Button>
             </NavLink>
+              </Col>
+            </Row>
+          </Form>
+
+
+
 
         </Card>
       </div>

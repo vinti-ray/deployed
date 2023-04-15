@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import "./Sale.css"
 function SaleData(){
     let [list,setList]=useState([])
+    const [searchQuery, setSearchQuery] = useState('');
     // const [searchValue,setSearchValue]=useState("")
     let token=localStorage.getItem("token")
     // let token=localStorage.getItem("token")
@@ -24,19 +25,22 @@ function SaleData(){
 //  const handleSearch=(value)=>{
 //     setSearchValue(value)
 //  }
+const filteredData = list.filter((item) =>
+item.generatedDate.includes(searchQuery)
+);
 
 
     const data = () => {
         let keyData=[]
-        for(let i=0;i<list.length;i++){
+        for(let i=0;i<filteredData.length;i++){
             let obj={}
             obj.srno=i+1
-            obj.totalSale=list[i].totalSale
+            obj.totalSale=filteredData[i].totalSale
 
 
-            obj.billAmount=list[i].billAmount
-            obj.paidAmount=list[i].paidAmount
-            obj.generatedDate=list[i].generatedDate
+            obj.billAmount=filteredData[i].billAmount
+            obj.paidAmount=filteredData[i].paidAmount
+            obj.generatedDate=filteredData[i].generatedDate
 
 
             keyData.push(obj)
@@ -96,6 +100,15 @@ function SaleData(){
             <CDBCard>
 
                 <CDBCardBody>
+                  
+                <div className="search-container" >
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
                     <CDBDataTable
 
                     // striped
@@ -115,7 +128,7 @@ function SaleData(){
                     scrollX
                     maxHeight="50vh"
                     data={data()}
-                    searching={true}
+                    searching={false}
 
                     // search={handleSearch}
                     // searchValue={searchValue}

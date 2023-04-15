@@ -18,15 +18,15 @@
 .org{
     margin-top: 0px;
 }
-.buttonShowOrg{
+/* .buttonShowOrg{
     /* padding: 10px;
     margin-left: 170px; */
     /* padding-left: 50px; */
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; */
     /* flex-direction: column;  */
-}
+/* } */ 
 .passwordcard{
     /* height: 50%; */
     padding: 100px;

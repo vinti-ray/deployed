@@ -13,7 +13,9 @@ import jwt_decode from "jwt-decode";
 function EditOrg() {
   const [oldPassword, setOldPassword] = useState("");
   const [password, setPassword] = useState("");
-
+  const [confirmPassword, setconfirmPassword] = useState('');
+  const [errorConfirmPassword, setconfirmPasswordError] = useState('');
+ 
   const [passwordError, setPasswordError] = useState("");
   const [oldPasswordError, setoldPasswordError] = useState("");
   const [id, setId] = useState("");
@@ -21,16 +23,25 @@ function EditOrg() {
   let token = localStorage.getItem("token");
 
   const validate = () => {
+    let confirmpass=""
+    // let passwordError = '';
     const passwordRegex =
       /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
     if (!passwordRegex.test(password)) {
+      
       setPasswordError(
         "Password must be at least 6 characters and contain at least one uppercase letter, one lowercase letter, and one number"
       );
     }
 
-    return !passwordError;
+    if (confirmPassword !== password) {
+      confirmpass="password not matched"
+  
+  }
+    
+  setconfirmPasswordError(confirmpass)
+    return !(passwordError||confirmpass);
   };
 
   // const navigate = useNavigate();
@@ -83,11 +94,13 @@ function EditOrg() {
               <Form.Label style={{ color: "black" }}>
                 Old Password
               </Form.Label>
+              <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
               <Form.Control
                 type="password"
                 value={oldPassword}
                 style={{ width: "50%" }}
                 onChange={(e) => setOldPassword(e.target.value)}
+                required
               />
               <div style={{ color: "red" }} className="error">
                 {oldPasswordError}
@@ -98,15 +111,24 @@ function EditOrg() {
               <Form.Label style={{ color: "black" }}>
                 New Password
               </Form.Label>
+              <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
               <Form.Control
                 type="password"
                 value={password}
                 style={{ width: "50%" }}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <div style={{ color: "red" }} className="error">
                 {passwordError}
               </div>
+            </Form.Group>
+
+            <Form.Group controlId="password" className="mb-3">
+              <Form.Label style={{color:"black"}}>confirm Password</Form.Label>
+              <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
+              <Form.Control  type="password" style={{ width: '50%' }} value={confirmPassword} required={true} onChange={((e)=>setconfirmPassword(e.target.value))} />
+              <div style={{ color: 'red'}} className="error">{errorConfirmPassword}</div>
             </Form.Group>
 
             <p style={{color:"black"}} > <NavLink to="/emailverify" className='forget'> Forgot Password?</NavLink></p> 

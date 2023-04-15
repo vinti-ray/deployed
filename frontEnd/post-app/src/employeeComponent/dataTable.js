@@ -3,12 +3,14 @@ import { Form, Button, Table, Card } from 'react-bootstrap';
 import axios from "axios";
 import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
+import "./employee.css"
 
 function DataEmployee(){
   function testClickEvent(param) {
     alert('Row Click Event');
   }
     let [list,setList]=useState([])
+    const [searchQuery, setSearchQuery] = useState('');
     // const [searchValue,setSearchValue]=useState("")
     let token=localStorage.getItem("token")
 
@@ -19,25 +21,30 @@ function DataEmployee(){
 //     setSearchValue(value)
 //  }
 
+const filteredData = list.filter((item) =>
+item.staffName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+item.email.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
 
     const data = () => {
         let keyData=[]
-        for(let i=0;i<list.length;i++){
+        for(let i=0;i<filteredData.length;i++){
             let obj={}
             obj.srno=i+1
-            obj.staffName=list[i].staffName
-            obj.number=list[i].number
-            obj.email=list[i].email
+            obj.staffName=filteredData[i].staffName
+            obj.number=filteredData[i].number
+            obj.email=filteredData[i].email
             // obj.dateOfJoining=list[i].dateOfJoining
 
-            let x=list[i].dateOfJoining
+            let x=filteredData[i].dateOfJoining
             const dateObj = new Date(x);
              const y = dateObj.toISOString().slice(0, 10);
              obj.dateOfJoining=y
 
-            obj.salary=list[i].salary
+            obj.salary=filteredData[i].salary
             // obj.image=list[i].image
-            obj.department=list[i].department
+            obj.department=filteredData[i].department
             // obj.  clickEvent= () => testClickEvent(1),
 
             keyData.push(obj)
@@ -110,6 +117,15 @@ function DataEmployee(){
              <Button type="submit"  className="buttonOne" >Add Employee </Button> 
              </NavLink>
                 <CDBCardBody>
+
+                <div className="search-container" >
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
                     <CDBDataTable
 
                     // striped
@@ -127,7 +143,7 @@ function DataEmployee(){
                     // scrollY
                     maxHeight="50vh"
                     data={data()}
-                    searching={true}
+                    searching={false}
 
                     // striped bordered hover entriesOptions={[5,10,15]} data={data()} searching={false}
                     // materialSearch={true}

@@ -50,7 +50,7 @@ function Login() {
         email:email,
         password:password
     }
-    await axios.post("http://localhost:3001/login",data).then((responce)=>{   localStorage.setItem("token", responce.data.message);localStorage.setItem("email",email);navigate('/');}).catch((e)=>{if(e.response.data.message=="invalid password") {setPasswordError(e.response.data.message)} else{setEmailError(e.response.data.message)}})
+    await axios.post("http://localhost:3001/login",data).then((responce)=>{   localStorage.setItem("token", responce.data.message);localStorage.setItem("email",email);navigate('/');window.location.reload(true)}).catch((e)=>{if(e.response.data.message=="invalid password") {setPasswordError(e.response.data.message)} else{setEmailError(e.response.data.message)}})
   }
 
 
@@ -96,9 +96,9 @@ function Login() {
             <br/>
 
 
-            <p style={{color:"black"}} > <NavLink to="/emailverify" className='forget'> Forgot Password?</NavLink></p> 
+            <p style={{color:"black"}} className='forget'>  <a    href="/emailverify" > Forgot Password?</a></p> 
 
-            <p style={{color:"black"}} className='forget' >If you are not a registered user please <NavLink to="/register"> sign up</NavLink></p>
+            <p style={{color:"black"}} className='forget' >If you are not a registered user please <NavLink  to="/register"> sign up</NavLink></p>
 
 
           </Form>

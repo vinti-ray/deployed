@@ -9,7 +9,14 @@ function EmailVerify() {
   const [emailError, setEmailError] = useState('');
   const [otp,setOtp]=useState("")
 
+// useEffect(()=>{
+//   window.location.reload(true)
+// },[])
+// useEffect(()=>{
 
+//       window.location.reload();
+
+//  },[null])
 
   const navigate = useNavigate();
 
