@@ -15,7 +15,7 @@ import EmailVerify from "./forgetPassword.js/forgetPassword";
 import EnterOtp from "./forgetPassword.js/enterOtp";
 import PasswordResetPage from "./forgetPassword.js/emailReset";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ErrorPage from "./Errorpage/error";
+
 
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
         <Route path="/emailverify" element={<EmailVerify />} />
         <Route path="/otpverify" element={<EnterOtp />} />
         <Route path="/passwordresetpage" element={<PasswordResetPage />} />
-        <Route path ="*" element={<ErrorPage/>}/>
+
 
       </Routes>
     </BrowserRouter>
