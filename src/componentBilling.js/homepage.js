@@ -13,6 +13,7 @@ function HomePage() {
   useEffect(()=>{
     if(!token){
       navigate('/login')
+      window.location.reload()
     }
     return () => {};
   },[])

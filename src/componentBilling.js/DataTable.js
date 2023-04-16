@@ -112,7 +112,7 @@ function DataTable() {
       <CDBContainer className="container">
         {/* generateinvoice */}
         <CDBCard>
-          <NavLink exact to="/billing">
+          <NavLink  to="/billing">
             <Button type="submit" className="buttonOne">
               Create Invoice
             </Button>

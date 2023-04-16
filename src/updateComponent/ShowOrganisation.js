@@ -85,7 +85,7 @@ function ShowUser() {
         setState(e.data.message.state);
         setStaff(e.data.message.numberOfEmployee);
         setImagePreview(e.data.message.profileImage);
-        console.log(e.data.message.profileImage);
+        
       });
   }, []);
 
@@ -275,7 +275,7 @@ function ShowUser() {
             </Button>
               </Col>
               <Col>
-            <NavLink exact to="/updateOrganisation">
+            <NavLink  to="/updateOrganisation">
               <Button variant="outline-warning" type="submit" className="buttonShowOrg" size="lg">
                 Update Password
               </Button>

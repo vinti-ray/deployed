@@ -124,7 +124,7 @@ function EditOrg() {
             </Form.Group>
 
             <Form.Group controlId="password" className="mb-3">
-              <Form.Label style={{color:"black"}}>confirm Password</Form.Label>
+              <Form.Label style={{color:"black"}}>Confirm Password</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
               <Form.Control  type="password" style={{ width: '50%' }} value={confirmPassword} required={true} onChange={((e)=>setconfirmPassword(e.target.value))} />
               <div style={{ color: 'red'}} className="error">{errorConfirmPassword}</div>

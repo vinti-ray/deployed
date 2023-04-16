@@ -27,6 +27,15 @@ function Employee(){
 
     },[])
 
+    useEffect(()=>{
+      let token=localStorage.getItem("token")
+      if(!token){
+        navigate('/login')
+        window.location.reload()
+      }
+      return () => {};
+    },[])
+
     const validate=(e)=>{
       let error=""
       let digitErr=""
@@ -70,7 +79,7 @@ function Employee(){
         formData.append('organisationId', id);
   
         
-        console.log(formData);
+
            let token=localStorage.getItem("token")
 
         axios.post("http://localhost:3001/createemplyee",formData,{ headers: { "token": token } }).then((e)=>navigate("/employeeHome"))
@@ -89,8 +98,8 @@ function Employee(){
 
         <Card className="employee"  >
             <h1 className="header">Employee Details</h1>
-            <Form enctype="multipart/form-data" onSubmit={HandleSubmit}>
-            <Form.Group controlId="customerName"  className="mb-3">
+            <Form encType="multipart/form-data" onSubmit={HandleSubmit}>
+            <Form.Group  className="mb-3">
             <Form.Label style={{color:"black"}}>Staff Name</Form.Label>
             <Form.Control
 
@@ -104,7 +113,7 @@ function Employee(){
 
 
             
-            <Form.Group controlId="customerName" className="mb-3">
+            <Form.Group  className="mb-3">
             <Form.Label style={{color:"black"}}>Number</Form.Label>
             <Form.Control
               className="input"
@@ -119,7 +128,7 @@ function Employee(){
 
           <div style={{ color: 'red'}} className="error">{numberError}</div>
          
-          <Form.Group controlId="formBasicEmail" className="mb-3">
+          <Form.Group  className="mb-3">
             <Form.Label style={{color:"black"}}>Email</Form.Label>
             <Form.Control
               className="input"
@@ -132,7 +141,7 @@ function Employee(){
           </Form.Group>
 
 
-          <Form.Group controlId="customerName" className="mb-3">
+          <Form.Group  className="mb-3">
             <Form.Label style={{color:"black"}}>Date of Joining </Form.Label>
             <Form.Control
               className="input"
@@ -144,7 +153,7 @@ function Employee(){
             />
           </Form.Group>
 
-          <Form.Group controlId="customerName" className="mb-3">
+          <Form.Group  className="mb-3">
             <Form.Label style={{color:"black"}}>Salary</Form.Label>
             <Form.Control
               className="input"
@@ -157,7 +166,7 @@ function Employee(){
           </Form.Group>
           <div style={{ color: 'red'}} className="error">{digitError}</div>
 
-          <Form.Group controlId="customerName" className="mb-3">
+          <Form.Group  className="mb-3">
             <Form.Label style={{color:"black"}}>Image</Form.Label>
             <Form.Control
               className="input"

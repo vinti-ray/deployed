@@ -9,8 +9,10 @@ function InventoryHome(){
     let token=localStorage.getItem("token")
     const navigate = useNavigate();
     useEffect(()=>{
+
       if(!token){
         navigate('/login')
+        window.location.reload()
       }
       return () => {};
     },[])

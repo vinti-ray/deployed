@@ -21,7 +21,7 @@ function Invoice() {
   const [nameError,setNameError]=useState("")
   const [customerNumber, setCustomerNumber] = useState("");
   const [items, setItems] = useState([
-    { itemName: "", quantity: null, discountedPrice: null, mrp: null, value: null },
+    { itemName: "", quantity: 0, discountedPrice: 0, mrp: 0, value: 0 },
   ]);
   
   const [paymentMehtod, setPaymentMethod] = useState("");
@@ -402,24 +402,23 @@ function Invoice() {
                     className="no-print"
                     onClick={() => handleAddItem(index)}
                   >
-                    {" "}
+
                     <FontAwesomeIcon icon={faPlus} />
                   </Button>
                   
                 </tr>
                 
               ))}
-               <div style={{ color: 'red'}} className="error">{itemError}</div>
-               <div style={{ color: 'red'}} className="error">{itemNumberError}</div>
+               
 
 
               <tr>
-                {" "}
+  
                 <th>Total </th> <th></th>
                 <th></th>
                 <th></th>
                 <td>
-                  <Form.Control value={total} />
+                  <Form.Control value={total} readOnly/>
                 </td>
               </tr>
 
@@ -427,28 +426,29 @@ function Invoice() {
                 <th>CGST </th>
 
                 <th>
-                  <td>14</td>
+                  14
                 </th>
               </tr>
               <tr>
                 <th>SGST </th>
 
                 <th>
-                  <td>14</td>
+                  14
                 </th>
               </tr>
 
               <tr>
-                {" "}
+
                 <th>Total Payable Amount </th> <th></th>
                 <th></th>
                 <th></th>
                 <td>
-                  <Form.Control value={netTotal} />
+                  <Form.Control value={netTotal} readOnly/>
                 </td>
               </tr>
             </tbody>
-
+            <div style={{ color: 'red'}} className="error">{itemError}</div>
+               <div style={{ color: 'red'}} className="error">{itemNumberError}</div>
 
 
             <Form.Group className="no-print" >

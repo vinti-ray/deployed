@@ -20,6 +20,8 @@ function DataInventory(){
       item.itemName.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    
+
     const data = () => {
         let keyData=[]
         for(let i=0;i<filteredData.length;i++){
@@ -74,7 +76,7 @@ function DataInventory(){
         <CDBContainer className="tableInvenotry" >
 
             <CDBCard>
-            <NavLink exact to="/inventory" >
+            <NavLink  to="/inventory" >
              <Button type="submit"  className="buttonOne" >Add Product</Button> 
              </NavLink>
                 <CDBCardBody>

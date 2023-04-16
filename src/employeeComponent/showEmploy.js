@@ -10,6 +10,7 @@ function EmployeeHome(){
     useEffect(()=>{
       if(!token){
         navigate('/login')
+        window.location.reload()
       }
       return () => {};
     },[])

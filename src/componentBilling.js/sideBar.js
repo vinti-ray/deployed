@@ -19,7 +19,7 @@ function Sidebar() {
       if(!token){
         navigate('/login')
       }else{
-        axios.get("http://localhost:3001/getUser",{ headers: { "token": token } }).then((e)=>{setName(e.data.message.name); document.getElementById("favicon").href=e.data.message.profileImage; document.getElementById("titleHtml").innerHTML=name})
+        axios.get("http://localhost:3001/getUser",{ headers: { "token": token } }).then((e)=>{setName(e.data.message.name); document.getElementById("favicon").href=e.data.message.profileImage; document.getElementById("titleHtml").innerHTML=e.data.message.name})
         
       
       }
@@ -48,20 +48,20 @@ function Sidebar() {
                     <CDBSidebarMenuItem >Billing</CDBSidebarMenuItem>
                 </NavLink> */}
                 
-                <NavLink exact to="/" >
+                <NavLink  to="/" >
                     <CDBSidebarMenuItem icon='columns'>Billing</CDBSidebarMenuItem>
                 </NavLink>
 
 
-                <NavLink exact to="/inventoryhome" >
+                <NavLink  to="/inventoryhome" >
                     <CDBSidebarMenuItem icon='columns'>Inventory</CDBSidebarMenuItem>
                 </NavLink>
 
-                <NavLink exact to="/employeeHome" >
+                <NavLink  to="/employeeHome" >
                     <CDBSidebarMenuItem icon='columns'>Staff</CDBSidebarMenuItem>
                 </NavLink>
 
-                <NavLink exact to="/salehome" >
+                <NavLink  to="/salehome" >
                     <CDBSidebarMenuItem icon='columns'>Total Sale</CDBSidebarMenuItem>
                 </NavLink>
 

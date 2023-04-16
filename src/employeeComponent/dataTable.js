@@ -113,7 +113,7 @@ function DataEmployee() {
     <CDBContainer className="tableEmployee">
       {/* generateinvoice */}
       <CDBCard>
-        <NavLink exact to="/employee">
+        <NavLink  to="/employee">
           <Button type="submit" className="buttonOne">
             Add Employee{" "}
           </Button>

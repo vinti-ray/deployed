@@ -8,25 +8,30 @@ import jwt_decode from 'jwt-decode';
 function Inventory(){
     const [brandName,setBrandName]=useState("")
     const [itemName,setItemName]=useState("")
-    const [itemQuantity,setItemQuantity]=useState(null)
+    const [itemQuantity,setItemQuantity]=useState("")
     const [numberError,setNumberError]=useState("")
     const [id,setId]=useState("")
     let navigate=useNavigate()
     let token=localStorage.getItem("token")
     // const navigate = useNavigate();
     useEffect(()=>{
+
       if(!token){
         navigate('/login')
+        window.location.reload()
+      }else{
+        const decodedToken = jwt_decode(token);
+        setId(decodedToken.id)
       }
       return () => {};
     },[])
 
-    useEffect(()=>{
-      let token=localStorage.getItem("token")
-      const decodedToken = jwt_decode(token);
-      setId(decodedToken.id)
+    // useEffect(()=>{
+    //   let token=localStorage.getItem("token")
+    //   const decodedToken = jwt_decode(token);
+    //   setId(decodedToken.id)
 
-    },[])
+    // },[])
 
     const validate=(e)=>{
       let error=""
