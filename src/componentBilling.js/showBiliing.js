@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Table, Card,ButtonGroup } from "react-bootstrap";
+import { Button, Form, Table, Card,ButtonGroup,Row,Col } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import "./billing.css";
@@ -97,10 +97,7 @@ function Invoice() {
 
     const list = [...items];
     for(let i=0;i<list.length;i++){
-      // if(!list[i].discountedPrice){
-        //   setItemError("please enter diccoount if there is no discount please enter 0")
-        // }
-        
+
         
         if(!numberRegex.test(list[i].mrp)){
           itemError="mrp should be number"
@@ -142,6 +139,8 @@ function Invoice() {
 
     list.splice(index, 1);
     setItems(list);
+    }else{
+      {setItems([{itemName: "", quantity: "", discountedPrice: "", mrp: "", value: ""}])}
     }
   };
 
@@ -154,14 +153,6 @@ function Invoice() {
 
       window.print();
 
-
-
-    // console.log(items)
-    // if((!items[0].itemName)||(!items[0].quantity)||(!items[0].mrp)||customerName==""||customerNumber==""||paymentMehtod==""){
-    //   alert("please fill complete form and add atleast one item")
-    // }else{
-    //   window.print();
-    // }
 
   }};
   useEffect(()=>{
@@ -187,19 +178,7 @@ function Invoice() {
  
     const isValid = validate();
     if (isValid) {
-      // const element = document.getElementById('invoice-content');
 
-      // html2pdf().set({
-      //   margin: 1,
-      //   filename: 'invoice.pdf',
-      //   image: { type: 'jpeg', quality: 0.98 },
-      //   html2canvas: { dpi: 192, letterRendering: true },
-      //   jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-      //   useCORS: true,
-      //   contentType: 'application/pdf',
-      //   includeHiddenHtml: true,
-      //   // Add any other options here
-      // }).from(element).outputPdf().then((pdf) => {
         const formData = new FormData();
         // formData.append('invoice', pdf);
                 formData.append('customerName', customerName); 
@@ -211,43 +190,10 @@ function Invoice() {
         formData.append('organisationId', id);
         formData.append("email",email)
         console.log(formData);
-        axios.post("http://localhost:3001/createbill", formData, { headers: { "token": token ,  'Content-Type': 'multipart/form-data'} }).then((e) => {
+        axios.post("https://thunder-chill-wound.glitch.me/createbill", formData, { headers: { "token": token ,  'Content-Type': 'multipart/form-data'} }).then((e) => {
           navigate('/');
          });
-    // })
-// 
 
-      // const doc = new jsPDF();
-      // // doc.html(document.body, () => {
-      //   const pdfData = doc.output('blob');
-      //   const formData = new FormData();
-      //   formData.append('pdf', pdfData);
-      //   formData.append('customerName', customerName); 
-      //   formData.append('number', customerNumber);
-      //   formData.append('item', items);
-      //   formData.append('paymentMethod', paymentMehtod);
-      //   formData.append('total', total,);
-      //   formData.append('netTotal', netTotal,);
-      //   formData.append('organisationId', id);
-      //   console.log(formData);
-      //   axios.post("http://localhost:3001/createbill", formData, { headers: { "token": token } }).then((e) => {
-      //     navigate('/');
-      //   // });
-    // });
-
-
-    // let data = {
-    //   customerName: customerName,
-    //   number: customerNumber,
-    //   item: items,
-    //   paymentMethod: paymentMehtod,
-    //   total: total,     
-    //   netTotal: netTotal,
-    //   organisationId:id
-    // };
-    // axios.post("http://localhost:3001/createbill", data, { headers: { "token": token } }).then((e) => {
-    //   navigate('/');
-    // });
   }};
 
   const HandleRadio=(e)=>{
@@ -258,9 +204,9 @@ function Invoice() {
   }
 
   const paymentMethods = [
-    { label: "Credit Card / Debit Card", value: "credit_card/debit_card" },
-    { label: "Cash", value: "cash" },
-    { label: "Upi", value: "upi" },
+    { label: "Credit Card / Debit Card   ", value: "credit_card/debit_card" },
+    { label: "Cash  ", value: "cash" },
+    { label: "Upi  ", value: "upi" },
   ];
 
   return (
@@ -408,7 +354,9 @@ function Invoice() {
                   
                 </tr>
                 
-              ))}
+                ))}
+                <p style={{ color: 'red'}} className="error">{itemError}</p>
+                   <p style={{ color: 'red'}} className="error">{itemNumberError}</p>
                
 
 
@@ -447,13 +395,15 @@ function Invoice() {
                 </td>
               </tr>
             </tbody>
-            <div style={{ color: 'red'}} className="error">{itemError}</div>
-               <div style={{ color: 'red'}} className="error">{itemNumberError}</div>
+            </Table>
 
 
             <Form.Group className="no-print" >
+            <Row>
+
         <Form.Label  className="payment" style={{color:"black"}}>Payment Method:</Form.Label>
-        <ButtonGroup toggle>
+            </Row>
+        <ButtonGroup >
           {paymentMethods.map((paymentMethod) => (
             <div key={paymentMethod.value} className="mr-3">
               <Form.Check
@@ -465,42 +415,18 @@ function Invoice() {
                 checked={paymentMethod === paymentMethod.value}
                 onChange={(e) => {setPaymentMethod(e.target.value)}}
                 onClick={HandleRadio}
+               
                 
               />
             </div>
           ))}
         </ButtonGroup>
-        <div style={{ color: 'red'}} className="error">{paymentError}</div>
+        <p style={{ color: 'red'}} className="error">{paymentError}</p>
       </Form.Group>
 
-            {/* <Form.Group  className="no-print">
-              <Form.Label className="payment">Payment Method:</Form.Label><br/>
-              {paymentMethods.map((paymentMethod) => (
-                <Form.Check
-                  
-                  key={paymentMethod.value}
-                  type="radio"
-                  // id={paymentMethod.value}
-                  label={paymentMethod.label}
-                  name="paymentMethod"
-                  value={paymentMethod.value}
-                  checked={paymentMehtod === paymentMethod.value}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                  required
-                  inline
-                />
-              ))}
-            </Form.Group> */}
 
 
-
-
-
-
-
-
-
-          </Table>
+    
           <div className="no-print" id="buttons">
 
           <div  style={{float:"right",position:"relative",margin:"20px"}}>

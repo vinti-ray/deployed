@@ -34,7 +34,7 @@ function EmailVerify() {
         email:email,
       
     }
-    await axios.post("http://localhost:3001/forgetPassword",data).then((responce)=>{localStorage.setItem("otp",responce.data.message);localStorage.setItem("email",email)  ; setOtp(responce.data.message);navigate('/otpverify');}).catch((e)=>{if(e.response.data.message=="no email found") {setEmailError(e.response.data.message)} })
+    await axios.post("https://thunder-chill-wound.glitch.me/forgetPassword",data).then((responce)=>{localStorage.setItem("otp",responce.data.message);localStorage.setItem("email",email)  ; setOtp(responce.data.message);navigate('/otpverify');}).catch((e)=>{if(e.response.data.message=="no email found") {setEmailError(e.response.data.message)} })
   }
 
 
@@ -49,7 +49,7 @@ function EmailVerify() {
           <Form onSubmit={handleSubmit} className='emailverify' >
           <h1 className='forgettitle'>Forget Password</h1>
 
-            <Form.Group  controlId="formBasicName" className="mb-3" lab>
+            <Form.Group  controlId="formBasicName" className="mb-3" >
      
               <Form.Label style={{color:"black"}}>Email Address</Form.Label> 
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>

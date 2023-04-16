@@ -75,7 +75,7 @@ function ShowUser() {
     const decodedToken = jwt_decode(token);
     setId(decodedToken.id);
     axios
-      .get("http://localhost:3001/getUser", { headers: { token: token } })
+      .get("https://thunder-chill-wound.glitch.me/getUser", { headers: { token: token } })
       .then((e) => {
         setEmail(e.data.message.email);
         setorganisationName(e.data.message.name);

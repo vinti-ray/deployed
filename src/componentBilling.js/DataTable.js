@@ -24,7 +24,7 @@ function DataTable() {
   // let token=localStorage.getItem("token")
   useEffect(() => {
     axios
-      .get("http://localhost:3001/getdata", { headers: { token: token } })
+      .get("https://thunder-chill-wound.glitch.me/getdata", { headers: { token: token } })
       .then((e) => {
         setList(e.data.message);
       });

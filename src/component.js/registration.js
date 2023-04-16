@@ -104,7 +104,7 @@ const pincoderegex=/^[1-9][0-9]{5}$/
         city:city,
         pincode:pinCode
     }
-    axios.post("http://localhost:3001/createuser",data).then(()=>{navigate('/login')}).catch((e)=>{setEmailError(e.response.data.message)})
+    axios.post("https://thunder-chill-wound.glitch.me/createuser",data).then(()=>{navigate('/login')}).catch((e)=>{setEmailError(e.response.data.message)})
   }
   };
 

@@ -49,7 +49,7 @@ function PasswordResetPage() {
 
       };
       axios
-        .put("http://localhost:3001/updateForgetPassword", data, {
+        .put("https://thunder-chill-wound.glitch.me/updateForgetPassword", data, {
           
         })
         .then(() => {

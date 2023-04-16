@@ -33,7 +33,7 @@ function EnterOtp() {
           <Form onSubmit={handleSubmit} className="emailverify">
             <h1 className="forgettitle">Enter Otp</h1>
 
-            <Form.Group controlId="formBasicName" className="mb-3" lab>
+            <Form.Group controlId="formBasicName" className="mb-3" >
               <Form.Label style={{ color: "black" }}>OTP</Form.Label>
               <label style={{ color: "red", marginLeft: "5px" }}>*</label>
 

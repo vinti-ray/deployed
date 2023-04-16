@@ -47,7 +47,7 @@ function Login() {
       password: password,
     };
     await axios
-      .post("http://localhost:3001/login", data)
+      .post("https://thunder-chill-wound.glitch.me/login", data)
       .then((responce) => {
         localStorage.setItem("token", responce.data.message);
         localStorage.setItem("email", email);
@@ -75,7 +75,7 @@ function Login() {
           <Form onSubmit={handleSubmit} className="loginform">
             <h1 className="headerTitle">Sign In</h1>
 
-            <Form.Group controlId="formBasicName" className="mb-3" lab>
+            <Form.Group controlId="formBasicName" className="mb-3" >
               <Form.Label style={{ color: "black" }}>Email Address</Form.Label>
               <label style={{ color: "red", marginLeft: "5px" }}>*</label>
 
@@ -99,9 +99,9 @@ function Login() {
                 type="password"
                 style={{ width: "110%" }}
                 value={password}
-                autoComplete={storedPassword}
-                required={true}
+                // autoComplete={storedPassword}
                 onChange={(event) => setPassword(event.target.value)}
+                required={true}
               />
 
               <div style={{ color: "red" }} className="error">
