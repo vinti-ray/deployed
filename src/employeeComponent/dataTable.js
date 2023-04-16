@@ -16,7 +16,7 @@ function DataEmployee() {
 
   useEffect(() => {
     axios
-      .get("https://thunder-chill-wound.glitch.me/getemployee", { headers: { token: token } })
+      .get("http://localhost:3001/getemployee", { headers: { token: token } })
       .then((e) => setList(e.data.message));
   }, []);
   //  const handleSearch=(value)=>{

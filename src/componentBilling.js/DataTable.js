@@ -6,25 +6,19 @@ import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from "cdbreact";
 // import { CDBTable, CDBTableHeader, CDBTableBody, CDBContainer } from 'cdbreact';
 import { NavLink } from "react-router-dom";
 import Sidebar from "./sideBar";
-// import BootstrapTable from "react-bootstrap-table-next";
+
 function DataTable() {
 
   let token = localStorage.getItem("token");
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!token) {
-  //     navigate("/login");
-  //   }
-  //   return () => {};
-  // }, []);
+
 
   let [list, setList] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // let token=localStorage.getItem("token")
+
   useEffect(() => {
     axios
-      .get("https://thunder-chill-wound.glitch.me/getdata", { headers: { token: token } })
+      .get("http://localhost:3001/getdata", { headers: { token: token } })
       .then((e) => {
         setList(e.data.message);
       });
@@ -53,7 +47,7 @@ function DataTable() {
       keyData.push(obj);
       // obj={}
     }
-    // console.log(keyData);
+
     return {
       columns: [
         {
@@ -121,7 +115,7 @@ function DataTable() {
             <div className="search-container" style={{ margin: "0px 0px 0px 800px" }}>
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder="Search by name.."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />

@@ -29,7 +29,7 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(remember);
+
     if (remember) {
       localStorage.setItem("email", email);
       localStorage.setItem("password", password);
@@ -47,7 +47,7 @@ function Login() {
       password: password,
     };
     await axios
-      .post("https://thunder-chill-wound.glitch.me/login", data)
+      .post("http://localhost:3001/login", data)
       .then((responce) => {
         localStorage.setItem("token", responce.data.message);
         localStorage.setItem("email", email);
@@ -65,11 +65,7 @@ function Login() {
 
   return (
     <Container className="containerlogin">
-      {/* <Row >
-        <Col>
-          <h1 className='headerTitle'>Sign In</h1>
-        </Col>
-      </Row> */}
+
       <Row className="justify-content-md-center">
         <Col xs={12} md={6}>
           <Form onSubmit={handleSubmit} className="loginform">

@@ -12,7 +12,7 @@ function DataInventory(){
 
 
     useEffect(()=>{
-      axios.get("https://thunder-chill-wound.glitch.me/getinventory",{ headers: { "token": token } }).then((e)=>setList(e.data.message))
+      axios.get("http://localhost:3001/getinventory",{ headers: { "token": token } }).then((e)=>setList(e.data.message))
     },[])
 
     const filteredData = list.filter((item) =>

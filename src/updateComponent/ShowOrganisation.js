@@ -29,18 +29,7 @@ function ShowUser() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
-  //
-  // const [iconPath, setIconPath] = useState('https://leetcode.com/_next/static/images/logo-large-dark-94099a3702daad8363bf79c3faef5a3f.png');
-  // const [namePath, setNamePath]=useState("")
-  // useEffect(() => {
-  //   setNamePath(organisationName)
-  //   if (imagePreview) {
-  //     setIconPath(imagePreview);
-  //   } else {
-  //     setIconPath('https://leetcode.com/_next/static/images/logo-large-dark-94099a3702daad8363bf79c3faef5a3f.png');
-  //   }
-  // });
-  // //
+
 
   const handleImageSelect = (event) => {
     setSelectedImage(event.target.files[0]);
@@ -75,7 +64,7 @@ function ShowUser() {
     const decodedToken = jwt_decode(token);
     setId(decodedToken.id);
     axios
-      .get("https://thunder-chill-wound.glitch.me/getUser", { headers: { token: token } })
+      .get("http://localhost:3001/getUser", { headers: { token: token } })
       .then((e) => {
         setEmail(e.data.message.email);
         setorganisationName(e.data.message.name);
@@ -90,12 +79,19 @@ function ShowUser() {
   }, []);
 
   const validate = () => {
+    let emailError=""
     let error = "";
     const pincoderegex = /^[1-9][0-9]{5}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!pincoderegex.test(pincode)) {
       error = "please enter valid pincode";
     }
+
+    if (!emailRegex.test(email)) {
+      emailError = 'please enter valid email Id';
+    }
+  
 
     setPincodeError(error);
     // setLastNameError(LastnameError)
@@ -254,6 +250,7 @@ function ShowUser() {
                 value={pincode}
                 style={{ width: "50%" }}
                 required={true}
+                maxLength={6}
                 onChange={(e) => setPincode(e.target.value)}
               />
               <div style={{ color: "red" }} className="error">
@@ -266,9 +263,9 @@ function ShowUser() {
 <Row>
   <Col>
             <Button
-              variant="outline-warning"
+              variant="outline-danger"
               type="submit"
-              size="lg"
+             
               className="buttonShowOrg"
               >
               Update
@@ -276,7 +273,7 @@ function ShowUser() {
               </Col>
               <Col>
             <NavLink  to="/updateOrganisation">
-              <Button variant="outline-warning" type="submit" className="buttonShowOrg" size="lg">
+              <Button variant="outline-danger" type="submit" className="buttonShowOrg" >
                 Update Password
               </Button>
             </NavLink>

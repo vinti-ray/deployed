@@ -66,13 +66,13 @@ function EditOrg() {
         oldPassword: oldPassword,
       };
       axios
-        .put("https://thunder-chill-wound.glitch.me/updatePassword", data, {
+        .put("http://localhost:3001/updatePassword", data, {
           headers: { token: token },
         })
         .then(() => {
           navigate("/organisationprofile");
         })
-        .catch((e) => {console.log(e);
+        .catch((e) => {
           setoldPasswordError(e.response.data.message);
         });
     }
@@ -132,7 +132,7 @@ function EditOrg() {
 
             <p style={{color:"black"}} > <NavLink to="/emailverify" className='forget'> Forgot Password?</NavLink></p> 
 
-            <Button variant="outline-warning" className="editButton" type="submit">
+            <Button variant="outline-danger" className="editButton" type="submit">
               Update
             </Button>
           </Form>

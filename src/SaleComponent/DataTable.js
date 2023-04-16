@@ -20,7 +20,7 @@ function SaleData(){
     },[])
 
     useEffect(()=>{
-      axios.get("https://thunder-chill-wound.glitch.me/getSaleData",{ headers: { "token": token } }).then((e)=>setList(e.data.message))
+      axios.get("http://localhost:3001/getSaleData",{ headers: { "token": token } }).then((e)=>setList(e.data.message))
     },[])
 //  const handleSearch=(value)=>{
 //     setSearchValue(value)

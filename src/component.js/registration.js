@@ -104,7 +104,7 @@ const pincoderegex=/^[1-9][0-9]{5}$/
         city:city,
         pincode:pinCode
     }
-    axios.post("https://thunder-chill-wound.glitch.me/createuser",data).then(()=>{navigate('/login')}).catch((e)=>{setEmailError(e.response.data.message)})
+    axios.post("http://localhost:3001/createuser",data).then(()=>{navigate('/login')}).catch((e)=>{if(e.response.data.message="email is already used"){setEmailError("email is already used,please use another email")}else{alert(e)}})
   }
   };
 
@@ -150,22 +150,7 @@ const pincoderegex=/^[1-9][0-9]{5}$/
           </Row>
           <Row>
             <Col>
-            {/* <Form.Group controlId="customerNumber" className="mb-3">
-            <Form.Label style={{color:"black"}}>organisations Number</Form.Label>
-            <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
-            <Form.Control
-              className="input"
-              maxLength={10}
-              type="text"
-              value={number}
-              style={{ width: "100%" }}
-              onChange={(e) => setNumber(e.target.value)}
-              required
-            />
-          <div style={{ color: 'red'}} className="error">{numberError}</div>
 
-          
-          </Form.Group> */}
                       <Form.Group controlId="formBasicPassword" className="mb-3">
               <Form.Label style={{color:"black"}}>Password</Form.Label>
               <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
@@ -263,18 +248,6 @@ const pincoderegex=/^[1-9][0-9]{5}$/
 
 
 
-
-        
-
-
-
-
-            {/* <Form.Group controlId="name" className="mb-3">
-           <Form.Label style={{color:"black"}}>Last Name</Form.Label>
-              <label style={{ color: 'red', marginLeft: '5px' }} >*</label>
-              <Form.Control type="text" style={{ width: '110%' }}  value={lastname} required={true} onChange={(event) => setLastName(event.target.value)} />
-              <div style={{ color: 'red'}} className="error">{LastnameError}</div>
-            </Form.Group> */}
 
 
 

@@ -82,7 +82,7 @@ function Employee(){
 
            let token=localStorage.getItem("token")
 
-        axios.post("https://thunder-chill-wound.glitch.me/createemplyee",formData,{ headers: { "token": token } }).then((e)=>navigate("/employeeHome"))
+        axios.post("http://localhost:3001/createemplyee",formData,{ headers: { "token": token } }).then((e)=>navigate("/employeeHome"))
     }}
 
 
