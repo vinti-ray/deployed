@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Table, Card } from "react-bootstrap";
+import { Button, Form,  Card } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+
 import "./update.css";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 
 import Sidebar from "../componentBilling.js/sideBar";
 import jwt_decode from "jwt-decode";

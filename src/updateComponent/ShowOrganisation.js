@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useCallback, useRef } from "react";
-import { Button, Form, Table, Card, Row, Col } from "react-bootstrap";
+import { Button, Form, Card, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { Card, ListGroup, ListGroupItem, Button, Image } from 'react-bootstrap';
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+
 import "./update.css";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 // import faviconUpdate from "../faviconIcon.json/icon";
 
 // import Dropzone from 'react-dropzone';
@@ -23,7 +21,7 @@ function ShowUser() {
   const [pincode, setPincode] = useState("");
   const [staff, setStaff] = useState("");
 
-  const [profileImage, setProfileImage] = useState(null);
+
   const [emailError, setEmailError] = useState("");
   const [pincodeError, setPincodeError] = useState("");
   // const [password, setPassword] = useState('');

@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Button, Form, Table, Card } from "react-bootstrap";
+import React, {  useState } from "react";
+import { Button, Form,  Card } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
-import { Link, NavLink } from "react-router-dom";
 
 
 

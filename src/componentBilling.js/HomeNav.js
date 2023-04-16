@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import jwt_decode from 'jwt-decode';
+import React from "react";
+
 import { useNavigate } from 'react-router-dom';
-import { Button, Nav, Navbar, NavbarBrand, NavDropdown } from 'react-bootstrap';
-import { FaSignOutAlt,FaUser,FaCog,FaBeer    } from 'react-icons/fa';
+import {  Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { FaSignOutAlt,FaUser,   } from 'react-icons/fa';
 import "./sidebar.css"
 // import About from "../faviconIcon.json/icon";
 

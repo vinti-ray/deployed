@@ -1,9 +1,7 @@
-import Login from "./component.js/Login";
-import RegisterUser from "./component.js/registration";
-import Billing from "./componentBilling.js/billing";
+
 import Invoice from "./componentBilling.js/showBiliing";
 import HomePage from "./componentBilling.js/homepage";
-import Sidebar from "./componentBilling.js/sideBar";
+
 import Inventory from "./componentInventiry.js/inventoryCreate";
 import InventoryHome from "./componentInventiry.js/inventoryShow";
 import EmployeeHome from "./employeeComponent/showEmploy";

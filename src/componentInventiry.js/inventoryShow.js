@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import DataInventory from "./DataTable";
-import { Button, Form, Table,Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../componentBilling.js/sideBar';
 import MyNavbar from '../componentBilling.js/HomeNav';

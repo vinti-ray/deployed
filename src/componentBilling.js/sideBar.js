@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
     CDBSidebar,CDBSidebarContent,
-    CDBSidebarFooter,
+
     CDBSidebarHeader,
     CDBSidebarMenu,
     CDBSidebarMenuItem,
   } from 'cdbreact';
   import { NavLink } from 'react-router-dom';
-  import jwt_decode from 'jwt-decode';
+
 function Sidebar() {
     const [name,setName]=useState("")
     // const token = localStorage.getItem("token");

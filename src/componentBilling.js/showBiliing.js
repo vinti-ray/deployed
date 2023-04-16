@@ -6,7 +6,7 @@ import "./billing.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "./sideBar";
-import ShopDetail from "./shopDetail";
+
 import jwt_decode from 'jwt-decode';
 // import jsPDF from 'jspdf';
 // import html2pdf from 'html2pdf.js';
@@ -31,9 +31,9 @@ function Invoice() {
   const [total, setTotal] = useState(null);
   const [netTotal, setNetTotal] = useState(0);
   const[itemError,setItemError]=useState("")
-  const [justNumberError,setJustNumberError]=useState("")
+
   const [id,setId]=useState("")
-  const [print,setPrint]=useState("")
+
   const[orgemail,setorgemail]=useState("")
   const [DisabelData,setDisabelData]=useState(true)
   useEffect(()=>{

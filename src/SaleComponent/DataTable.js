@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Table, Card } from 'react-bootstrap';
+
 import axios from "axios";
 import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer } from 'cdbreact';
-import { NavLink } from 'react-router-dom';
+
 import { useNavigate } from "react-router-dom";
 import "./Sale.css"
 function SaleData(){

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Table, Card } from 'react-bootstrap';
+import {  Button, } from 'react-bootstrap';
 import axios from "axios";
-import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer,Input  } from 'cdbreact';
+import { CDBCard, CDBCardBody, CDBDataTable, CDBContainer  } from 'cdbreact';
 import { NavLink } from 'react-router-dom';
 
 function DataInventory(){

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Table, Card } from "react-bootstrap";
+import { Button, Form,  Card } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import "./inventory.css"
