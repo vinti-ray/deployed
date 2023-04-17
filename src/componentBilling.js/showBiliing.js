@@ -29,7 +29,7 @@ function Invoice() {
   const [nameError, setNameError] = useState("");
   const [customerNumber, setCustomerNumber] = useState("");
   const [items, setItems] = useState([
-    { itemName: "", quantity: null, discountedPrice:null, mrp: null, value: null },
+    { itemName: "", quantity: 0, discountedPrice:0, mrp: 0, value: 0 },
   ]);
 
   const [paymentMehtod, setPaymentMethod] = useState("");

@@ -104,7 +104,7 @@ item.generatedDate.includes(searchQuery)
                 <div className="search-container" style={{ margin: "0px 0px 0px 800px" }}>
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder="Search by date..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
