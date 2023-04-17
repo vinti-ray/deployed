@@ -28,7 +28,8 @@ body{
   border-radius: 10px;
   box-shadow: 10px 10px 10px 10px rgba(1, 0, 0, 0.5);
   width: fit-content;
-  height: 470px;
+  /* height: 470px; */
+  max-height: 500px;
   margin-top: 50px;
   max-width: 100px;
 
