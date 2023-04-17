@@ -66,7 +66,7 @@ function EditOrg() {
         oldPassword: oldPassword,
       };
       axios
-        .put("http://localhost:3001/updatePassword", data, {
+        .put("https://truth-glib-star.glitch.me/updatePassword", data, {
           headers: { token: token },
         })
         .then(() => {

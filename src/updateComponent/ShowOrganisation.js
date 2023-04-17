@@ -64,7 +64,7 @@ function ShowUser() {
     const decodedToken = jwt_decode(token);
     setId(decodedToken.id);
     axios
-      .get("http://localhost:3001/getUser", { headers: { token: token } })
+      .get("https://truth-glib-star.glitch.me/getUser", { headers: { token: token } })
       .then((e) => {
         setEmail(e.data.message.email);
         setorganisationName(e.data.message.name);
@@ -114,7 +114,7 @@ function ShowUser() {
       formData.append("pincode", pincode);
 
       axios
-        .post("http://localhost:3001/updateUser", formData, {
+        .post("https://truth-glib-star.glitch.me/updateUser", formData, {
           headers: { token: token },
         })
         .then(() => {

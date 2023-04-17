@@ -173,6 +173,7 @@ function Invoice() {
     setId(decodedToken.id);
   }, []);
 
+
   // const navigate = useNavigate();
   useEffect(() => {
     let token = localStorage.getItem("token");
@@ -200,7 +201,7 @@ function Invoice() {
       formData.append("email", email);
 
       axios
-        .post("http://localhost:3001/createbill", formData, {
+        .post("https://truth-glib-star.glitch.me/createbill", formData, {
           headers: { token: token, "Content-Type": "multipart/form-data" },
         })
         .then((e) => {

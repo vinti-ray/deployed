@@ -49,7 +49,7 @@ function PasswordResetPage() {
 
       };
       axios
-        .put("http://localhost:3001/updateForgetPassword", data, {
+        .put("https://truth-glib-star.glitch.me/updateForgetPassword", data, {
           
         })
         .then(() => {
