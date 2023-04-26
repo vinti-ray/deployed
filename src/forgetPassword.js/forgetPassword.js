@@ -34,7 +34,7 @@ function EmailVerify() {
         email:email,
       
     }
-    await axios.post("https://truth-glib-star.glitch.me/forgetPassword",data).then((responce)=>{localStorage.setItem("otp",responce.data.message);localStorage.setItem("email",email)  ; setOtp(responce.data.message);navigate('/otpverify');}).catch((e)=>{if(e.response.data.message=="no email found") {setEmailError(e.response.data.message)} })
+    await axios.post("http://localhost:3001/forgetPassword",data).then((responce)=>{localStorage.setItem("otp",responce.data.message);localStorage.setItem("email",email)  ; setOtp(responce.data.message);navigate('/otpverify');}).catch((e)=>{if(e.response.data.message=="no email found") {setEmailError(e.response.data.message)} })
   }
 
 

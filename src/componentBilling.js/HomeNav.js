@@ -6,7 +6,7 @@ import { FaSignOutAlt, FaUser } from "react-icons/fa";
 import "./sidebar.css";
 
 function Logout() {
-  // Clear session data, e.g. by calling an API endpoint or removing cookies
+  // Clear token in localstorage 
   localStorage.removeItem("token");
   // Redirect to the login page
   window.location.href = "/login";

@@ -20,7 +20,7 @@ function SaleData(){
     },[])
 
     useEffect(()=>{
-      axios.get("https://truth-glib-star.glitch.me/getSaleData",{ headers: { "token": token } }).then((e)=>setList(e.data.message))
+      axios.get("http://localhost:3001/getSaleData",{ headers: { "token": token } }).then((e)=>setList(e.data.message))
     },[])
 //  const handleSearch=(value)=>{
 //     setSearchValue(value)
@@ -56,7 +56,9 @@ item.generatedDate.includes(searchQuery)
               width: 100,
               attributes: {
                 'aria-controls': 'DataTable',
+                // aria-controls attribute is used to associate the column header with the table element that it controls,
                 'aria-label': 'Name',
+                //aria-label attribute is used to provide an accessible name for the column header
               },
             },
             {

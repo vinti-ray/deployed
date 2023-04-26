@@ -18,16 +18,25 @@ function PasswordResetPage() {
 
 
   const validate = () => {
+
+  let passerr=""
+  let conpasserr=""
     const passwordRegex =
       /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
 
     if (!passwordRegex.test(password)) {
-      setPasswordError(
-        "Password must be at least 6 characters and contain at least one uppercase letter, one lowercase letter, and one number"
-      );
+      passerr= "Password must be at least 6 characters and contain at least one uppercase letter, one lowercase letter, and one number"
+      ;
     }
 
-    return !passwordError;
+    if (confirmPassword !== password) {
+      conpasserr="password not matched"
+    }
+
+    setPasswordError(passerr)
+    setoldPasswordError(conpasserr)
+
+    return !(passerr||conpasserr);
   };
 
   // const navigate = useNavigate();
@@ -49,7 +58,7 @@ function PasswordResetPage() {
 
       };
       axios
-        .put("https://truth-glib-star.glitch.me/updateForgetPassword", data, {
+        .put("http://localhost:3001/updateForgetPassword", data, {
           
         })
         .then(() => {
@@ -57,7 +66,8 @@ function PasswordResetPage() {
                 navigate("/organisationprofile")
             }else{
 
-                navigate("/login");
+                navigate("/login")
+                window.location.reload();
             }
         })
         .catch((e) => {alert(e);
@@ -110,7 +120,7 @@ function PasswordResetPage() {
 
 
 
-            <Button variant="outline-warning" className="editButton" type="submit">
+            <Button variant="outline-danger" className="editButton" type="submit">
               Update
             </Button>
           </Form>

@@ -201,7 +201,7 @@ function Invoice() {
       formData.append("email", email);
 
       axios
-        .post("https://truth-glib-star.glitch.me/createbill", formData, {
+        .post("http://localhost:3001/createbill", formData, {
           headers: { token: token, "Content-Type": "multipart/form-data" },
         })
         .then((e) => {
@@ -212,8 +212,10 @@ function Invoice() {
 
   const HandleRadio = (e) => {
     e.preventDefault();
-    if (e.target.value == "credit_card/debit_card" || e.target.value == "upi") {
+    if (e.target.value == "credit_card/debit_card" ) {
       setDisabelData(false);
+    }else{
+      setDisabelData(true)
     }
   };
 

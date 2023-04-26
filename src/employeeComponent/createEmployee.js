@@ -82,7 +82,7 @@ function Employee(){
 
            let token=localStorage.getItem("token")
 
-        axios.post("https://truth-glib-star.glitch.me/createemplyee",formData,{ headers: { "token": token } }).then((e)=>navigate("/employeeHome"))
+        axios.post("http://localhost:3001/createemplyee",formData,{ headers: { "token": token } }).then((e)=>navigate("/employeeHome"))
     }}
 
 
@@ -150,6 +150,7 @@ function Employee(){
               value={dateOfJoining}
               onChange={(e) => setDateOfJoining(e.target.value)}
               required={true}
+              max={new Date().toISOString().split("T")[0]}
             />
           </Form.Group>
 

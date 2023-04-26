@@ -18,7 +18,7 @@ function DataTable() {
 
   useEffect(() => {
     axios
-      .get("https://truth-glib-star.glitch.me/getdata", { headers: { token: token } })
+      .get("http://localhost:3001/getdata", { headers: { token: token } })
       .then((e) => {
         setList(e.data.message);
       });

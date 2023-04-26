@@ -19,17 +19,14 @@ function Sidebar() {
       if(!token){
         navigate('/login')
       }else{
-        axios.get("https://truth-glib-star.glitch.me/getUser",{ headers: { "token": token } }).then((e)=>{setName(e.data.message.name); document.getElementById("favicon").href=e.data.message.profileImage; document.getElementById("titleHtml").innerHTML=e.data.message.name})
+        axios.get("http://localhost:3001/getUser",{ headers: { "token": token } }).then((e)=>{setName(e.data.message.name); document.getElementById("favicon").href=e.data.message.profileImage; document.getElementById("titleHtml").innerHTML=e.data.message.name})
         
       
       }
 
       return () => {};
     },[])
-    // const decodedToken = jwt_decode(token);
 
-
-    // let name=decodedToken.name
   return (
     <div style={{ display: 'flex', height: '100vh', overflow: 'scroll initial' }}>
 

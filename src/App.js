@@ -24,6 +24,7 @@ function App() {
 
       <Routes >
       <Route path="/" element={<HomePage />} />
+      
         {/* <Route path="/billing" element={<Billing />} /> */}
         <Route path="/billing" element={<Invoice />} />
         <Route path="/inventory" element={<Inventory />} />
@@ -43,14 +44,7 @@ function App() {
       </Routes>
     </BrowserRouter>
 
-    // <BrowserRouter>
-    // <Routes>
 
-
-    //     <Route path="/register" element={<RegisterUser />} />
-    //   <Route path="/login" element={<Login />} />
-    //   </Routes>
-    // </BrowserRouter>
 
   );
 }

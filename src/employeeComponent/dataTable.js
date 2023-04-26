@@ -16,7 +16,7 @@ function DataEmployee() {
 
   useEffect(() => {
     axios
-      .get("https://truth-glib-star.glitch.me/getemployee", { headers: { token: token } })
+      .get("http://localhost:3001/getemployee", { headers: { token: token } })
       .then((e) => setList(e.data.message));
   }, []);
   //  const handleSearch=(value)=>{

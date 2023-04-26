@@ -1,19 +1,19 @@
-import jwt_decode from 'jwt-decode';
-import "./shop.css"
+// import jwt_decode from 'jwt-decode';
+// import "./shop.css"
 
-function ShopDetail(){
-    const token = localStorage.getItem("token");
-    const decodedToken = jwt_decode(token);
-    let name=decodedToken.name
+// function ShopDetail(){
+//     const token = localStorage.getItem("token");
+//     const decodedToken = jwt_decode(token);
+//     let name=decodedToken.name
 
-    return(
-        <div className='shop'>
-            <h3>{name}</h3>
-            {/* <p style={{color:"black"}}>{email}</p> */}
-        </div>
-    )
-}
-export default ShopDetail
+//     return(
+//         <div className='shop'>
+//             <h3>{name}</h3>
+//             {/* <p style={{color:"black"}}>{email}</p> */}
+//         </div>
+//     )
+// }
+// export default ShopDetail
 
 
 

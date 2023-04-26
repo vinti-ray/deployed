@@ -47,7 +47,7 @@ function Login() {
       password: password,
     };
     await axios
-      .post("https://truth-glib-star.glitch.me/login", data)
+      .post("http://localhost:3001/login", data)
       .then((responce) => {
         localStorage.setItem("token", responce.data.message);
         localStorage.setItem("email", email);

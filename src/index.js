@@ -5,7 +5,7 @@ import Login from "./component.js/Login";
 import RegisterUser from "./component.js/registration";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
-import ErrorPage from "./Errorpage/error";
+
 import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

@@ -6,8 +6,7 @@ import "./registration.css"
 function RegisterUser() {
   const [organisationName, setorganisationName] = useState('');
   const [organisationNameError, setOrganisationNameError] = useState('');
-  // const [lastname, setLastName] = useState('');
-  // const [LastnameError, setLastNameError] = useState('');
+
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [password, setPassword] = useState('');
@@ -33,7 +32,7 @@ function RegisterUser() {
     let passwordError = '';
     let pincodeError=''
     let confirmpass=""
-    // let LastnameError='';
+
  
   const nameRegex=/[a-zA-Z]{3,}/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -55,9 +54,7 @@ const pincoderegex=/^[1-9][0-9]{5}$/
     confirmpass="password not matched"
 
 }
-  // if (!nameRegex.test(lastname)) {
-  //   LastnameError = 'please enter valid name';
-  // }
+
 
   if (!emailRegex.test(email)) {
     emailError = 'please enter valid email Id';
@@ -65,12 +62,12 @@ const pincoderegex=/^[1-9][0-9]{5}$/
 
 
   if (!passwordRegex.test(password)) {
-    passwordError = 'Password must be at least 6 characters and contain at least one uppercase letter, one lowercase letter, and one number';
+    passwordError = 'Enter Password in valid format';
   }
 
   setOrganisationNameError(organisationNameError);
   setPincodeError(pincodeError)
-    // setLastNameError(LastnameError)
+
     setEmailError(emailError);
     setPasswordError(passwordError);
     setconfirmPasswordError(confirmpass)
@@ -79,15 +76,7 @@ const pincoderegex=/^[1-9][0-9]{5}$/
   };
 
 
-//  const handleConfirmPassword = (event) => {
-     
-//      setconfirmPassword(event.target.value)
-//      if (event.target.value !== password) {
-//         setconfirmPasswordError("passwword not matched")
-//     }
-    
 
-// }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -104,7 +93,7 @@ const pincoderegex=/^[1-9][0-9]{5}$/
         city:city,
         pincode:pinCode
     }
-    axios.post("https://truth-glib-star.glitch.me/createuser",data).then(()=>{navigate('/login')}).catch((e)=>{if(e.response.data.message="email is already used"){setEmailError("email is already used,please use another email")}else{alert(e)}})
+    axios.post("http://localhost:3001/createuser",data).then(()=>{navigate('/login')}).catch((e)=>{if(e.response.data.message="email is already used"){setEmailError("email is already used,please use another email")}else{alert(e)}})
   }
   };
 

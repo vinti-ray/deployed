@@ -33,7 +33,15 @@ function ShowUser() {
 
   const handleImageSelect = (event) => {
     setSelectedImage(event.target.files[0]);
-    setImagePreview(URL.createObjectURL(event.target.files[0]));
+
+
+if(event.target.files[0]){
+
+  setImagePreview(URL.createObjectURL(event.target.files[0])); 
+}
+
+
+    //URL.createObjectURL is a built-in JavaScript function that creates a URL for a given object in memory. 
   };
 
 
@@ -41,7 +49,7 @@ function ShowUser() {
     const faviconUpdate = async () => {
       const favicon = document.getElementById("favicon");
        document.getElementById("titleHtml").innerHTML=organisationName
-        favicon.href = imagePreview;
+        favicon.href = imagePreview
         // titleHtml
     };
     faviconUpdate();
@@ -64,7 +72,7 @@ function ShowUser() {
     const decodedToken = jwt_decode(token);
     setId(decodedToken.id);
     axios
-      .get("https://truth-glib-star.glitch.me/getUser", { headers: { token: token } })
+      .get("http://localhost:3001/getUser", { headers: { token: token } })
       .then((e) => {
         setEmail(e.data.message.email);
         setorganisationName(e.data.message.name);
@@ -114,7 +122,7 @@ function ShowUser() {
       formData.append("pincode", pincode);
 
       axios
-        .post("https://truth-glib-star.glitch.me/updateUser", formData, {
+        .post("http://localhost:3001/updateUser", formData, {
           headers: { token: token },
         })
         .then(() => {
@@ -154,7 +162,7 @@ function ShowUser() {
               />
             ) : (
               <img
-                src={imagePreview}
+                src="https://cdn-icons-png.flaticon.com/512/16/16363.png"
                 alt="Selected Profile"
                 style={{
                   display: "flex",
@@ -167,16 +175,7 @@ function ShowUser() {
                 }}
               />
             )}
-            {/* 
-          {imagePreview && (
-        <div style={{ display: 'flex',  alignItems: 'center', justifyContent: 'center', width: '100px', height: '100px', borderRadius: '50%', overflow: 'hidden', }}  >
-          <img
-            src={imagePreview}
-            alt="Selected Profile"
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </div>
-      )} */}
+
 
             <input type="file" accept="image/*" onChange={handleImageSelect} />
           </div>
@@ -207,13 +206,13 @@ function ShowUser() {
               </div>
             </Form.Group>
 
-            <Form.Group controlId="formBasicEmail" className="mb-3">
+            <Form.Group controlId="formBasicName" className="mb-3">
               <Form.Label style={{ color: "black" }}>TotalStaff</Form.Label>
 
               <Form.Control style={{ width: "50%" }} disabled value={staff} />
             </Form.Group>
 
-            <Form.Group controlId="formBasicEmail" className="mb-3">
+            <Form.Group controlId="formBasicName" className="mb-3">
               <Form.Label style={{ color: "black" }}>Country</Form.Label>
 
               <Form.Control
@@ -223,7 +222,7 @@ function ShowUser() {
               />
             </Form.Group>
 
-            <Form.Group controlId="formBasicEmail" className="mb-3">
+            <Form.Group controlId="formBasicName" className="mb-3">
               <Form.Label style={{ color: "black" }}>State</Form.Label>
 
               <Form.Control
@@ -233,7 +232,7 @@ function ShowUser() {
               />
             </Form.Group>
 
-            <Form.Group controlId="formBasicEmail" className="mb-3">
+            <Form.Group controlId="formBasicName" className="mb-3">
               <Form.Label style={{ color: "black" }}>City</Form.Label>
 
               <Form.Control
