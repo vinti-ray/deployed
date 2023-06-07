@@ -1,62 +1,82 @@
 @media print {        
-    .no-print {
-      display: none;
-
-    }
-    .sidebar{
-      visibility: hidden;
-    }
-    .error{
-      display: none;
-    }
-
+  .no-print {
+    display: none;
   }
-
-  .total{
-   margin-left: 500px;
+  
+  .sidebar {
+    visibility: hidden;
   }
-  .headerone{
-    color: rgb(11, 10, 11);
- display: flex;
- align-items: center;
- justify-content: center;
+  
+  .error {
+    display: none;
   }
-  .headertwo{
-    margin-left: 500px;
-  }
-  .invoice-card{
-    padding: 20px;
-  }
-  @media print {        
+  
   .input {
     border: none;
-  }}
-
-  .input{
-    font-style: bold;
   }
-  .headerthree{
+}
 
-   margin-left: 300px;
-   /* margin-bottom: 10px; */
-   /* float: inline-end;
-   position: relative; */
+.total {
+  margin-left: 10px;
+}
 
-  }
-  .headerfour{
+.headerone {
+  color: rgb(11, 10, 11);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-   margin-left: 150px;
-   /* margin-bottom: 10px; */
-   /* float: inline-end;
-   position: relative; */
+.headertwo {
+  margin-left: 10px;
+}
 
+.invoice-card {
+  padding: 10px;
+}
+
+.input {
+  font-weight: bold;
+}
+
+.headerthree {
+  margin-left: 10px;
+}
+
+.headerfour {
+  margin-left: 10px;
+}
+
+.buttonOne {
+  margin-top: 10px;
+}
+
+.footer {
+  margin-top: 10px;
+}
+
+/* Media Queries */
+
+@media screen and (max-width: 768px) {
+  .total,
+  .headertwo,
+  .headerthree,
+  .headerfour {
+    margin-left: 10px;
   }
-  .buttonOne{
-    margin-top: 30px;
+  
+  .headerone {
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
-  .footer{
-    margin-top: 20px;
+  
+  .buttonOne {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
+}
+
   /* .form-control {
     display: inline-block;
     margin: 10px;

@@ -1,14 +1,37 @@
-.employee{
-    padding: 40px;
-}
-.tableEmployee{
-    margin-top: 50px;
+.employee {
     padding: 20px;
+  }
+  
+  .tableEmployee {
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+  .employeebutton {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Media Queries */
+  
+  @media screen and (max-width: 768px) {
+    .employee {
+      padding: 10px;
     }
- .employeebutton{
-        margin-top: 20px;
-        margin-left: 200px;
+  
+    .tableEmployee {
+      margin-top: 10px;
+      padding: 5px;
     }
+  
+    .employeebutton {
+      margin-top: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+  
     /* .search-container{
         style={{float:"right"}}
     } */
