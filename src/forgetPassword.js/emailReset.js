@@ -58,7 +58,7 @@ function PasswordResetPage() {
 
       };
       axios
-        .put("http://localhost:3001/updateForgetPassword", data, {
+        .put("https://gaudy-impossible-pulsar.glitch.me/updateForgetPassword", data, {
           
         })
         .then(() => {

@@ -93,7 +93,7 @@ const pincoderegex=/^[1-9][0-9]{5}$/
         city:city,
         pincode:pinCode
     }
-    axios.post("http://localhost:3001/createuser",data).then(()=>{navigate('/login')}).catch((e)=>{if(e.response.data.message="email is already used"){setEmailError("email is already used,please use another email")}else{alert(e)}})
+    axios.post("https://gaudy-impossible-pulsar.glitch.me/createuser",data).then(()=>{navigate('/login')}).catch((e)=>{if(e.response.data.message="email is already used"){setEmailError("email is already used,please use another email")}else{alert(e)}})
   }
   };
 

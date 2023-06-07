@@ -18,7 +18,7 @@ function DataTable() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/getdata", { headers: { token: token } })
+      .get("https://gaudy-impossible-pulsar.glitch.me/getdata", { headers: { token: token } })
       .then((e) => {
         setList(e.data.message);
       });

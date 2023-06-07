@@ -72,7 +72,7 @@ if(event.target.files[0]){
     const decodedToken = jwt_decode(token);
     setId(decodedToken.id);
     axios
-      .get("http://localhost:3001/getUser", { headers: { token: token } })
+      .get("https://gaudy-impossible-pulsar.glitch.me/getUser", { headers: { token: token } })
       .then((e) => {
         setEmail(e.data.message.email);
         setorganisationName(e.data.message.name);
@@ -122,7 +122,7 @@ if(event.target.files[0]){
       formData.append("pincode", pincode);
 
       axios
-        .post("http://localhost:3001/updateUser", formData, {
+        .post("https://gaudy-impossible-pulsar.glitch.me/updateUser", formData, {
           headers: { token: token },
         })
         .then(() => {

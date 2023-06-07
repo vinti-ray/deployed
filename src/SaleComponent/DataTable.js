@@ -20,7 +20,7 @@ function SaleData(){
     },[])
 
     useEffect(()=>{
-      axios.get("http://localhost:3001/getSaleData",{ headers: { "token": token } }).then((e)=>setList(e.data.message))
+      axios.get("https://gaudy-impossible-pulsar.glitch.me/getSaleData",{ headers: { "token": token } }).then((e)=>setList(e.data.message))
     },[])
 //  const handleSearch=(value)=>{
 //     setSearchValue(value)

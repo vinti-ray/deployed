@@ -53,7 +53,7 @@ function Inventory(){
             itemQuantity:itemQuantity,
             organisationId:id
         }
-        axios.post("http://localhost:3001/createInventory",data,{ headers: { "token": token } }).then((e)=>navigate("/inventoryhome"))
+        axios.post("https://gaudy-impossible-pulsar.glitch.me/createInventory",data,{ headers: { "token": token } }).then((e)=>navigate("/inventoryhome"))
     }}
 
     return(
