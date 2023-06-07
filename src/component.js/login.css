@@ -1,35 +1,47 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:600|Work+Sans:400,500,600,700&display=swap');
+ @import url('https://fonts.googleapis.com/css?family=Open+Sans:600|Work+Sans:400,500,600,700&display=swap');
 
-body {
+body{
+ 
   background-color: #f1efef;
   font-family: "work sans";
-}
-
-.forget {
+}  
+.forget{
   display: flex;
   justify-content: center;
 }
 
-.headerTitle {
+
+
+.headerTitle{
+
   text-align: center;
   color: rgb(12, 11, 10);
   font-family: 'open sans', sans-serif;
-  font-size: 4rem;
+  /* padding: 2rem 0; */
   margin: 0;
+  font-size: 4rem;
 }
+.containerlogin{
 
-.containerlogin {
   border: 1px solid #ccc;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 10px 10px 10px 10px rgba(1, 0, 0, 0.5);
-  width: 100%;
-  max-width: 500px;
+  width: fit-content;
+  /* height: 470px; */
+  max-height: 500px;
   margin-top: 50px;
-  margin-left: auto;
-  margin-right: auto;
-  box-sizing: border-box;
+  max-width: 100px;
+
 }
+
+
+.button{
+  display: flex;
+  justify-content: center;
+
+} 
+
 
 .mb-3 label {
   color: #fff;
@@ -37,10 +49,13 @@ body {
   font-weight: bold;
 }
 
+
+
 .mb-3 input[type="email"]:focus,
 .mb-3 input[type="password"]:focus {
-  box-shadow: rgb(162, 207, 15);
+  box-shadow:rgb(162, 207, 15);
   border-bottom: 4px solid rgb(142, 177, 25);
+  margin-left: 0%;
 }
 
 .error {
@@ -48,6 +63,8 @@ body {
   font-size: 14px;
   color: #ff0000;
 }
+
+
 
 .btn-outline-primary:hover {
   background-color: #fff;
@@ -59,30 +76,3 @@ p {
   font-size: 16px;
   margin-top: 20px;
 }
-
-/* Media Queries */
-
-@media screen and (max-width: 768px) {
-  .headerTitle {
-    font-size: 3rem;
-  }
-  
-  .containerlogin {
-    padding: 10px;
-    margin-top: 30px;
-    max-width: 400px;
-  }
-  
-  .mb-3 label {
-    font-size: 16px;
-  }
-  
-  .error {
-    font-size: 12px;
-  }
-  
-  p {
-    font-size: 14px;
-  }
-}
-

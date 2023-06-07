@@ -1,51 +1,35 @@
 /* Sidebar styles */
 .sidebar {
-  /* width: 250px; */
-  height: 100%;
-  background-color: #f1f1f1;
-  position: fixed;
-  top: 0;
-  left: 0;
+    /* width: 250px; */
+    height: 100%;
+    background-color: #f1f1f1;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  
+ /* Main content styles */ 
+ .main-content {
+    margin-left: 255px;
+  } 
+  /* .datatable{
+    margin-top: 250px;
+  }
+   */
+   .buttonOne{
+    margin-left: 900px;
+   }
+   .Nav{
+    margin-left: 900px;
+   }
+.datatable{
+    margin-top: 50px;
 }
+@media print {   
+.main-content{
+  margin-left: 0px;
+}}
 
-/* Main content styles */
-.main-content {
-  margin-left: 0;
-}
-
-.buttonOne {
-  margin-left: 10px;
-}
-
-.Nav {
-  margin-left: 10px;
-}
-
-.datatable {
-  margin-top: 50px;
-}
-
-.image {
+.image{
   margin-top: 9px;
-}
-
-/* Media Queries */
-
-@media screen and (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
-
-  .main-content {
-    margin-left: 10px;
-  }
-
-  .buttonOne,
-  .Nav {
-    margin-left: 10px;
-  }
-
-  .datatable {
-    margin-top: 20px;
-  }
 }

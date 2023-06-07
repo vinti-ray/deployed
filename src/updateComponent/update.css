@@ -1,58 +1,25 @@
-.editButton {
+.editButton{
     display: flex;
-    margin-top: 20px;
-  }
-  
-  .organisationcard {
+    margin-top: 50px;
+
+}
+.organisationcard{
     /* height: 600px; */
     /* padding: 100px; */
-    padding-left: 10px;
-  }
-  
-  .img {
-    margin-left: 10px;
-    /* margin-top: ; */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .org {
-    margin-top: 0;
-  }
-  
-  .passwordcard {
+    padding-left: 150px;
+}
+.img{
+ margin-left: 150px;
+   /* margin-top: ; */
+   display: flex;
+   flex-direction: column; 
+   justify-content: space-between;
+}
+.org{
+    margin-top: 0px;
+}
+
+.passwordcard{
     /* height: 50%; */
-    padding: 20px;
-  }
-  
-  /* Media Queries */
-  
-  @media screen and (max-width: 768px) {
-    .editButton {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 10px;
-    }
-  
-    .organisationcard {
-      padding-left: 10px;
-    }
-  
-    .img {
-      margin-left: 10px;
-      margin-top: 10px;
-      flex-direction: row;
-      justify-content: center;
-    }
-  
-    .org {
-      margin-top: 10px;
-    }
-  
-    .passwordcard {
-      padding: 10px;
-    }
-  }
-  
+    padding: 100px;
+}
