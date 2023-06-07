@@ -77,7 +77,7 @@ function Login() {
 
               <Form.Control
                 type="email"
-                style={{ width: "110%" }}
+                style={{ width: "100%" }}
                 value={email}
                 required={true}
                 onChange={(event) => setEmail(event.target.value)}
@@ -93,7 +93,7 @@ function Login() {
 
               <Form.Control
                 type="password"
-                style={{ width: "110%" }}
+                style={{ width: "100%" }}
                 value={password}
                 // autoComplete={storedPassword}
                 onChange={(event) => setPassword(event.target.value)}
